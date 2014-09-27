@@ -1,6 +1,6 @@
 {
   "name": "learn-memory",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A software to learn your lesson",
   "main": "cli.js",
   "dependencies": {
@@ -16,10 +16,11 @@
   },
   "keywords": [
     "cli",
-    "basic",
     "center",
     "learn",
-    "memory"
+    "memory",
+    "app",
+    "school"
   ],
   "bugs": {
     "url": "https://github.com/cedced19/Learn-Memory/issues"
@@ -30,7 +31,7 @@
   },
   "devDependencies": {
     "grunt": "^0.4.5",
-    "grunt-contrib-uglify": "~0.5.0",
+    "grunt-contrib-uglify": "~0.6.0",
     "matchdep": "~0.3.0",
     "grunt-contrib-cssmin": "^0.10.0",
     "grunt-contrib-copy": "~0.6.0",

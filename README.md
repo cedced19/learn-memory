@@ -1,6 +1,6 @@
 #Learn-Memory
 
-A Node.js software to play random music.
+A Node.js software to learn your leson.
 
 [![Build Status](https://travis-ci.org/cedced19/Learn-Memory.svg)](https://travis-ci.org/cedced19/Learn-Memory)
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
