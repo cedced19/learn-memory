@@ -27,7 +27,6 @@ angular.module("LearnMemory", [ "ngSanitize", "hc.marked" ])
         }
 
         $scope.newLesson = function() {
-            $scope.preview = "";
             $scope.folderSelected("creation");
             $scope.newItem = {
                 date: new Date(),
@@ -36,11 +35,12 @@ angular.module("LearnMemory", [ "ngSanitize", "hc.marked" ])
         }
 
         $scope.displayPreview = function() {
-            $scope.preview = marked($scope.newItem.content);
+            $scope.newItem.content = marked($scope.newItem.markdown);
         }
 
         $scope.displayLesson = function() {
-            $scope.newItem.content = $scope.preview;
+            $scope.displayPreview();
+            delete $scope.newItem.markdown;
             $scope.items.push($scope.newItem);
             $http.post("/new", $scope.items).success(function(data, status, headers, config) {
                 $scope.items.unset($scope.newItem);
