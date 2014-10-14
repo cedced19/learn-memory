@@ -21,6 +21,7 @@ angular.module("LearnMemory", [ "ngSanitize", "hc.marked" ])
 
         $scope.folderSelected = function(folder) {
             $scope.currentFolder = folder;
+            $scope.waitConfirm = false;
             if (folder != "item"){
                 $scope.currentItem = null;
             }

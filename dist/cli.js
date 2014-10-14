@@ -6,13 +6,15 @@ var   opn = require("opn"),
         path = require("path"),
         fs = require("fs"),
         bodyParser = require("body-parser"),
+        filename = process.cwd() + "/save.json",
         chalk = require("chalk");
+
 
 app.use(serveStatic(__dirname));
 app.use(bodyParser.json());
 
 app.get("/save", function(req, res) {
-    fs.readFile(process.cwd() + "/save.json", "utf8", function(err, data) {
+    fs.readFile(filename, "utf8", function(err, data) {
         if (err) {
             res.json(new Array());
         }else{
@@ -22,13 +24,13 @@ app.get("/save", function(req, res) {
 });
 
 app.post("/set", function(req, res, next) {
-    fs.writeFile(process.cwd() + "/save.json",  JSON.stringify(req.body, null, 4), "utf8", function(err) {
+    fs.writeFile(filename,  JSON.stringify(req.body, null, 4), "utf8", function(err) {
             if(err) {
                 console.log(chalk.red("There are an error: " + err));
                 res.status(500);
                 res.end();
             }else{
-                console.log(chalk.green("The file as just saved!"));
+                console.log(chalk.green("The file has just saved!"));
                 res.end();
             }
     });
@@ -36,13 +38,13 @@ app.post("/set", function(req, res, next) {
 
 app.post("/new", function(req, res, next) {
     req.body.last().newId();
-    fs.writeFile(process.cwd() + "/save.json",  JSON.stringify(req.body, null, 4), "utf8", function(err) {
+    fs.writeFile(filename,  JSON.stringify(req.body, null, 4), "utf8", function(err) {
             if(err) {
                 console.log(chalk.red("There are an error: " + err));
                 res.status(500);
                 res.end();
             }else{
-                console.log(chalk.green("The file as just saved!"));
+                console.log(chalk.green("The file has just saved!"));
                 res.json(req.body.last());
             }
     });
