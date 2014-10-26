@@ -10,7 +10,7 @@ module.exports = function(grunt) {
             'index.html',
             'vendor/**/*.*',
             'package.json',
-            'cli.js',
+            'learn-memory.js',
             'README.md'
           ],
           dest: 'dist/'

@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 "use strict";
-var   opn = require("opn"),
-        app = require("express")(),
+var   app = require("express")(),
         serveStatic = require("serve-static"),
         path = require("path"),
         fs = require("fs"),
@@ -51,9 +50,8 @@ app.post("/new", function(req, res, next) {
 });
 
 var server = require("http").createServer(app);
-server.listen(791, function() {
-    console.log("Server running at\n  => "+ chalk.green("http://localhost:791") + "\nCTRL + C to shutdown");
-    opn("http://localhost:791");
+server.listen(7772, function() {
+    console.log("Server running at\n  => "+ chalk.green("http://localhost:7772") + "\nCTRL + C to shutdown");
 });
 
 Array.prototype.last = function(){
