@@ -19,9 +19,6 @@
     "url": "https://github.com/cedced19/Learn-Memory/issues"
   },
   "homepage": "https://github.com/cedced19/Learn-Memory",
-  "bin": {
-    "learn": "./app.js"
-  },
   "dependencies": {
     "ejs": "~1.0.0",
     "grunt": "~0.4.0",
