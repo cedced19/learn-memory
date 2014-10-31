@@ -78,7 +78,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-uncss');
-  grunt.loadNpmTasks('grunt-watch');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.registerTask('prod', ['copy', 'concat', 'uglify', 'uncss', 'cssmin']);
   grunt.registerTask('default', ['prod', 'watch']);
