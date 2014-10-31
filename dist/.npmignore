@@ -1,0 +1,8 @@
+.npmignore
+vendor/js/app.js
+vendor/js/angular.min.js
+vendor/js/angular-sanatize.min.js
+vendor/js/markdown/
+vendor/js/jquery.min.js
+vendor/css/bootstrap.css
+vendor/css/main.css

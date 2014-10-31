@@ -2,70 +2,81 @@ var path = require('path');
 module.exports = function(grunt) {
 
   var config = {
-  concat: {
-    main: {
-    files: [
-        {
-          src: ['assets/js/angular.min.js', 'assets/js/angular-sanitize.min.js', 'assets/js/markdown/angular-marked.js', 'assets/js/markdown/marked.js', 'assets/js/app.js'],
-          dest: '.tmp/public/js/scripts.js'
-        }
-      ]
-    }
-  },
-  cssmin: {
-        main: {
-          files: {
-            '.tmp/styles/styles.css': ['.tmp/styles/styles.css']
-          }
-        }
-  },
-  uglify:{
-      options :  {
-        mangle :  false
-      },
-      main: {
-        files: [
-              {
-                dest: '.tmp/js/scripts.js',
-                src: [ '.tmp/js/scripts.js' ]
-                },
-               ]
-             }
-       },
-    copy:{
-      main: {
+    copy: {
+      src: {
         files: [{
           expand: true,
-          cwd: './assets',
-          src: ['**/*.*'],
-          dest: '.tmp/public'
+          src: [
+            'index.html',
+            'vendor/**/*.*',
+            'package.json',
+            'learn-memory.js',
+            'README.md'
+          ],
+          dest: 'dist/'
         }]
       }
     },
-    watch: {
-      scripts: {
-        files: 'assets/js/*.js',
-        tasks: ['concat', 'uglify'],
-        options: {
-          interrupt: true
-        }
-      },
-      styles: {
-        files: 'assets/styles/*.css',
-        tasks: ['uncss', 'cssmin'],
-        options: {
-          interrupt: true
-        }
-      }
-    },
-  uncss: {
-      main: {
-        options: {
-          stylesheets  : ['../assets/styles/bootstrap.css', '../assets/styles/main.css'],
-        },
-        files: {
-            '.tmp/public/styles/styles.css': ['views/homepage.ejs']
-        }
+  useminPrepare: {
+      html: 'index.html',
+      options: {
+                    flow: {
+                      html: {
+                          steps: {
+                            js: ['concat', 'uglifyjs'],
+                              css: [
+                                  {
+                                      name: 'uncss',
+                                      createConfig: function (context, block) {
+                                          context.outFiles = [block.dest];
+                                          return {
+                                              files: [{
+                                                  dest: path.join(context.outDir, block.dest),
+                                                  src: ['index.html']
+                                              }]
+                                          };
+                                      }
+                                  },
+                                  {
+                                    name: 'autoprefixer',
+                                    createConfig: function (context, block) {
+                                        context.outFiles = [block.dest];
+                                        return {
+                                          options: {
+                                              browsers: ['last 2 versions', 'ie 8', 'ie 9']
+                                            },
+                                            files: [{
+                                                src: path.join(context.inDir, block.dest),
+                                                dest: path.join(context.outDir, block.dest)
+                                            }]
+                                        };
+                                    }
+                                },
+                                'cssmin'
+                              ]
+                          },
+                          post: {}
+                      }
+                  }
+              }
+          },
+  usemin: {
+    html: 'dist/*.html'
+  },
+  uglify: {
+    options :  {
+      mangle :  false
+    }
+  },
+  htmlmin: {
+        dist: {
+          options: {
+            removeComments: true,
+            collapseWhitespace: true
+          },
+          files: {
+            'dist/index.html': 'dist/index.html'
+          }
       }
   }
 };
@@ -73,13 +84,6 @@ module.exports = function(grunt) {
   grunt.initConfig(config);
 
   // Load all Grunt tasks
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-uncss');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-
-  grunt.registerTask('prod', ['copy', 'concat', 'uglify', 'uncss', 'cssmin']);
-  grunt.registerTask('default', ['prod', 'watch']);
+  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+  grunt.registerTask('default', ['copy', 'useminPrepare', 'concat', 'uglify', 'uncss', 'autoprefixer', 'cssmin', 'usemin', 'htmlmin']);
 };
