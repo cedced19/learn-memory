@@ -20,20 +20,9 @@ $ learn
 
 ## Developement
 
-To launch in developement:
+To launch:
 
 ```bash
 $ npm install
-$ node cli.js
+$ node learn-memory.js
 ```
-
-To launch in release:
-
-```bash
-$ npm install
-$ grunt
-$ cd dist/
-$ node cli.js
-```
-
-NOTE: dist/ is the dist folder.

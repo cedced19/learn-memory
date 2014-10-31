@@ -1,14 +1,8 @@
 {
   "name": "learn-memory",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A software to learn your lesson",
   "main": "learn-memory.js",
-  "dependencies": {
-    "body-parser": "^1.8.0",
-    "chalk": "0.5.1",
-    "express": "4.9.7",
-    "serve-static": "^1.5.3"
-  },
   "repository": {
     "type": "git",
     "url": "git://github.com/cedced19/Learn-Memory"
@@ -28,19 +22,22 @@
   "bin": {
     "learn": "learn-memory.js"
   },
-  "devDependencies": {
-    "grunt": "^0.4.5",
+  "dependencies": {
+    "ejs": "~0.8.4",
+    "grunt": "0.4.0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-cssmin": "~0.9.0",
     "grunt-contrib-uglify": "~0.6.0",
-    "matchdep": "~0.3.0",
-    "grunt-contrib-cssmin": "^0.10.0",
-    "grunt-contrib-copy": "~0.7.0",
-    "grunt-usemin": "^2.2.0",
-    "grunt-contrib-htmlmin": "^0.3.0",
-    "grunt-contrib-concat": "^0.5.0",
-    "grunt-uncss": "^0.3.6",
-    "grunt-autoprefixer": "^1.0.1"
+    "grunt-contrib-watch": "~0.5.3",
+    "rc": "~0.5.0",
+    "html-minifier": "  0.6.9 ",
+    "ejs-locals":"1.0.2",
+    "sails": "~0.10.5",
+    "sails-disk": "~0.10.0",
+    "grunt-uncss": "^0.3.4"
   },
-  "author": {
+"author": {
     "name": "Cédric",
     "email": "cedced19@gmail.com",
     "url": "https://github.com/cedced19"
