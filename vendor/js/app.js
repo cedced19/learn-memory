@@ -1,9 +1,10 @@
 angular.module("LearnMemory", [ "ngSanitize", "hc.marked" ])
 .controller("LearnMemoryCtrl", function($scope, $location, $http, marked) {
 
-        $http.get("/save").success(function(data, status, headers, config) {
+        $http.get("/lesson").success(function(data, status, headers, config) {
 
         $scope.items = data;
+        $scope.edit = false;
         $scope.currentItem = null;
         $scope.currentFolder = null;
         $scope.search = null;
@@ -11,6 +12,7 @@ angular.module("LearnMemory", [ "ngSanitize", "hc.marked" ])
 
         $scope.itemSelected = function (item) {
             $scope.currentItem = item;
+            $scope.edit = false;
             $scope.folderSelected("item");
         }
 
@@ -24,38 +26,54 @@ angular.module("LearnMemory", [ "ngSanitize", "hc.marked" ])
             $scope.waitConfirm = false;
             if (folder != "item"){
                 $scope.currentItem = null;
+                $scope.edit = false;
             }
         }
 
         $scope.newLesson = function() {
             $scope.folderSelected("creation");
             $scope.newItem = {
-                date: new Date(),
-                content: ""
-            }
+                content: "",
+                markdown: ""
+            };
         }
 
         $scope.displayPreview = function() {
-            $scope.newItem.content = marked($scope.newItem.markdown);
+            if($scope.edit==true){
+                $scope.currentItem.content = marked($scope.currentItem.markdown);
+            }else{
+                $scope.newItem.content = marked($scope.newItem.markdown);
+            }
         }
+
 
         $scope.displayLesson = function() {
             $scope.displayPreview();
-            delete $scope.newItem.markdown;
-            $scope.items.push($scope.newItem);
-            $http.post("/new", $scope.items).success(function(data, status, headers, config) {
-                $scope.items.unset($scope.newItem);
-                $scope.items.push(data);
-                $location.path(data.id);
-                }).error(function(data, status, headers, config) {
-                $location.path("");
-            });
+            if($scope.edit==true){
+                $http.put("/lesson/"+$scope.currentItem.id, $scope.currentItem).success(function(data, status, headers, config) {
+                    $scope.items.forEach(function(item) {
+                        if (item.id == data.id){
+                            item = data;
+                        }
+                    });
+                    $scope.edit = false;
+                    }).error(function(data, status, headers, config) {
+                    $location.path("");
+                });
+            }else{
+                $http.post("/lesson", $scope.newItem).success(function(data, status, headers, config) {
+                    $scope.items.push(data);
+                    $location.path(data.id.toString());
+                    }).error(function(data, status, headers, config) {
+                    $location.path("");
+                });
+            }
         }
 
         $scope.removeLesson = function(remove) {
             $scope.waitConfirm = false;
-            $scope.items.unset(remove);
-            $http.post('/set', $scope.items);
+            $scope.items.delete(remove);
+            $http.delete('/lesson/'+remove.id);
             $location.path("");
         }
 
@@ -84,7 +102,7 @@ angular.module("LearnMemory", [ "ngSanitize", "hc.marked" ])
         });
 });
 
-Array.prototype.unset = function(val){
+Array.prototype.delete = function(val){
         var index = this.indexOf(val);
         if(index > -1){
             this.splice(index,1)

@@ -1,73 +1,92 @@
 #!/usr/bin/env node
 "use strict";
-var   app = require("express")(),
+var   express = require("express"),
+        app = express(),
         serveStatic = require("serve-static"),
         path = require("path"),
         fs = require("fs"),
+        Waterline = require('waterline'),
+        diskAdapter = require('sails-disk'),
         bodyParser = require("body-parser"),
-        filename = process.cwd() + "/save.json",
         chalk = require("chalk");
 
+var orm = new Waterline();
+
+var config = {
+  adapters: {
+    'default': diskAdapter,
+    disk: diskAdapter
+  },
+  connections: {
+      save: {
+          adapter: 'disk'
+      },
+  },
+  defaults: {
+    migrate: 'alter'
+  }
+};
+
+var Lesson = Waterline.Collection.extend({
+
+  identity: 'lesson',
+  connection: 'save',
+
+  attributes: {
+     content: 'string',
+     substance: 'string',
+     markdown: 'string'
+  }
+});
+
+orm.loadCollection(Lesson);
 
 app.use(serveStatic(__dirname));
 app.use(bodyParser.json());
 
-app.get("/save", function(req, res) {
-    fs.readFile(filename, "utf8", function(err, data) {
-        if (err) {
-            res.json(new Array());
-        }else{
-            res.end(data);
-        }
-    });
+app.get('/lesson', function(req, res) {
+  app.models.lesson.find().exec(function(err, models) {
+    if(err) return res.json({ err: err }, 500);
+    res.json(models);
+  });
 });
 
-app.post("/set", function(req, res, next) {
-    fs.writeFile(filename,  JSON.stringify(req.body, null, 4), "utf8", function(err) {
-            if(err) {
-                console.log(chalk.red("There are an error: " + err));
-                res.status(500);
-                res.end();
-            }else{
-                console.log(chalk.green("The file has just saved!"));
-                res.end();
-            }
-    });
+app.post('/lesson', function(req, res) {
+  app.models.lesson.create(req.body, function(err, model) {
+    if(err) return res.json({ err: err }, 500);
+    res.json(model);
+  });
 });
 
-app.post("/new", function(req, res, next) {
-    req.body.last().newId();
-    fs.writeFile(filename,  JSON.stringify(req.body, null, 4), "utf8", function(err) {
-            if(err) {
-                console.log(chalk.red("There are an error: " + err));
-                res.status(500);
-                res.end();
-            }else{
-                console.log(chalk.green("The file has just saved!"));
-                res.json(req.body.last());
-            }
-    });
+app.get('/lesson/:id', function(req, res) {
+  app.models.lesson.findOne({ id: req.params.id }, function(err, model) {
+    if(err) return res.json({ err: err }, 500);
+    res.json(model);
+  });
 });
 
-var server = require("http").createServer(app);
-server.listen(7772, function() {
-    console.log("Server running at\n  => "+ chalk.green("http://localhost:7772") + "\nCTRL + C to shutdown");
+app.delete('/lesson/:id', function(req, res) {
+  app.models.lesson.destroy({ id: req.params.id }, function(err) {
+    if(err) return res.json({ err: err }, 500);
+    res.json({ status: 'ok' });
+  });
 });
 
-Array.prototype.last = function(){
-    if (this.length == 1){
-        return this[0];
-    }
-    return this[this.length -1];
-}
+app.put('/lesson/:id', function(req, res) {
+  // Don't pass ID to update
+  delete req.body.id;
 
-Object.prototype.newId = function(){
-    var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghiklmnopqrstuvwxyz";
-         var stringLength = 8;
-         var randomstring = "";
-         for(var i = 0; i < stringLength; i++) {
-            var rnum = Math.floor(Math.random() * chars.length);
-            randomstring += chars.substring(rnum, rnum + 1);
-    }
-    return this.id = randomstring;
-}
+  app.models.lesson.update({ id: req.params.id }, req.body, function(err, model) {
+    if(err) return res.json({ err: err }, 500);
+    res.json(model);
+  });
+});
+
+orm.initialize(config, function(err, models) {
+  if(err) throw err;
+
+  app.models = models.collections;
+  app.connections = models.connections;
+  app.listen(7772);
+  console.log("Server running at\n  => "+ chalk.green("http://localhost:7772") + "\nCTRL + C to shutdown");
+});

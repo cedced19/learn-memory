@@ -3,8 +3,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <title>Learn Memory</title>
-        <meta name="viewport" content="width=device-width">
         <link href="//cedced19.github.io/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
+        <meta name="viewport" content="width=device-width">
         <!-- build:css /vendor/css/styles.css -->
         <link rel="stylesheet" href="/vendor/css/main.css">
         <link rel="stylesheet" href="/vendor/css/bootstrap.css">
@@ -33,10 +33,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="item in items | filter:search | orderBy:'date':true" ng-click="goItem(item)">
+                    <tr ng-repeat="item in items | filter:search | orderBy:'updatedAt':true" ng-click="goItem(item)">
                         <td>{{item.substance}}</td>
                         <td>{{removeHtml(item.content) | limitTo : 20}} ...</td>
-                        <td>{{item.date | date: 'dd/MM/yyyy' }}</td>
+                        <td>{{item.updatedAt | date: 'dd/MM/yyyy' }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -59,19 +59,23 @@
             <div ng-show="currentFolder == 'item'">
                 <div class="well">
                 <p><label>Substance: </label> {{currentItem.substance}}</p>
-                <p><label>Date: </label> {{currentItem.date | date: 'dd/MM/yyyy' }}</p>
+                <p><label>Date: </label> {{currentItem.updatedAt | date: 'dd/MM/yyyy' }}</p>
                 </form>
                 <p>
-                <label>Remove:</label>
                 <span ng-click="waitConfirm = true" ng-show="!waitConfirm" class="glyphicon glyphicon-trash"></span>
                 <span ng-click="removeLesson(currentItem)" ng-show="waitConfirm" class="glyphicon glyphicon-ok"></span>
                 </p>
+                <p><span ng-show="!edit" class="glyphicon glyphicon-pencil" ng-click="edit = true"></span></p>
+                </div>
+                <div ng-show="edit"class="input-group">
+                        <textarea rows="20" class="form-control" placeholder="Text" ng-model="currentItem.markdown" ng-keyup="displayPreview()"></textarea>
                 </div>
                 <div ng-bind-html="currentItem.content"></div>
+                <div ng-show="edit" class="text-center">
+                        <button class="btn btn-success" ng-click="displayLesson()">Update item</button>
+                </div>
             </div>
-
         </div>
-
             <!-- build:js /vendor/js/scripts.js -->
             <script type="text/javascript" src="/vendor/js/angular.min.js"></script>
             <script type="text/javascript" src="/vendor/js/angular-sanitize.min.js"></script>

@@ -1,13 +1,15 @@
 {
   "name": "learn-memory",
-  "version": "0.0.4",
+  "version": "0.0.12",
   "description": "A software to learn your lesson",
   "main": "learn-memory.js",
   "dependencies": {
     "body-parser": "^1.8.0",
     "chalk": "0.5.1",
-    "express": "4.9.7",
-    "serve-static": "^1.5.3"
+    "express": "4.10.1",
+    "sails-disk": "^0.10.4",
+    "serve-static": "^1.5.3",
+    "waterline": "^0.10.12"
   },
   "repository": {
     "type": "git",
