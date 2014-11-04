@@ -32,7 +32,7 @@ module.exports = function(grunt) {
                                           return {
                                               files: [{
                                                   dest: path.join(context.outDir, block.dest),
-                                                  src: ['index.html']
+                                                  src: ['uncss.html']
                                               }]
                                           };
                                       }
@@ -75,7 +75,10 @@ module.exports = function(grunt) {
             collapseWhitespace: true
           },
           files: {
-            'dist/index.html': 'dist/index.html'
+            'dist/index.html': 'dist/index.html',
+            'dist/vendor/views/lesson.html': 'dist/vendor/views/lesson.html',
+            'dist/vendor/views/creation.html': 'dist/vendor/views/creation.html',
+            'dist/vendor/views/list.html': 'dist/vendor/views/list.html'
           }
       }
   }

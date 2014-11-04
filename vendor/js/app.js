@@ -1,110 +1,82 @@
-angular.module("LearnMemory", [ "ngSanitize", "hc.marked" ])
-.controller("LearnMemoryCtrl", function($scope, $location, $http, marked) {
+angular.module("LearnMemory", [ "ngSanitize", "ngRoute", "hc.marked" ])
+.config(function($routeProvider, $locationProvider) {
+    $routeProvider
+     .when('/lesson/:id', {
+      templateUrl: 'vendor/views/lesson.html',
+      controller: 'LearnMemoryLessonCtrl'
+    })
+     .when('/', {
+      templateUrl: 'vendor/views/list.html',
+      controller: 'LearnMemoryListCtrl'
+    })
+    .when('/creation', {
+      templateUrl: 'vendor/views/creation.html',
+      controller: 'LearnMemoryCreationCtrl'
+    });
+})
+.controller("LearnMemoryLessonCtrl", function($scope, $location, $routeParams, $http, marked) {
+        $http.get("/api/"+ $routeParams.id).success(function(data) {
+                        $scope.currentItem = data;
+                        $scope.edit = false;
 
-        $http.get("/lesson").success(function(data, status, headers, config) {
+                         $scope.displayPreview = function() {
+                                   $scope.currentItem.content = marked($scope.currentItem.markdown);
+                         }
 
-        $scope.items = data;
-        $scope.edit = false;
-        $scope.currentItem = null;
-        $scope.currentFolder = null;
-        $scope.search = null;
+                        $scope.removeLesson = function() {
+                                    $scope.waitConfirm = false;
+                                    $http.delete('/api/'+$scope.currentItem.id);
+                                    $location.path("/");
+                        }
 
+                        $scope.displayLesson = function() {
+                                $scope.displayPreview();
+                                $http.put("/api/"+$scope.currentItem.id, $scope.currentItem).success(function(data, status, headers, config) {
+                                            $scope.edit = false;
+                                }).error(function(data, status, headers, config) {
+                                            $location.path("/");
+                                });
+                 }
+         }).error(function() {
+                    $location.path("/");
+        });
+})
+.controller("LearnMemoryCreationCtrl", function($scope, $http, marked, $location) {
+        $scope.newItem = {
+                content: "",
+                markdown: ""
+        };
 
-        $scope.itemSelected = function (item) {
-            $scope.currentItem = item;
-            $scope.edit = false;
-            $scope.folderSelected("item");
+        $scope.displayPreview = function() {
+                $scope.newItem.content = marked($scope.newItem.markdown);
         }
+
+        $scope.displayLesson = function() {
+                $scope.displayPreview();
+                $http.post("/api", $scope.newItem).success(function(data) {
+                    $location.path('/lesson/' + data.id.toString());
+                    }).error(function() {
+                    $location.path("/");
+                });
+        }
+})
+.controller("LearnMemoryListCtrl", function($scope, $location, $http, marked) {
+
+        $http.get("/api").success(function(data) {
+        $scope.items = data;
 
 
         $scope.goItem = function (item) {
-            $location.path("/" + item.id);
-        }
-
-        $scope.folderSelected = function(folder) {
-            $scope.currentFolder = folder;
-            $scope.waitConfirm = false;
-            if (folder != "item"){
-                $scope.currentItem = null;
-                $scope.edit = false;
-            }
-        }
-
-        $scope.newLesson = function() {
-            $scope.folderSelected("creation");
-            $scope.newItem = {
-                content: "",
-                markdown: ""
-            };
-        }
-
-        $scope.displayPreview = function() {
-            if($scope.edit==true){
-                $scope.currentItem.content = marked($scope.currentItem.markdown);
-            }else{
-                $scope.newItem.content = marked($scope.newItem.markdown);
-            }
-        }
-
-
-        $scope.displayLesson = function() {
-            $scope.displayPreview();
-            if($scope.edit==true){
-                $http.put("/lesson/"+$scope.currentItem.id, $scope.currentItem).success(function(data, status, headers, config) {
-                    $scope.items.forEach(function(item) {
-                        if (item.id == data.id){
-                            item = data;
-                        }
-                    });
-                    $scope.edit = false;
-                    }).error(function(data, status, headers, config) {
-                    $location.path("");
-                });
-            }else{
-                $http.post("/lesson", $scope.newItem).success(function(data, status, headers, config) {
-                    $scope.items.push(data);
-                    $location.path(data.id.toString());
-                    }).error(function(data, status, headers, config) {
-                    $location.path("");
-                });
-            }
-        }
-
-        $scope.removeLesson = function(remove) {
-            $scope.waitConfirm = false;
-            $scope.items.delete(remove);
-            $http.delete('/lesson/'+remove.id);
-            $location.path("");
+            $location.path("/lesson/" + item.id);
         }
 
         $scope.removeHtml = function (string) {
             return string.replace(new RegExp("<.[^>]*>", "gi" ), "");
         }
 
-        $scope.$watch(function() {
-            return $location.path();
-        }, function(newPath) {
-            $scope.folderSelected("list");
-            var tabPath = newPath.split("/");
-            if (tabPath.length > 1 & tabPath[1] == "creation"){
-                $scope.newLesson();
-            }else{
-               $scope.items.forEach(function(item) {
-                    if (item.id == tabPath[1]){
-                        $scope.itemSelected(item);
-                    }
-                });
-            }
-        });
 
-        }).error(function(data, status, headers, config) {
+
+        }).error(function() {
             $scope.error = true;
         });
 });
-
-Array.prototype.delete = function(val){
-        var index = this.indexOf(val);
-        if(index > -1){
-            this.splice(index,1)
-        }
-}

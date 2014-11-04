@@ -44,35 +44,35 @@ orm.loadCollection(Lesson);
 app.use(serveStatic(__dirname));
 app.use(bodyParser.json());
 
-app.get('/lesson', function(req, res) {
+app.get('/api', function(req, res) {
   app.models.lesson.find().exec(function(err, models) {
     if(err) return res.json({ err: err }, 500);
     res.json(models);
   });
 });
 
-app.post('/lesson', function(req, res) {
+app.post('/api', function(req, res) {
   app.models.lesson.create(req.body, function(err, model) {
     if(err) return res.json({ err: err }, 500);
     res.json(model);
   });
 });
 
-app.get('/lesson/:id', function(req, res) {
+app.get('/api/:id', function(req, res) {
   app.models.lesson.findOne({ id: req.params.id }, function(err, model) {
     if(err) return res.json({ err: err }, 500);
     res.json(model);
   });
 });
 
-app.delete('/lesson/:id', function(req, res) {
+app.delete('/api/:id', function(req, res) {
   app.models.lesson.destroy({ id: req.params.id }, function(err) {
     if(err) return res.json({ err: err }, 500);
     res.json({ status: 'ok' });
   });
 });
 
-app.put('/lesson/:id', function(req, res) {
+app.put('/api/:id', function(req, res) {
   // Don't pass ID to update
   delete req.body.id;
 

@@ -18,6 +18,8 @@ Go in command line to the directory where you have your save.
 $ learn
 ```
 
+**`>=0.0.12`'s data system is not the same.**
+
 ## Developement
 
 To launch in developement:
