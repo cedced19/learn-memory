@@ -9,12 +9,13 @@
                 <span ng-click="waitConfirm = true" ng-show="!waitConfirm" class="glyphicon glyphicon-trash"></span>
                 <span ng-click="removeLesson()" ng-show="waitConfirm" class="glyphicon glyphicon-ok"></span>
                 </p>
-                <p><span ng-show="!edit" class="glyphicon glyphicon-pencil" ng-click="edit = true"></span></p>
+                <p><span ng-show="!editing" class="glyphicon glyphicon-pencil" ng-click="editing = true"></span></p>
+                <p><span class="glyphicon glyphicon-print" ng-click="print()"></span></p>
                 </div>
-                <div ng-show="edit"class="input-group">
+                <div ng-show="editing"class="input-group">
                         <textarea rows="20" class="form-control" placeholder="Text" ng-model="currentItem.markdown" ng-keyup="displayPreview()"></textarea>
                 </div>
                 <div ng-bind-html="currentItem.content"></div>
-                <div ng-show="edit" class="text-center">
+                <div ng-show="editing" class="text-center">
                         <button class="btn btn-success" ng-click="displayLesson()">Update item</button>
                 </div>

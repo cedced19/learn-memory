@@ -1,4 +1,4 @@
-angular.module("LearnMemory", [ "ngSanitize", "ngRoute", "hc.marked" ])
+angular.module('LearnMemory', [ 'ngSanitize', 'ngRoute', 'hc.marked' ])
 .config(function($routeProvider, $locationProvider) {
     $routeProvider
      .when('/lesson/:id', {
@@ -14,37 +14,42 @@ angular.module("LearnMemory", [ "ngSanitize", "ngRoute", "hc.marked" ])
       controller: 'LearnMemoryCreationCtrl'
     });
 })
-.controller("LearnMemoryLessonCtrl", function($scope, $location, $routeParams, $http, marked) {
-        $http.get("/api/"+ $routeParams.id).success(function(data) {
+.controller('LearnMemoryLessonCtrl', function($scope, $location, $routeParams, $http, marked) {
+        $http.get('/api/'+ $routeParams.id).success(function(data) {
                         $scope.currentItem = data;
-                        $scope.edit = false;
+
+                        $scope.editing = false;
 
                          $scope.displayPreview = function() {
                                    $scope.currentItem.content = marked($scope.currentItem.markdown);
                          }
 
                         $scope.removeLesson = function() {
-                                    $scope.waitConfirm = false;
                                     $http.delete('/api/'+$scope.currentItem.id);
-                                    $location.path("/");
+                                    $location.path('/');
                         }
+
+                        $scope.print = function() {
+                                    window.print();
+                        }
+
 
                         $scope.displayLesson = function() {
                                 $scope.displayPreview();
-                                $http.put("/api/"+$scope.currentItem.id, $scope.currentItem).success(function(data, status, headers, config) {
-                                            $scope.edit = false;
+                                $http.put('/api/'+$scope.currentItem.id, $scope.currentItem).success(function(data, status, headers, config) {
+                                            $scope.editing = false;
                                 }).error(function(data, status, headers, config) {
-                                            $location.path("/");
+                                            $location.path('/');
                                 });
                  }
          }).error(function() {
-                    $location.path("/");
+                    $location.path('/');
         });
 })
-.controller("LearnMemoryCreationCtrl", function($scope, $http, marked, $location) {
+.controller('LearnMemoryCreationCtrl', function($scope, $http, marked, $location) {
         $scope.newItem = {
-                content: "",
-                markdown: ""
+                content: '',
+                markdown: ''
         };
 
         $scope.displayPreview = function() {
@@ -53,28 +58,21 @@ angular.module("LearnMemory", [ "ngSanitize", "ngRoute", "hc.marked" ])
 
         $scope.displayLesson = function() {
                 $scope.displayPreview();
-                $http.post("/api", $scope.newItem).success(function(data) {
+                $http.post('/api', $scope.newItem).success(function(data) {
                     $location.path('/lesson/' + data.id.toString());
                     }).error(function() {
-                    $location.path("/");
+                    $location.path('/');
                 });
         }
 })
-.controller("LearnMemoryListCtrl", function($scope, $location, $http, marked) {
+.controller('LearnMemoryListCtrl', function($scope, $location, $http, marked) {
 
-        $http.get("/api").success(function(data) {
+        $http.get('/api').success(function(data) {
         $scope.items = data;
 
-
         $scope.goItem = function (item) {
-            $location.path("/lesson/" + item.id);
+            $location.path('/lesson/' + item.id);
         }
-
-        $scope.removeHtml = function (string) {
-            return string.replace(new RegExp("<.[^>]*>", "gi" ), "");
-        }
-
-
 
         }).error(function() {
             $scope.error = true;

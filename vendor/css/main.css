@@ -5,10 +5,15 @@
 textarea {
     resize:none;
 }
-.glyphicon-pencil,.glyphicon-trash, .glyphicon-ok{
+.glyphicon{
     cursor: pointer;
 }
 ::selection{
     background-color: #34495e;
     color: #ecf0f1;
+}
+@media print {
+    .well, .nav, button, textarea {
+        display: none;
+    }
 }

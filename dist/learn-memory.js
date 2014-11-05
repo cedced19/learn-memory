@@ -47,6 +47,11 @@ app.use(bodyParser.json());
 app.get('/api', function(req, res) {
   app.models.lesson.find().exec(function(err, models) {
     if(err) return res.json({ err: err }, 500);
+    // Don't download useless data
+    for (var key in models){
+        models[key].content = models[key].content.replace(new RegExp('\n', 'gi'), ' ').replace(new RegExp('&#39;', 'gi'), '\'').replace(new RegExp('\n', 'gi'), ' ').replace(new RegExp('<.[^>]*>', 'gi' ), '');
+        delete models[key].markdown;
+    }
     res.json(models);
   });
 });
@@ -73,7 +78,6 @@ app.delete('/api/:id', function(req, res) {
 });
 
 app.put('/api/:id', function(req, res) {
-  // Don't pass ID to update
   delete req.body.id;
 
   app.models.lesson.update({ id: req.params.id }, req.body, function(err, model) {
