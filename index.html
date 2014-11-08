@@ -13,7 +13,10 @@
     <body ng-app="LearnMemory">
         <div class="container">
             <div ng-view></div>
-            <p ng-show="error"><strong>Error:</strong> Oh there are a problems</p>
+            <noscript>
+            <h1>Houston, we have a problem.</h1>
+            <p>You must enable Javascript to use this applications.</p>
+            </noscript>
         </div>
             <!-- build:js /vendor/js/scripts.js -->
             <script type="text/javascript" src="/vendor/js/angular.min.js"></script>

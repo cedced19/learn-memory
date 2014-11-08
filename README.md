@@ -20,6 +20,8 @@ $ learn
 
 **`>=0.0.12`'s data system is not the same.**
 
+**Soon:** you can have stats!
+
 ## Developement
 
 To launch in developement:

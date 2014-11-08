@@ -1,5 +1,5 @@
 angular.module('LearnMemory', [ 'ngSanitize', 'ngRoute', 'hc.marked' ])
-.config(function($routeProvider, $locationProvider) {
+.config(['$routeProvider', function($routeProvider){
     $routeProvider
      .when('/lesson/:id', {
       templateUrl: 'vendor/views/lesson.html',
@@ -9,12 +9,18 @@ angular.module('LearnMemory', [ 'ngSanitize', 'ngRoute', 'hc.marked' ])
       templateUrl: 'vendor/views/list.html',
       controller: 'LearnMemoryListCtrl'
     })
+     .when('/error', {
+      templateUrl: 'vendor/views/error.html'
+    })
     .when('/creation', {
       templateUrl: 'vendor/views/creation.html',
       controller: 'LearnMemoryCreationCtrl'
-    });
-})
-.controller('LearnMemoryLessonCtrl', function($scope, $location, $routeParams, $http, marked) {
+    })
+    .otherwise({
+        redirectTo: '/'
+      });
+}])
+.controller('LearnMemoryLessonCtrl', ['$scope', '$location', '$routeParams', '$http', 'marked', function($scope, $location, $routeParams, $http, marked) {
         $http.get('/api/'+ $routeParams.id).success(function(data) {
                         $scope.currentItem = data;
 
@@ -38,15 +44,15 @@ angular.module('LearnMemory', [ 'ngSanitize', 'ngRoute', 'hc.marked' ])
                                 $scope.displayPreview();
                                 $http.put('/api/'+$scope.currentItem.id, $scope.currentItem).success(function(data, status, headers, config) {
                                             $scope.editing = false;
-                                }).error(function(data, status, headers, config) {
+                                }).error(function() {
                                             $location.path('/');
                                 });
                  }
          }).error(function() {
-                    $location.path('/');
+                    $location.path('/error');
         });
-})
-.controller('LearnMemoryCreationCtrl', function($scope, $http, marked, $location) {
+}])
+.controller('LearnMemoryCreationCtrl', ['$scope', '$http', 'marked', '$location', function($scope, $http, marked, $location) {
         $scope.newItem = {
                 content: '',
                 markdown: ''
@@ -61,11 +67,11 @@ angular.module('LearnMemory', [ 'ngSanitize', 'ngRoute', 'hc.marked' ])
                 $http.post('/api', $scope.newItem).success(function(data) {
                     $location.path('/lesson/' + data.id.toString());
                     }).error(function() {
-                    $location.path('/');
+                    $location.path('/error');
                 });
         }
-})
-.controller('LearnMemoryListCtrl', function($scope, $location, $http, marked) {
+}])
+.controller('LearnMemoryListCtrl', ['$scope', '$location', '$http', function($scope, $location, $http) {
 
         $http.get('/api').success(function(data) {
         $scope.items = data;
@@ -75,6 +81,6 @@ angular.module('LearnMemory', [ 'ngSanitize', 'ngRoute', 'hc.marked' ])
         }
 
         }).error(function() {
-            $scope.error = true;
+            $location.path('/error');
         });
-});
+}]);
