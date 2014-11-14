@@ -10,6 +10,11 @@ var   express = require("express"),
         bodyParser = require("body-parser"),
         chalk = require("chalk");
 
+program
+  .version(require("./package.json").version)
+  .option("-p, --port [number]", "specified the port")
+  .parse(process.argv);
+
 var orm = new Waterline();
 
 var config = {
@@ -88,9 +93,13 @@ app.put('/api/:id', function(req, res) {
 
 orm.initialize(config, function(err, models) {
   if(err) throw err;
-
+  if (!isNaN(parseFloat(program.port)) && isFinite(program.port)){
+      var port = program.port;
+  }else{
+      var port = 7772;
+  }
   app.models = models.collections;
   app.connections = models.connections;
-  app.listen(7772);
-  console.log("Server running at\n  => "+ chalk.green("http://localhost:7772") + "\nCTRL + C to shutdown");
+  app.listen(port);
+  console.log("Server running at\n  => "+ chalk.green("http://localhost:"+ port) + "\nCTRL + C to shutdown");
 });
