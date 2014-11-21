@@ -5,6 +5,7 @@ var   express = require("express"),
         serveStatic = require("serve-static"),
         path = require("path"),
         fs = require("fs"),
+        program = require("commander"),
         Waterline = require('waterline'),
         diskAdapter = require('sails-disk'),
         bodyParser = require("body-parser"),
@@ -93,10 +94,11 @@ app.put('/api/:id', function(req, res) {
 
 orm.initialize(config, function(err, models) {
   if(err) throw err;
+  var port;
   if (!isNaN(parseFloat(program.port)) && isFinite(program.port)){
-      var port = program.port;
+      port = program.port;
   }else{
-      var port = 7772;
+      port = 7772;
   }
   app.models = models.collections;
   app.connections = models.connections;

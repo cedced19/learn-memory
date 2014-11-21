@@ -28,16 +28,16 @@ angular.module('LearnMemory', [ 'ngSanitize', 'ngRoute', 'hc.marked' ])
 
                          $scope.displayPreview = function() {
                                    $scope.currentItem.content = marked($scope.currentItem.markdown);
-                         }
+                         };
 
                         $scope.removeLesson = function() {
                                     $http.delete('/api/'+$scope.currentItem.id);
                                     $location.path('/');
-                        }
+                        };
 
                         $scope.print = function() {
                                     window.print();
-                        }
+                        };
 
 
                         $scope.displayLesson = function() {
@@ -47,7 +47,7 @@ angular.module('LearnMemory', [ 'ngSanitize', 'ngRoute', 'hc.marked' ])
                                 }).error(function() {
                                             $location.path('/');
                                 });
-                 }
+                 };
          }).error(function() {
                     $location.path('/error');
         });
@@ -60,7 +60,7 @@ angular.module('LearnMemory', [ 'ngSanitize', 'ngRoute', 'hc.marked' ])
 
         $scope.displayPreview = function() {
                 $scope.newItem.content = marked($scope.newItem.markdown);
-        }
+        };
 
         $scope.displayLesson = function() {
                 $scope.displayPreview();
@@ -69,7 +69,7 @@ angular.module('LearnMemory', [ 'ngSanitize', 'ngRoute', 'hc.marked' ])
                     }).error(function() {
                     $location.path('/error');
                 });
-        }
+        };
 }])
 .controller('LearnMemoryListCtrl', ['$scope', '$location', '$http', function($scope, $location, $http) {
 
@@ -78,7 +78,7 @@ angular.module('LearnMemory', [ 'ngSanitize', 'ngRoute', 'hc.marked' ])
 
         $scope.goItem = function (item) {
             $location.path('/lesson/' + item.id);
-        }
+        };
 
         }).error(function() {
             $location.path('/error');
