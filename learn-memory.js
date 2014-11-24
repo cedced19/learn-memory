@@ -1,20 +1,31 @@
 #!/usr/bin/env node
-"use strict";
-var   express = require("express"),
-        app = express(),
-        serveStatic = require("serve-static"),
-        path = require("path"),
-        fs = require("fs"),
-        program = require("commander"),
+'use strict';
+var   app = require('express')(),
+        serveStatic = require('serve-static'),
+        path = require('path'),
+        fs = require('fs'),
+        auth = require('http-auth'),
+        program = require('commander'),
         Waterline = require('waterline'),
         diskAdapter = require('sails-disk'),
-        bodyParser = require("body-parser"),
-        chalk = require("chalk");
+        bodyParser = require('body-parser'),
+        chalk = require('chalk');
 
 program
-  .version(require("./package.json").version)
-  .option("-p, --port [number]", "specified the port")
+  .version(require('./package.json').version)
+  .option('-p, --port [number]', 'specified the port')
   .parse(process.argv);
+
+fs.exists(process.cwd() + '/config.json', function(exists) {
+            if(!exists) {
+                fs.writeFile(process.cwd() + '/config.json', '{"user":"","password",""}');
+           }
+           if(require(process.cwd() + '/config.json').user == '' || require(process.cwd() + '/config.json').password == ''){
+                    console.log(chalk.red('You must change the password in config.json'));
+                    process.exit();
+           }
+});
+
 
 var orm = new Waterline();
 
@@ -25,7 +36,8 @@ var config = {
   },
   connections: {
       save: {
-          adapter: 'disk'
+          adapter: 'disk',
+          filePath: ''
       },
   },
   defaults: {
@@ -46,6 +58,13 @@ var Lesson = Waterline.Collection.extend({
 });
 
 orm.loadCollection(Lesson);
+
+var basic = auth.basic({
+                realm: 'You need a username and a password.'
+            }, function (username, password, callback) {
+                callback(username === require(process.cwd() + '/config.json').user  && password === require(process.cwd() + '/config.json').password);
+});
+app.use(auth.connect(basic));
 
 app.use(serveStatic(__dirname));
 app.use(bodyParser.json());
@@ -103,5 +122,5 @@ orm.initialize(config, function(err, models) {
   app.models = models.collections;
   app.connections = models.connections;
   app.listen(port);
-  console.log("Server running at\n  => "+ chalk.green("http://localhost:"+ port) + "\nCTRL + C to shutdown");
+  console.log('Server running at\n  => '+ chalk.green('http://localhost:'+ port) + '\nCTRL + C to shutdown');
 });

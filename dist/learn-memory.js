@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 "use strict";
-var   express = require("express"),
-        app = express(),
+var   app = require("express")(),
         serveStatic = require("serve-static"),
         path = require("path"),
         fs = require("fs"),
+        program = require("commander"),
         Waterline = require('waterline'),
         diskAdapter = require('sails-disk'),
         bodyParser = require("body-parser"),
@@ -13,7 +13,24 @@ var   express = require("express"),
 program
   .version(require("./package.json").version)
   .option("-p, --port [number]", "specified the port")
+  .option("-s, --secure", "should specified a password")
   .parse(process.argv);
+
+if(program.secure){
+     fs.exists(process.cwd() + '/config.json', function(exists) {
+            if(!exists) {
+              fs.writeFile(process.cwd() + '/config.json', '{"user":"user","pass":"password"}');
+              console.log(chalk.red('You must change the password at config.json'));
+           }
+      });
+    var auth = require('http-auth');
+    var basic = auth.basic({
+        realm: 'You need a username and a password.'
+    }, function (username, password, callback) {
+        callback(username === require("./config.json").user  && password === require("./config.json").pass);
+    });
+    app.use(auth.connect(basic));
+}
 
 var orm = new Waterline();
 
@@ -24,7 +41,8 @@ var config = {
   },
   connections: {
       save: {
-          adapter: 'disk'
+          adapter: 'disk',
+          filePath: ''
       },
   },
   defaults: {
@@ -93,10 +111,11 @@ app.put('/api/:id', function(req, res) {
 
 orm.initialize(config, function(err, models) {
   if(err) throw err;
+  var port;
   if (!isNaN(parseFloat(program.port)) && isFinite(program.port)){
-      var port = program.port;
+      port = program.port;
   }else{
-      var port = 7772;
+      port = 7772;
   }
   app.models = models.collections;
   app.connections = models.connections;

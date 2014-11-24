@@ -18,9 +18,28 @@ Go in command line to the directory where you have your save.
 $ learn
 ```
 
-**`>=0.0.12`'s data system is not the same.**
+**`>=0.0.12`'s data system is not the same as before**
 
-**Soon:** you can have stats!
+##Options
+
+    -h, --help                  output usage information
+
+    -V, --version               output the version number
+
+    -p, --port [number]          specified the port
+
+
+## How to add a password ?
+
+You can add a password with the creation of a `config.json`:
+
+```
+{
+    "user": "",
+    "password": ""
+}
+```
+
 
 ## Developement
 
@@ -28,7 +47,7 @@ To launch in developement:
 
 ```bash
 $ npm install
-$ node cli.js
+$ node learn-memory.js
 ```
 
 To launch in release:
@@ -37,7 +56,7 @@ To launch in release:
 $ npm install
 $ grunt
 $ cd dist/
-$ node cli.js
+$ node learn-memory.js
 ```
 
 NOTE: dist/ is the dist folder.
