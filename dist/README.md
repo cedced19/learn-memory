@@ -8,6 +8,8 @@ A Node.js software to learn your leson.
 [![devDependencies](https://david-dm.org/cedced19/Learn-Memory/dev-status.png)](https://david-dm.org/cedced19/Learn-Memory#info=devDependencies)
 [![NPM version](https://badge.fury.io/js/learn-memory.svg)](http://badge.fury.io/js/learn-memory)
 
+![](https://raw.githubusercontent.com/cedced19/Learn-Memory/master/demo.png)
+
 **`>=0.0.12`'s data system is not the same as before**
 
 ##CLI
@@ -36,6 +38,6 @@ $ learn
 ```bash
 $ git clone https://github.com/cedced19/Learn-Memory
 $ cd ./Learn-Memory/dist/
-$ npm install
+$ npm install --production
 $ node learn-memory-server.js
 ```
