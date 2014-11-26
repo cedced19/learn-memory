@@ -1,36 +1,19 @@
 #!/usr/bin/env node
-"use strict";
-var   app = require("express")(),
-        serveStatic = require("serve-static"),
-        path = require("path"),
-        fs = require("fs"),
-        program = require("commander"),
+'use strict';
+var   app = require('express')(),
+        serveStatic = require('serve-static'),
+        path = require('path'),
+        fs = require('fs'),
+        program = require('commander'),
         Waterline = require('waterline'),
         diskAdapter = require('sails-disk'),
-        bodyParser = require("body-parser"),
-        chalk = require("chalk");
+        bodyParser = require('body-parser'),
+        chalk = require('chalk');
 
 program
-  .version(require("./package.json").version)
-  .option("-p, --port [number]", "specified the port")
-  .option("-s, --secure", "should specified a password")
+  .version(require(__dirname + '/package.json').version)
+  .option('-p, --port [number]', 'specified the port')
   .parse(process.argv);
-
-if(program.secure){
-     fs.exists(process.cwd() + '/config.json', function(exists) {
-            if(!exists) {
-              fs.writeFile(process.cwd() + '/config.json', '{"user":"user","pass":"password"}');
-              console.log(chalk.red('You must change the password at config.json'));
-           }
-      });
-    var auth = require('http-auth');
-    var basic = auth.basic({
-        realm: 'You need a username and a password.'
-    }, function (username, password, callback) {
-        callback(username === require("./config.json").user  && password === require("./config.json").pass);
-    });
-    app.use(auth.connect(basic));
-}
 
 var orm = new Waterline();
 
@@ -120,5 +103,5 @@ orm.initialize(config, function(err, models) {
   app.models = models.collections;
   app.connections = models.connections;
   app.listen(port);
-  console.log("Server running at\n  => "+ chalk.green("http://localhost:"+ port) + "\nCTRL + C to shutdown");
+  console.log('Server running at\n  => '+ chalk.green('http://localhost:'+ port) + '\nCTRL + C to shutdown');
 });

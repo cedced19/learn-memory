@@ -6,3 +6,4 @@ vendor/js/angular-routes.min.js
 vendor/js/markdown/
 vendor/css/bootstrap.css
 vendor/css/main.css
+learn-memory-server.js

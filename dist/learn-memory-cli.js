@@ -4,7 +4,6 @@ var   app = require('express')(),
         serveStatic = require('serve-static'),
         path = require('path'),
         fs = require('fs'),
-        auth = require('http-auth'),
         program = require('commander'),
         Waterline = require('waterline'),
         diskAdapter = require('sails-disk'),
@@ -12,20 +11,9 @@ var   app = require('express')(),
         chalk = require('chalk');
 
 program
-  .version(require('./package.json').version)
+  .version(require(__dirname + '/package.json').version)
   .option('-p, --port [number]', 'specified the port')
   .parse(process.argv);
-
-fs.exists(process.cwd() + '/config.json', function(exists) {
-            if(!exists) {
-                fs.writeFile(process.cwd() + '/config.json', '{"user":"","password",""}');
-           }
-           if(require(process.cwd() + '/config.json').user == '' || require(process.cwd() + '/config.json').password == ''){
-                    console.log(chalk.red('You must change the password in config.json'));
-                    process.exit();
-           }
-});
-
 
 var orm = new Waterline();
 
@@ -58,13 +46,6 @@ var Lesson = Waterline.Collection.extend({
 });
 
 orm.loadCollection(Lesson);
-
-var basic = auth.basic({
-                realm: 'You need a username and a password.'
-            }, function (username, password, callback) {
-                callback(username === require(process.cwd() + '/config.json').user  && password === require(process.cwd() + '/config.json').password);
-});
-app.use(auth.connect(basic));
 
 app.use(serveStatic(__dirname));
 app.use(bodyParser.json());

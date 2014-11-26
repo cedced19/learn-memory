@@ -45,7 +45,7 @@ angular.module('LearnMemory', [ 'ngSanitize', 'ngRoute', 'hc.marked' ])
                                 $http.put('/api/'+$scope.currentItem.id, $scope.currentItem).success(function(data, status, headers, config) {
                                             $scope.editing = false;
                                 }).error(function() {
-                                            $location.path('/');
+                                            $location.path('/error');
                                 });
                  };
          }).error(function() {

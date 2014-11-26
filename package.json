@@ -2,7 +2,7 @@
   "name": "learn-memory",
   "version": "0.1.1",
   "description": "A software to learn your lesson",
-  "main": "learn-memory.js",
+  "main": "learn-memory-server.js",
   "dependencies": {
     "body-parser": "^1.8.0",
     "chalk": "0.5.1",
@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/cedced19/Learn-Memory",
   "bin": {
-    "learn": "learn-memory.js"
+    "learn": "learn-memory-cli.js"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
