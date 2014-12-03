@@ -74,7 +74,6 @@ module.exports = function(grunt) {
             'dist/index.html': 'dist/index.html',
             'dist/vendor/views/lesson.html': 'dist/vendor/views/lesson.html',
             'dist/vendor/views/creation.html': 'dist/vendor/views/creation.html',
-            'dist/vendor/views/error.html': 'dist/vendor/views/error.html',
             'dist/vendor/views/list.html': 'dist/vendor/views/list.html'
           }
       }

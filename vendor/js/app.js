@@ -1,4 +1,4 @@
-angular.module('LearnMemory', [ 'ngSanitize', 'ngRoute', 'hc.marked' ])
+angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marked' ])
 .config(['$routeProvider', function($routeProvider){
     $routeProvider
      .when('/lesson/:id', {
@@ -9,9 +9,6 @@ angular.module('LearnMemory', [ 'ngSanitize', 'ngRoute', 'hc.marked' ])
       templateUrl: 'vendor/views/list.html',
       controller: 'LearnMemoryListCtrl'
     })
-     .when('/error', {
-      templateUrl: 'vendor/views/error.html'
-    })
     .when('/creation', {
       templateUrl: 'vendor/views/creation.html',
       controller: 'LearnMemoryCreationCtrl'
@@ -20,7 +17,7 @@ angular.module('LearnMemory', [ 'ngSanitize', 'ngRoute', 'hc.marked' ])
         redirectTo: '/'
       });
 }])
-.controller('LearnMemoryLessonCtrl', ['$scope', '$location', '$routeParams', '$http', 'marked', function($scope, $location, $routeParams, $http, marked) {
+.controller('LearnMemoryLessonCtrl', ['$scope', '$location', '$routeParams', '$http', 'marked', 'sweet', function($scope, $location, $routeParams, $http, marked, sweet) {
         $http.get('/api/'+ $routeParams.id).success(function(data) {
                         $scope.currentItem = data;
 
@@ -31,7 +28,13 @@ angular.module('LearnMemory', [ 'ngSanitize', 'ngRoute', 'hc.marked' ])
                          };
 
                         $scope.removeLesson = function() {
-                                    $http.delete('/api/'+$scope.currentItem.id);
+                                    $http.delete('/api/'+$scope.currentItem.id).success(function() {
+                                            sweet.show('Lesson deled', '', 'success');
+
+                                    }).error(function() {
+                                            sweet.show('Oops...', 'Something went wrong!', 'error');
+
+                                    });
                                     $location.path('/');
                         };
 
@@ -42,17 +45,19 @@ angular.module('LearnMemory', [ 'ngSanitize', 'ngRoute', 'hc.marked' ])
 
                         $scope.displayLesson = function() {
                                 $scope.displayPreview();
-                                $http.put('/api/'+$scope.currentItem.id, $scope.currentItem).success(function(data, status, headers, config) {
+                                $http.put('/api/'+$scope.currentItem.id, $scope.currentItem).success(function() {
                                             $scope.editing = false;
+                                            sweet.show('Changes saved', '', 'success');
                                 }).error(function() {
-                                            $location.path('/error');
+                                            sweet.show('Oops...', 'Something went wrong!', 'error');
                                 });
                  };
          }).error(function() {
-                    $location.path('/error');
+                    sweet.show('Oops...', 'Something went wrong!', 'error');
+
         });
 }])
-.controller('LearnMemoryCreationCtrl', ['$scope', '$http', 'marked', '$location', function($scope, $http, marked, $location) {
+.controller('LearnMemoryCreationCtrl', ['$scope', '$http', 'marked', '$location', 'sweet', function($scope, $http, marked, $location, sweet) {
         $scope.newItem = {
                 content: '',
                 markdown: ''
@@ -65,13 +70,17 @@ angular.module('LearnMemory', [ 'ngSanitize', 'ngRoute', 'hc.marked' ])
         $scope.displayLesson = function() {
                 $scope.displayPreview();
                 $http.post('/api', $scope.newItem).success(function(data) {
+                    sweet.show('Lesson saved', '', 'success');
+
                     $location.path('/lesson/' + data.id.toString());
                     }).error(function() {
-                    $location.path('/error');
+                    sweet.show('Oops...', 'Something went wrong!', 'error');
+
+
                 });
         };
 }])
-.controller('LearnMemoryListCtrl', ['$scope', '$location', '$http', function($scope, $location, $http) {
+.controller('LearnMemoryListCtrl', ['$scope', '$location', '$http', 'sweet', function($scope, $location, $http, sweet) {
 
         $http.get('/api').success(function(data) {
         $scope.items = data;
@@ -81,6 +90,7 @@ angular.module('LearnMemory', [ 'ngSanitize', 'ngRoute', 'hc.marked' ])
         };
 
         }).error(function() {
-            $location.path('/error');
+            sweet.show('Oops...', 'Something went wrong!', 'error');
+
         });
 }]);

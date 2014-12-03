@@ -4,8 +4,10 @@ dist/node_modules/
 dist/vendor/js/app.js
 dist/vendor/js/angular.min.js
 dist/vendor/js/angular-sanatize.min.js
+dist/vendor/js/angular-routes.min.js
 dist/vendor/js/markdown/
-dist/vendor/js/jquery.min.js
+dist/vendor/js/alert/
 dist/vendor/css/bootstrap.css
 dist/vendor/css/main.css
+dist/vendor/css/sweet-alert.css
 save.json

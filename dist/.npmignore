@@ -4,6 +4,8 @@ vendor/js/angular.min.js
 vendor/js/angular-sanatize.min.js
 vendor/js/angular-routes.min.js
 vendor/js/markdown/
+vendor/js/alert/
 vendor/css/bootstrap.css
 vendor/css/main.css
+vendor/css/sweet-alert.css
 learn-memory-server.js

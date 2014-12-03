@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="/vendor/css/main.css">
         <link rel="stylesheet" href="/vendor/css/bootstrap.css">
+        <link rel="stylesheet" href="/vendor/css/sweet-alert.css">
     </head>
 <body>
  <div class="container">
@@ -53,7 +54,28 @@
                 </div>
                 <!-- Error -->
                 <h1>Houston, we have a problem.</h1>
-                <a class="btn btn-success" href="/">Try to back at Home</a>
+                <p>You must enable Javascript to use this applications.</p>
+                <!-- Sweet-Alert -->
+                <div style="opacity: 1; display: block;" class="sweet-overlay" tabindex="-1"></div>
+                <div style="display: block;" data-timer="null" data-has-done-function="false" data-allow-ouside-click="false" data-has-cancel-button="false" class="sweet-alert showSweetAlert visible" tabindex="-1">
+                    <div class="icon error">
+                    <span class="x-mark">
+                        <span class="line left"></span>
+                        <span class="line right"></span>
+                    </span>
+                    </div>
+                    <div style="display: block;" class="icon success animate">
+                        <span class="line tip animateSuccessTip"></span>
+                        <span class="line long animateSuccessLong"></span>
+                        <div class="placeholder"></div>
+                        <div class="fix"></div>
+                    </div>
+                    <div  class="icon custom"></div>
+                    <h2></h2>
+                    <p></p>
+                    <button style=" box-shadow: none;" class="cancel" tabindex="2">Cancel</button>
+                    <button style="background-color: rgb(174, 222, 244); box-shadow: 0px 0px 2px rgba(174, 222, 244, 0.8), 0px 0px 0px 1px rgba(0, 0, 0, 0.05) inset;" class="confirm" tabindex="1">OK</button>
+                </div>
                 <!-- Creation -->
                 <form name="formCreation">
                     <div class="input-group">
