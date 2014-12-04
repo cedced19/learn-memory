@@ -10,4 +10,5 @@ dist/vendor/js/alert/
 dist/vendor/css/bootstrap.css
 dist/vendor/css/main.css
 dist/vendor/css/sweet-alert.css
-save.json
+save.db
+config.json

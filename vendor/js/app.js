@@ -17,7 +17,7 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marke
         redirectTo: '/'
       });
 }])
-.controller('LearnMemoryLessonCtrl', ['$scope', '$location', '$routeParams', '$http', 'marked', 'sweet', function($scope, $location, $routeParams, $http, marked, sweet) {
+.controller('LearnMemoryLessonCtrl', ['$scope', '$location', '$http', 'sweet', '$routeParams', 'marked', function($scope, $location, $http, sweet, $routeParams, marked) {
         $http.get('/api/'+ $routeParams.id).success(function(data) {
                         $scope.currentItem = data;
 
@@ -28,14 +28,22 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marke
                          };
 
                         $scope.removeLesson = function() {
-                                    $http.delete('/api/'+$scope.currentItem.id).success(function() {
-                                            sweet.show('Lesson deled', '', 'success');
-
-                                    }).error(function() {
-                                            sweet.show('Oops...', 'Something went wrong!', 'error');
-
+                                    sweet.show({
+                                        title: 'Confirm',
+                                        text: 'Delete this lesson?',
+                                        type: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#DD6B55',
+                                        confirmButtonText: "Yes, delete it!",
+                                        closeOnConfirm: false
+                                    }, function() {
+                                        $http.delete('/api/'+$scope.currentItem.id).success(function() {
+                                            sweet.show('Deleted!', 'The lesson has been deleted.', 'success');
+                                            $location.path('/');
+                                        }).error(function() {
+                                                sweet.show('Oops...', 'Something went wrong!', 'error');
+                                        });
                                     });
-                                    $location.path('/');
                         };
 
                         $scope.print = function() {
@@ -47,17 +55,16 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marke
                                 $scope.displayPreview();
                                 $http.put('/api/'+$scope.currentItem.id, $scope.currentItem).success(function() {
                                             $scope.editing = false;
-                                            sweet.show('Changes saved', '', 'success');
+                                            sweet.show('The lesson has been saved.', '', 'success');
                                 }).error(function() {
                                             sweet.show('Oops...', 'Something went wrong!', 'error');
                                 });
                  };
          }).error(function() {
                     sweet.show('Oops...', 'Something went wrong!', 'error');
-
         });
 }])
-.controller('LearnMemoryCreationCtrl', ['$scope', '$http', 'marked', '$location', 'sweet', function($scope, $http, marked, $location, sweet) {
+.controller('LearnMemoryCreationCtrl', ['$scope', '$location', '$http', 'sweet', 'marked', function($scope, $location, $http, sweet, marked) {
         $scope.newItem = {
                 content: '',
                 markdown: ''
@@ -70,13 +77,10 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marke
         $scope.displayLesson = function() {
                 $scope.displayPreview();
                 $http.post('/api', $scope.newItem).success(function(data) {
-                    sweet.show('Lesson saved', '', 'success');
-
+                    sweet.show('The lesson has been saved.', '', 'success');
                     $location.path('/lesson/' + data.id.toString());
                     }).error(function() {
                     sweet.show('Oops...', 'Something went wrong!', 'error');
-
-
                 });
         };
 }])
@@ -91,6 +95,5 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marke
 
         }).error(function() {
             sweet.show('Oops...', 'Something went wrong!', 'error');
-
         });
 }]);
