@@ -1,4 +1,4 @@
-angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marked' ])
+angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marked'])
 .config(['$routeProvider', function($routeProvider){
     $routeProvider
      .when('/lesson/:id', {
