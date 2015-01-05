@@ -8,10 +8,12 @@ var   app = require('express')(),
         Waterline = require('waterline'),
         diskAdapter = require('sails-disk'),
         bodyParser = require('body-parser'),
-        chalk = require('chalk');
+        port = 7772,
+        pkg = require('./package.json'),
+        colors = require('colors');
 
 program
-  .version(require(__dirname + '/package.json').version)
+  .version(pkg.version)
   .option('-p, --port [number]', 'specified the port')
   .parse(process.argv);
 
@@ -94,14 +96,16 @@ app.put('/api/:id', function(req, res) {
 
 orm.initialize(config, function(err, models) {
   if(err) throw err;
-  var port;
+  require('check-update')({packageName: pkg.name, packageVersion: pkg.version, isCLI: true}, function(err, latestVersion, defaultMessage){
+       if(!err){
+            console.log(defaultMessage);
+       }
+  });
   if (!isNaN(parseFloat(program.port)) && isFinite(program.port)){
       port = program.port;
-  }else{
-      port = 7772;
   }
   app.models = models.collections;
   app.connections = models.connections;
   app.listen(port);
-  console.log('Server running at\n  => '+ chalk.green('http://localhost:'+ port) + '\nCTRL + C to shutdown');
+  console.log('Server running at\n  => '+ colors.green('http://localhost:'+ port) + '\nCTRL + C to shutdown');
 });

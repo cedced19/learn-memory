@@ -9,21 +9,23 @@ var   app = require('express')(),
         diskAdapter = require('sails-disk'),
         bodyParser = require('body-parser'),
         configPath = process.cwd() + '/config.json',
-        chalk = require('chalk');
+        pkg = require('./package.json'),
+        colors = require('colors');
 
 fs.exists(configPath, function(exists) {
-            if(!exists) {
+           if(!exists) {
                 var config = {
                   user:'',
                   password:'',
                   port: 7772
-                }
+                };
                 fs.writeFile(configPath, JSON.stringify(config), function(){
-                  console.log(chalk.red('You must config this software in config.json.'));
+                  console.log(colors.red('You must config this software in config.json.'));
                   process.exit(0);
                 });
-           } else if (require(configPath).user == '' || require(configPath).password == ''){
-                  console.log(chalk.red('You must change the user and the password in config.json.'));
+           }
+           if (require(configPath).user === '' || require(configPath).password === ''){
+                  console.log(colors.red('You must change the user and the password in config.json.'));
                   process.exit(0);
            }
 });
@@ -118,9 +120,15 @@ app.put('/api/:id', function(req, res) {
 });
 
 orm.initialize(config, function(err, models) {
+  if(err) throw err;
+  require('check-update')({packageName: pkg.name, packageVersion: pkg.version, isCLI: true}, function(err, latestVersion, defaultMessage){
+       if(!err){
+            console.log(defaultMessage);
+       }
+  });
   var port = require(configPath).port;
   app.models = models.collections;
   app.connections = models.connections;
   app.listen(port);
-  console.log('Server running at\n  => '+ chalk.green('http://localhost:'+ port) + '\nCTRL + C to shutdown');
+  console.log('Server running at\n  => '+ colors.green('http://localhost:'+ port) + '\nCTRL + C to shutdown');
 });
