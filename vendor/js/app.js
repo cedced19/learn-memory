@@ -47,7 +47,7 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marke
                         };
 
                         $scope.print = function() {
-                                    window.print();
+                                window.print();
                         };
 
 

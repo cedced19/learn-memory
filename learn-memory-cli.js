@@ -57,7 +57,11 @@ app.get('/api', function(req, res) {
     if(err) return res.json({ err: err }, 500);
     // Don't download useless data
     for (var key in models){
-        models[key].content = models[key].content.replace(new RegExp('\n', 'gi'), ' ').replace(new RegExp('&#39;', 'gi'), '\'').replace(new RegExp('\n', 'gi'), ' ').replace(new RegExp('<.[^>]*>', 'gi' ), '');
+        models[key].content = models[key].content
+        .replace(new RegExp('&#39;', 'gi'), '\'')
+        .replace(new RegExp('\n', 'gi'), ' ')
+        .replace(new RegExp('<.[^>]*>', 'gi' ), '')
+        .replace(new RegExp('&quot;', 'gi'), '"');
         delete models[key].markdown;
     }
     res.json(models);

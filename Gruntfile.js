@@ -13,6 +13,7 @@ module.exports = function(grunt) {
             'favicon.ico',
             'learn-memory-cli.js',
             'learn-memory-server.js',
+            'lib/auth.js',
             'README.md'
           ],
           dest: 'dist/'

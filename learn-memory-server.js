@@ -4,7 +4,7 @@ var   app = require('express')(),
         serveStatic = require('serve-static'),
         path = require('path'),
         fs = require('fs'),
-        auth = require('http-auth'),
+        auth = require('./lib/auth.js'),
         Waterline = require('waterline'),
         diskAdapter = require('sails-disk'),
         bodyParser = require('body-parser'),
@@ -19,14 +19,13 @@ fs.exists(configPath, function(exists) {
                   password:'',
                   port: 7772
                 };
-                fs.writeFile(configPath, JSON.stringify(config), function(){
-                  console.log(colors.red('You must config this software in config.json.'));
-                  process.exit(0);
-                });
+                fs.writeFileSync(configPath, JSON.stringify(config));
+                console.log(colors.red('You must config this software in config.json.'));
+                process.exit(0);
            }
            if (require(configPath).user === '' || require(configPath).password === ''){
-                  console.log(colors.red('You must change the user and the password in config.json.'));
-                  process.exit(0);
+                console.log(colors.red('You must change the user and the password in config.json.'));
+                process.exit(0);
            }
 });
 
@@ -63,13 +62,6 @@ var Lesson = Waterline.Collection.extend({
 
 orm.loadCollection(Lesson);
 
-var basic = auth.basic({
-                realm: 'You need a username and a password.'
-            }, function (username, password, callback) {
-                callback(username === require(configPath).user  && password === require(configPath).password);
-});
-app.use(auth.connect(basic));
-
 app.get('/config.json', function(req, res) {
   res.redirect(302, '/');
 });
@@ -82,7 +74,11 @@ app.get('/api', function(req, res) {
     if(err) return res.json({ err: err }, 500);
     // Don't download useless data
     for (var key in models){
-        models[key].content = models[key].content.replace(new RegExp('\n', 'gi'), ' ').replace(new RegExp('&#39;', 'gi'), '\'').replace(new RegExp('\n', 'gi'), ' ').replace(new RegExp('<.[^>]*>', 'gi' ), '');
+        models[key].content = models[key].content
+        .replace(new RegExp('&#39;', 'gi'), '\'')
+        .replace(new RegExp('\n', 'gi'), ' ')
+        .replace(new RegExp('<.[^>]*>', 'gi' ), '')
+        .replace(new RegExp('&quot;', 'gi'), '"');
         delete models[key].markdown;
     }
     res.json(models);
@@ -90,9 +86,11 @@ app.get('/api', function(req, res) {
 });
 
 app.post('/api', function(req, res) {
-  app.models.lesson.create(req.body, function(err, model) {
-    if(err) return res.json({ err: err }, 500);
-    res.json(model);
+  auth(req, res, configPath, function () {
+      app.models.lesson.create(req.body, function(err, model) {
+        if(err) return res.json({ err: err }, 500);
+        res.json(model);
+    });
   });
 });
 
@@ -104,18 +102,21 @@ app.get('/api/:id', function(req, res) {
 });
 
 app.delete('/api/:id', function(req, res) {
-  app.models.lesson.destroy({ id: req.params.id }, function(err) {
-    if(err) return res.json({ err: err }, 500);
-    res.json({ status: 'ok' });
+    auth(req, res, configPath, function () {
+      app.models.lesson.destroy({ id: req.params.id }, function(err) {
+        if(err) return res.json({ err: err }, 500);
+        res.json({ status: 'ok' });
+    });
   });
 });
 
 app.put('/api/:id', function(req, res) {
-  delete req.body.id;
-
-  app.models.lesson.update({ id: req.params.id }, req.body, function(err, model) {
-    if(err) return res.json({ err: err }, 500);
-    res.json(model);
+  auth(req, res, configPath, function () {
+      delete req.body.id;
+      app.models.lesson.update({ id: req.params.id }, req.body, function(err, model) {
+      if(err) return res.json({ err: err }, 500);
+      res.json(model);
+    });
   });
 });
 
