@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/cedced19/Learn-Memory"
+    "url": "git://github.com/cedced19/learn-memory"
   },
   "keywords": [
     "cli",
@@ -27,9 +27,9 @@
     "school"
   ],
   "bugs": {
-    "url": "https://github.com/cedced19/Learn-Memory/issues"
+    "url": "https://github.com/cedced19/learn-memory/issues"
   },
-  "homepage": "https://github.com/cedced19/Learn-Memory",
+  "homepage": "https://github.com/cedced19/learn-memory",
   "bin": {
     "learn": "learn-memory-cli.js"
   },

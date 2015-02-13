@@ -15,15 +15,19 @@ var   app = require('express')(),
 fs.exists(configPath, function(exists) {
            if(!exists) {
                 var config = {
-                  user:'',
-                  password:'',
-                  port: 7772
+                    users: [
+                        {
+                         name: '',
+                         password: ''
+                        }
+                    ],
+                    port:7772
                 };
                 fs.writeFileSync(configPath, JSON.stringify(config));
                 console.log(colors.red('You must config this software in config.json.'));
                 process.exit(0);
            }
-           if (require(configPath).user === '' || require(configPath).password === ''){
+           if (require(configPath).users[0].name === '' || require(configPath).users[0].password === ''){
                 console.log(colors.red('You must change the user and the password in config.json.'));
                 process.exit(0);
            }
