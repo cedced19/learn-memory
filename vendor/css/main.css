@@ -2,16 +2,16 @@
     width: 100%;
     margin-bottom: 15px;
 }
+
 textarea {
     resize:none;
 }
-.glyphicon{
-    cursor: pointer;
-}
+
 ::selection{
     background-color: #34495e;
     color: #ecf0f1;
 }
+
 @media print {
     .well, .nav, button, textarea {
         display: none;

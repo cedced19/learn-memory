@@ -1,4 +1,6 @@
- module.exports = function (req, res, configPath, cb) {
+#!/usr/bin/env node
+'use strict'; 
+module.exports = function (req, res, configPath, cb) {
   var credentials = require('basic-auth')(req);
   var check = function () {
       if (!credentials) return false;

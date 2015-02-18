@@ -85,7 +85,6 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marke
         };
 }])
 .controller('LearnMemoryListCtrl', ['$scope', '$location', '$http', 'sweet', function($scope, $location, $http, sweet) {
-
         $http.get('/api').success(function(data) {
         $scope.items = data;
 

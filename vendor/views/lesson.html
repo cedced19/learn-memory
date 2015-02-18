@@ -1,20 +1,29 @@
 <ul class="nav nav-pills">
-                <li><a href="#">List</a></li>
-                <li><a href="#/creation"><span class="glyphicon glyphicon-edit"></span> Create</a></li>
+	<li><a href="#">List</a></li>
+	<li><a href="#/creation"><span class="glyphicon glyphicon-edit"></span> Create</a></li>
 </ul>
-                <div class="well">
-                <p><label>Substance: </label> {{currentItem.substance}}</p>
-                <p><label>Date: </label> {{currentItem.updatedAt | date: 'dd/MM/yyyy' }}</p>
-                <p>
-                <span ng-click="removeLesson()" class="glyphicon glyphicon-trash"></span>
-                </p>
-                <p><span ng-show="!editing" class="glyphicon glyphicon-pencil" ng-click="editing = true"></span></p>
-                <p><span class="glyphicon glyphicon-print" ng-click="print()"></span></p>
-                </div>
-                <div ng-show="editing"class="input-group">
-                        <textarea rows="20" class="form-control" placeholder="Text" ng-model="currentItem.markdown" ng-keyup="displayPreview()"></textarea>
-                </div>
-                <div ng-bind-html="currentItem.content"></div>
-                <div ng-show="editing" class="text-center">
-                        <button class="btn btn-success" ng-click="displayLesson()">Update item</button>
-                </div>
+<div class="well">
+	<p>
+		<label>Substance: </label> {{currentItem.substance}}
+	</p>
+	<p>
+		<label>Date: </label> {{currentItem.updatedAt | date: 'dd/MM/yyyy' }}
+	</p>
+	<p>
+		<span ng-click="removeLesson()" class="glyphicon glyphicon-trash"></span>
+	</p>
+	<p>
+		<span ng-show="!editing" class="glyphicon glyphicon-pencil" ng-click="editing = true"></span>
+	</p>
+	<p>
+		<span class="glyphicon glyphicon-print" ng-click="print()"></span>
+	</p>
+</div>
+<div ng-show="editing" class="input-group">
+	<textarea rows="20" class="form-control" placeholder="Text" ng-model="currentItem.markdown" ng-keyup="displayPreview()"></textarea>
+</div>
+<div ng-bind-html="currentItem.content">
+</div>
+<div ng-show="editing" class="text-center">
+	<button class="btn btn-success" ng-click="displayLesson()">Update item</button>
+</div>

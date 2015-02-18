@@ -1,16 +1,17 @@
 <ul class="nav nav-pills">
-                <li><a href="#">List</a></li>
-                <li class="active"><a href="#/creation"><span class="glyphicon glyphicon-edit"></span> Create</a></li>
+	<li><a href="#">List</a></li>
+	<li class="active"><a href="#/creation"><span class="glyphicon glyphicon-edit"></span> Create</a></li>
 </ul>
 <form name="formCreation">
-                    <div class="input-group">
-                        <input type="text" class="form-control"  ng-disabled placeholder="Substance" ng-model="newItem.substance">
-                    </div>
-                    <div class="input-group">
-                        <textarea rows="20" class="form-control" ng-disabled placeholder="Text" ng-model="newItem.markdown" ng-keyup="displayPreview()"></textarea>
-                    </div>
-                    <div ng-bind-html="newItem.content"></div>
-                    <div class="text-center">
-                        <button class="btn btn-success" ng-disabled="formCreation.$pristine" ng-click="displayLesson()">Adding new item</button>
-                    </div>
+	<div class="input-group">
+		<input type="text" class="form-control" ng-disabled placeholder="Substance" ng-model="newItem.substance">
+	</div>
+	<div class="input-group">
+		<textarea rows="20" class="form-control" ng-disabled placeholder="Text" ng-model="newItem.markdown" ng-keyup="displayPreview()"></textarea>
+	</div>
+	<div ng-bind-html="newItem.content">
+	</div>
+	<div class="text-center">
+		<button class="btn btn-success" ng-disabled="formCreation.$pristine" ng-click="displayLesson()">Adding new item</button>
+	</div>
 </form>
