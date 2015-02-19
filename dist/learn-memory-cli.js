@@ -42,8 +42,7 @@ var Lesson = Waterline.Collection.extend({
 
   attributes: {
      content: 'string',
-     substance: 'string',
-     markdown: 'string'
+     substance: 'string'
   }
 });
 
@@ -62,7 +61,6 @@ app.get('/api', function(req, res) {
         .replace(new RegExp('\n', 'gi'), ' ')
         .replace(new RegExp('<.[^>]*>', 'gi' ), '')
         .replace(new RegExp('&quot;', 'gi'), '"');
-        delete models[key].markdown;
     }
     res.json(models);
   });

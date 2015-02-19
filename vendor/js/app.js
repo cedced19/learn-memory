@@ -1,4 +1,4 @@
-angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marked'])
+angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'textAngular'])
 .config(['$routeProvider', function($routeProvider){
     $routeProvider
      .when('/lesson/:id', {
@@ -17,15 +17,20 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marke
         redirectTo: '/'
       });
 }])
-.controller('LearnMemoryLessonCtrl', ['$scope', '$location', '$http', 'sweet', '$routeParams', 'marked', function($scope, $location, $http, sweet, $routeParams, marked) {
+.directive('toolbarTip', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            $(element).toolbar(scope.$eval(attrs.toolbarTip));
+        }
+    };
+})
+.controller('LearnMemoryLessonCtrl', ['$scope', '$location', '$http', 'sweet', '$routeParams', function($scope, $location, $http, sweet, $routeParams) {
         $http.get('/api/'+ $routeParams.id).success(function(data) {
                         $scope.currentItem = data;
 
                         $scope.editing = false;
 
-                         $scope.displayPreview = function() {
-                                   $scope.currentItem.content = marked($scope.currentItem.markdown);
-                         };
 
                         $scope.removeLesson = function() {
                                     sweet.show({
@@ -52,7 +57,6 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marke
 
 
                         $scope.displayLesson = function() {
-                                $scope.displayPreview();
                                 $http.put('/api/'+$scope.currentItem.id, $scope.currentItem).success(function() {
                                             $scope.editing = false;
                                             sweet.show('The lesson has been saved.', '', 'success');
@@ -64,18 +68,13 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marke
                     sweet.show('Oops...', 'Something went wrong!', 'error');
         });
 }])
-.controller('LearnMemoryCreationCtrl', ['$scope', '$location', '$http', 'sweet', 'marked', function($scope, $location, $http, sweet, marked) {
+.controller('LearnMemoryCreationCtrl', ['$scope', '$location', '$http', 'sweet', function($scope, $location, $http, sweet) {
         $scope.newItem = {
-                content: '',
-                markdown: ''
+                content: ''
         };
 
-        $scope.displayPreview = function() {
-                $scope.newItem.content = marked($scope.newItem.markdown);
-        };
 
         $scope.displayLesson = function() {
-                $scope.displayPreview();
                 $http.post('/api', $scope.newItem).success(function(data) {
                     sweet.show('The lesson has been saved.', '', 'success');
                     $location.path('/lesson/' + data.id.toString());

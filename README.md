@@ -7,7 +7,6 @@ A Node.js software to learn your leson.
 [![NPM version](https://badge.fury.io/js/learn-memory.svg)](http://badge.fury.io/js/learn-memory)
 
 ![](https://raw.githubusercontent.com/cedced19/learn-memory/master/demo.png)
-
 **`>=0.0.12`'s data system is not the same as before**
 
 ## CLI

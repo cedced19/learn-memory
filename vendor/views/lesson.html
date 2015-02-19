@@ -1,6 +1,6 @@
 <ul class="nav nav-pills">
 	<li><a href="#">List</a></li>
-	<li><a href="#/creation"><span class="glyphicon glyphicon-edit"></span> Create</a></li>
+	<li><a href="#/creation"><span class="fa fa-pencil-square-o"></span> Create</a></li>
 </ul>
 <div class="well">
 	<p>
@@ -10,19 +10,19 @@
 		<label>Date: </label> {{currentItem.updatedAt | date: 'dd/MM/yyyy' }}
 	</p>
 	<p>
-		<span ng-click="removeLesson()" class="glyphicon glyphicon-trash"></span>
+		<span ng-click="removeLesson()" class="fa fa-trash"></span>
 	</p>
 	<p>
-		<span ng-show="!editing" class="glyphicon glyphicon-pencil" ng-click="editing = true"></span>
+		<span ng-show="!editing" class="fa fa-pencil" ng-click="editing = true"></span>
 	</p>
 	<p>
-		<span class="glyphicon glyphicon-print" ng-click="print()"></span>
+		<span class="fa fa-print" ng-click="print()" ng-hide="editing"></span>
 	</p>
 </div>
 <div ng-show="editing" class="input-group">
-	<textarea rows="20" class="form-control" placeholder="Text" ng-model="currentItem.markdown" ng-keyup="displayPreview()"></textarea>
+	<div text-angular ng-model="currentItem.content"></div>
 </div>
-<div ng-bind-html="currentItem.content">
+<div ng-hide="editing" ng-bind-html="currentItem.content">
 </div>
 <div ng-show="editing" class="text-center">
 	<button class="btn btn-success" ng-click="displayLesson()">Update item</button>
