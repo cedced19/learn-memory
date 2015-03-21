@@ -35,7 +35,7 @@
 	</tr>
 	</thead>
 	<tbody>
-	<tr ng-repeat="item in items | filter:search | orderBy:'updatedAt':true" ng-click="goItem(item)">
+	<tr ng-repeat="item in items | filter:search | orderBy:'updatedAt':true" ng-click="goItem(item)" class="fade">
 		<td>
 			{{item.substance}}
 		</td>

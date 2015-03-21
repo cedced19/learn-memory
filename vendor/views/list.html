@@ -11,11 +11,11 @@
             <th>Date</th>
         </tr>
     </thead>
-    <tbody>
-        <tr ng-repeat="item in items | filter:search | orderBy:'updatedAt':true" ng-click="goItem(item)">
+    <tbody infinite-scroll="add()" infinite-scroll-distance="false">
+        <tr ng-repeat="item in items | filter:search | orderBy:'updatedAt':true" ng-click="goItem(item)" class="fade">
             <td>{{item.substance}}</td>
             <td>{{item.content | limitTo : 20}} ...</td>
             <td>{{item.updatedAt | date: 'dd/MM/yyyy' }}</td>
         </tr>
-</tbody>
+    </tbody>
 </table>

@@ -31,7 +31,6 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'textAngu
 
                         $scope.editing = false;
 
-
                         $scope.removeLesson = function() {
                                     sweet.show({
                                         title: 'Confirm',
@@ -39,7 +38,7 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'textAngu
                                         type: 'warning',
                                         showCancelButton: true,
                                         confirmButtonColor: '#DD6B55',
-                                        confirmButtonText: "Yes, delete it!",
+                                        confirmButtonText: 'Yes, delete it!',
                                         closeOnConfirm: false
                                     }, function() {
                                         $http.delete('/api/'+$scope.currentItem.id).success(function() {
@@ -54,7 +53,6 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'textAngu
                         $scope.print = function() {
                                 window.print();
                         };
-
 
                         $scope.displayLesson = function() {
                                 $http.put('/api/'+$scope.currentItem.id, $scope.currentItem).success(function() {
@@ -73,7 +71,6 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'textAngu
                 content: ''
         };
 
-
         $scope.displayLesson = function() {
                 $http.post('/api', $scope.newItem).success(function(data) {
                     sweet.show('The lesson has been saved.', '', 'success');
@@ -85,12 +82,11 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'textAngu
 }])
 .controller('LearnMemoryListCtrl', ['$scope', '$location', '$http', 'sweet', function($scope, $location, $http, sweet) {
         $http.get('/api').success(function(data) {
-        $scope.items = data;
+            $scope.items = data;
 
-        $scope.goItem = function (item) {
-            $location.path('/lesson/' + item.id);
-        };
-
+            $scope.goItem = function (item) {
+                $location.path('/lesson/' + item.id);
+            };
         }).error(function() {
             sweet.show('Oops...', 'Something went wrong!', 'error');
         });

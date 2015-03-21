@@ -4,15 +4,15 @@
   "description": "A software to learn your lesson",
   "main": "learn-memory-server.js",
   "dependencies": {
-    "basic-auth": "^1.0.0",
-    "body-parser": "^1.8.0",
-    "check-update": "0.0.5",
-    "colors": "^1.0.3",
-    "commander": "^2.5.0",
-    "express": "4.10.6",
-    "sails-disk": "^0.10.4",
-    "serve-static": "^1.5.3",
-    "waterline": "^0.10.12"
+    "basic-auth": "1.0.0",
+    "body-parser": "^1.12.0",
+    "check-update": "0.0.7",
+    "colors": "1.0.3",
+    "commander": "^2.7.1",
+    "express": "^4.12.2",
+    "sails-disk": "^0.10.7",
+    "serve-static": "^1.9.2",
+    "waterline": "^0.10.18"
   },
   "repository": {
     "type": "git",
@@ -35,15 +35,18 @@
   },
   "devDependencies": {
     "grunt": "^0.4.5",
-    "grunt-contrib-uglify": "~0.6.0",
-    "matchdep": "~0.3.0",
-    "grunt-contrib-cssmin": "^0.10.0",
-    "grunt-contrib-copy": "~0.7.0",
-    "grunt-usemin": "3.0.0",
-    "grunt-contrib-htmlmin": "^0.3.0",
+    "grunt-autoprefixer": "^2.0.0",
     "grunt-contrib-concat": "^0.5.0",
-    "grunt-uncss": "^0.3.6",
-    "grunt-autoprefixer": "^2.0.0"
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-cssmin": "^0.12.2",
+    "grunt-contrib-htmlmin": "^0.4.0",
+    "grunt-contrib-uglify": "^0.8.0",
+    "grunt-project-update": "^0.2.4",
+    "grunt-uncss": "^0.4.1",
+    "grunt-usemin": "3.0.0",
+    "matchdep": "~0.3.0",
+    "npmupdater": "0.0.13",
+    "updater": "0.0.1"
   },
   "author": {
     "name": "Cédric",

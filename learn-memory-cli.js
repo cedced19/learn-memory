@@ -55,13 +55,13 @@ app.get('/api', function(req, res) {
   app.models.lesson.find().exec(function(err, models) {
     if(err) return res.json({ err: err }, 500);
     // Don't download useless data
-    for (var key in models){
-        models[key].content = models[key].content
+    models.forEach(function(key){
+        key.content = key.content
         .replace(new RegExp('&#39;', 'gi'), '\'')
         .replace(new RegExp('\n', 'gi'), ' ')
         .replace(new RegExp('<.[^>]*>', 'gi' ), '')
         .replace(new RegExp('&quot;', 'gi'), '"');
-    }
+    });
     res.json(models);
   });
 });
