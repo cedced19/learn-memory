@@ -64,6 +64,7 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'textAngu
                  };
          }).error(function() {
                     sweet.show('Oops...', 'Something went wrong!', 'error');
+                    $location.path('/');
         });
 }])
 .controller('LearnMemoryCreationCtrl', ['$scope', '$location', '$http', 'sweet', function($scope, $location, $http, sweet) {

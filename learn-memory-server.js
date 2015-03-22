@@ -74,7 +74,7 @@ app.use(bodyParser.json());
 
 app.get('/api', function(req, res) {
   app.models.lesson.find().exec(function(err, models) {
-    if(err) return res.json({ err: err }, 500);
+    if(err) return res.status(500).json({ err : err})
     // Don't download useless data
     models.forEach(function(key){
         key.content = key.content
@@ -90,7 +90,7 @@ app.get('/api', function(req, res) {
 app.post('/api', function(req, res) {
   auth(req, res, configPath, function () {
       app.models.lesson.create(req.body, function(err, model) {
-        if(err) return res.json({ err: err }, 500);
+        if(err) return res.status(500).json({ err : err});
         res.json(model);
     });
   });
@@ -98,7 +98,8 @@ app.post('/api', function(req, res) {
 
 app.get('/api/:id', function(req, res) {
   app.models.lesson.findOne({ id: req.params.id }, function(err, model) {
-    if(err) return res.json({ err: err }, 500);
+    if(err) return res.status(500).json({ err : err});
+    if(model == '' || model == null) return res.status(404).json({ err: 404 });
     res.json(model);
   });
 });
@@ -106,20 +107,14 @@ app.get('/api/:id', function(req, res) {
 app.delete('/api/:id', function(req, res) {
     auth(req, res, configPath, function () {
       app.models.lesson.destroy({ id: req.params.id }, function(err) {
-        if(err) return res.json({ err: err }, 500);
+        if(err) return res.status(500).json({ err : err});
         res.json({ status: 'ok' });
     });
   });
 });
 
-app.put('/api/:id', function(req, res) {
-  auth(req, res, configPath, function () {
-      delete req.body.id;
-      app.models.lesson.update({ id: req.params.id }, req.body, function(err, model) {
-      if(err) return res.json({ err: err }, 500);
-      res.json(model);
-    });
-  });
+app.get('*', function(req, res){
+  res.status(404).json({ err: 404 });
 });
 
 orm.initialize(config, function(err, models) {

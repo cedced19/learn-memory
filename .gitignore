@@ -5,9 +5,11 @@ dist/vendor/js/app.js
 dist/vendor/js/angular.min.js
 dist/vendor/js/angular-sanatize.min.js
 dist/vendor/js/angular-routes.min.js
-dist/vendor/js/markdown/
+dist/vendor/js/edit/
 dist/vendor/js/alert/
 dist/vendor/css/bootstrap.css
+dist/vendor/css/font-awesome.css
+dist/vendor/css/text-angular.css
 dist/vendor/css/main.css
 dist/vendor/css/sweet-alert.css
 save.db
