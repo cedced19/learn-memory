@@ -113,6 +113,16 @@ app.delete('/api/:id', function(req, res) {
   });
 });
 
+app.put('/api/:id', function(req, res) {
+ auth(req, res, configPath, function () {		
+    delete req.body.id;		
+    app.models.lesson.update({ id: req.params.id }, req.body, function(err, model) {		
+      if(err) return res.json({ err: err }, 500);		
+      res.json(model);		
+    });		
+  });		
+});
+
 app.get('*', function(req, res){
   res.status(404).json({ err: 404 });
 });
