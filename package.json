@@ -1,6 +1,6 @@
 {
   "name": "learn-memory",
-  "version": "0.1.5",
+  "version": "0.1.6-1",
   "description": "A software to learn your lesson",
   "main": "learn-memory-server.js",
   "dependencies": {

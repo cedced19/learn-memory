@@ -55,8 +55,8 @@ app.get('/api', function(req, res) {
   app.models.lesson.find().exec(function(err, models) {
     if(err) return res.status(500).json({ err : err});
     // Don't download useless data
-    models.forEach(function(key){
-        key.content = key.content
+    models.forEach(function(item){
+        item.content = item.content
         .replace(new RegExp('&#39;', 'gi'), '\'')
         .replace(new RegExp('\n', 'gi'), ' ')
         .replace(new RegExp('<.[^>]*>', 'gi' ), '')
@@ -72,8 +72,8 @@ app.get('/api/long', function(req, res) {
   app.models.lesson.find().exec(function(err, models) {
     if(err) return res.status(500).json({ err : err});
     // Don't download useless data
-    models.forEach(function(key){
-        key.content = key.content
+    models.forEach(function(item){
+        item.content = item.content
         .replace(new RegExp('&#39;', 'gi'), '\'')
         .replace(new RegExp('\n', 'gi'), ' ')
         .replace(new RegExp('<.[^>]*>', 'gi' ), '')
