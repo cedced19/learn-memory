@@ -33,7 +33,7 @@ $ learn
 ## Server
 
 ```bash
-$ git clone https://github.com/cedced19/learn-memory
+$ git clone --deth=1 https://github.com/cedced19/learn-memory
 $ cd ./learn-memory/dist/
 $ npm install --production
 $ node learn-memory-server.js

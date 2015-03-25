@@ -61,6 +61,23 @@ app.get('/api', function(req, res) {
         .replace(new RegExp('\n', 'gi'), ' ')
         .replace(new RegExp('<.[^>]*>', 'gi' ), '')
         .replace(new RegExp('&quot;', 'gi'), '"');
+        item.content = item.content.substring(0,100);
+        delete item.createdAt;
+    });
+    res.json(models);
+  });
+});
+
+app.get('/api/long', function(req, res) {
+  app.models.lesson.find().exec(function(err, models) {
+    if(err) return res.status(500).json({ err : err});
+    // Don't download useless data
+    models.forEach(function(key){
+        key.content = key.content
+        .replace(new RegExp('&#39;', 'gi'), '\'')
+        .replace(new RegExp('\n', 'gi'), ' ')
+        .replace(new RegExp('<.[^>]*>', 'gi' ), '')
+        .replace(new RegExp('&quot;', 'gi'), '"');
     });
     res.json(models);
   });
@@ -76,7 +93,7 @@ app.post('/api', function(req, res) {
 app.get('/api/:id', function(req, res) {
   app.models.lesson.findOne({ id: req.params.id }, function(err, model) {
     if(err) return res.status(500).json({ err : err});
-    if(model == '' || model == null) return res.status(404).json({ err: 404 });
+    if(model === '' || model === null) return res.status(404).json({ err: 404 });
     res.json(model);
   });
 });

@@ -19,7 +19,10 @@
 		<li><a href="#/creation"><span class="fa fa-pencil-square-o"></span> Create</a></li>
 	</ul>
 	<!-- List -->
-	<input ng-model="search" type="text" class="form-control" placeholder="Search">
+	<div class="form-inline">
+        <input ng-model="search" type="text" class="form-control" placeholder="Search">
+        <button ng-click="advancedSearch()" ng-show="short" class="btn btn-default">Advanced search</button>
+    </div>
 	<table class="table table-striped table-hover">
 	<thead>
 	<tr>

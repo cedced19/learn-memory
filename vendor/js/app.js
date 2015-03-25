@@ -84,9 +84,19 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'textAngu
 .controller('LearnMemoryListCtrl', ['$scope', '$location', '$http', 'sweet', function($scope, $location, $http, sweet) {
         $http.get('/api').success(function(data) {
             $scope.items = data;
+            $scope.short = true;
 
             $scope.goItem = function (item) {
                 $location.path('/lesson/' + item.id);
+            };
+            
+            $scope.advancedSearch = function () {
+                $http.get('/api/long').success(function(data) {
+                    $scope.items = data;
+                    $scope.short = false;
+                }).error(function() {
+                    sweet.show('Oops...', 'Something went wrong!', 'error');
+                });
             };
         }).error(function() {
             sweet.show('Oops...', 'Something went wrong!', 'error');
