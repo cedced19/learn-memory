@@ -2021,6 +2021,15 @@ select[multiple].input-lg {
     vertical-align: middle;
   }
 }
+@media (max-width: 768px) {
+  .form-inline .form-control {
+    width: 100%;
+  }
+  .form-inline .btn {
+    margin-top: 6px;
+    width: 100%;
+  }
+}
 .form-horizontal .radio,
 .form-horizontal .checkbox,
 .form-horizontal .radio-inline,
