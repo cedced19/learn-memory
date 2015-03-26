@@ -15,3 +15,4 @@ dist/vendor/css/sweet-alert.css
 save.db
 config.json
 dist/vendor/js/angular-sanitize.min.js
+dist/vendor/css/font-awesome.css
