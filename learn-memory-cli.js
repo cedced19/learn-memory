@@ -50,6 +50,8 @@ orm.loadCollection(Lesson);
 app.use(serveStatic(__dirname));
 app.use(bodyParser.json());
 
+app.disable('x-powered-by');
+
 app.get('/api', function(req, res) {
     app.models.lesson.find().exec(function(err, models) {
         if(err) return res.status(500).json({ err : err});
