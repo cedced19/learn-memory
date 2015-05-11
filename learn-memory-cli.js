@@ -94,7 +94,7 @@ app.post('/api', function(req, res) {
 app.get('/api/:id', function(req, res) {
     app.models.lesson.findOne({ id: req.params.id }, function(err, model) {
         if(err) return res.status(500).json({ err : err});
-        if(model === '' || model === null) return res.status(404).json({ err: 404 });
+        if(model === '' || model === null || model === undefined) return res.status(404).json({ err: 404 });
         res.json(model);
     });
 });
