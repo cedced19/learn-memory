@@ -15,7 +15,7 @@
             <th ng-hide="short">Creation date</th>
         </tr>
     </thead>
-    <tbody infinite-scroll="add()" infinite-scroll-distance="false">
+    <tbody>
         <tr ng-repeat="item in items | filter:search | orderBy:'updatedAt':true" ng-click="goItem(item)" class="fade">
             <td>{{item.substance}}</td>
             <td>{{item.content | limitTo : 20}} ...</td>

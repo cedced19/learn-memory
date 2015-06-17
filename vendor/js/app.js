@@ -1,19 +1,19 @@
 angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'textAngular'])
 .config(['$routeProvider', function($routeProvider){
         $routeProvider
-            .when('/lesson/:id', {
+        .when('/lesson/:id', {
             templateUrl: 'vendor/views/lesson.html',
             controller: 'LearnMemoryLessonCtrl'
         })
-            .when('/', {
+        .when('/', {
             templateUrl: 'vendor/views/list.html',
             controller: 'LearnMemoryListCtrl'
         })
-            .when('/creation', {
+        .when('/creation', {
             templateUrl: 'vendor/views/creation.html',
             controller: 'LearnMemoryCreationCtrl'
         })
-            .otherwise({
+        .otherwise({
             redirectTo: '/'
         });
 }])
