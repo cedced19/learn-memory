@@ -57,13 +57,14 @@ app.get('/api', function(req, res) {
         if(err) return res.status(500).json({ err : err});
         // Don't download useless data
         models.forEach(function(item){
-            item.content = item.content
+            item.keywords = item.content
                 .replace(new RegExp('&#39;', 'gi'), '\'')
                 .replace(new RegExp('\n', 'gi'), ' ')
                 .replace(new RegExp('<.[^>]*>', 'gi' ), '')
-                .replace(new RegExp('&quot;', 'gi'), '"');
-            item.content = item.content.substring(0,100);
+                .replace(new RegExp('&quot;', 'gi'), '"')
+                .substring(0,100);
             delete item.createdAt;
+            delete item.content;
         });
         res.json(models);
     });
@@ -74,11 +75,12 @@ app.get('/api/long', function(req, res) {
         if(err) return res.status(500).json({ err : err});
         // Don't download useless data
         models.forEach(function(item){
-            item.content = item.content
+            item.keywords = item.content
                 .replace(new RegExp('&#39;', 'gi'), '\'')
                 .replace(new RegExp('\n', 'gi'), ' ')
                 .replace(new RegExp('<.[^>]*>', 'gi' ), '')
-                .replace(new RegExp('&quot;', 'gi'), '"');
+                .replace(new RegExp('&quot;', 'gi'), '"')
+                .substring(0,100);
         });
         res.json(models);
     });
@@ -106,12 +108,12 @@ app.delete('/api/:id', function(req, res) {
     });
 });
 
-app.put('/api/:id', function(req, res) {	
-    delete req.body.id;		
-    app.models.lesson.update({ id: req.params.id }, req.body, function(err, model) {		
-        if(err) return res.json({ err: err }, 500);		
-        res.json(model);		
-    });				
+app.put('/api/:id', function(req, res) {
+    delete req.body.id;
+    app.models.lesson.update({ id: req.params.id }, req.body, function(err, model) {
+        if(err) return res.json({ err: err }, 500);
+        res.json(model);
+    });
 });
 
 app.get('*', function(req, res){
