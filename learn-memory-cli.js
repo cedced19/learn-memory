@@ -58,11 +58,11 @@ app.get('/api', function(req, res) {
         // Don't download useless data
         models.forEach(function(item){
             item.keywords = item.content
-                .replace(new RegExp('&#39;', 'gi'), '\'')
-                .replace(new RegExp('\n', 'gi'), ' ')
-                .replace(new RegExp('<.[^>]*>', 'gi' ), '')
-                .replace(new RegExp('&quot;', 'gi'), '"')
-                .substring(0,100);
+                    .replace(/&#39;/gi, '\'')
+                    .replace(/\n/gi, ' ')
+                    .replace(/<.[^>]*>/gi, '')
+                    .replace(/&quot/gi, '"')
+                    .substring(0, 100);
             delete item.createdAt;
             delete item.content;
         });
@@ -76,11 +76,11 @@ app.get('/api/long', function(req, res) {
         // Don't download useless data
         models.forEach(function(item){
             item.keywords = item.content
-                .replace(new RegExp('&#39;', 'gi'), '\'')
-                .replace(new RegExp('\n', 'gi'), ' ')
-                .replace(new RegExp('<.[^>]*>', 'gi' ), '')
-                .replace(new RegExp('&quot;', 'gi'), '"')
-                .substring(0,100);
+                    .replace(/&#39;/gi, '\'')
+                    .replace(/\n/gi, ' ')
+                    .replace(/<.[^>]*>/gi, '')
+                    .replace(/&quot/gi, '"')
+                    .substring(0, 100);
         });
         res.json(models);
     });

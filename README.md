@@ -1,9 +1,8 @@
 # Learn-Memory
 
-A Node.js software to learn your leson.
+A Node.js software to learn your lesson.
 
 [![Build Status](https://travis-ci.org/cedced19/learn-memory.svg)](https://travis-ci.org/cedced19/learn-memory)
-[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 [![NPM version](https://badge.fury.io/js/learn-memory.svg)](http://badge.fury.io/js/learn-memory)
 
 ![](https://raw.githubusercontent.com/cedced19/learn-memory/master/demo.png)
@@ -38,3 +37,13 @@ $ cd ./learn-memory/dist/
 $ npm install --production
 $ node learn-memory-server.js
 ```
+
+## API
+
+There are a Rest API on `http://localhost:7772/api/`.
+
+You can use a [application](https://github.com/cedced19/learn-memory-mobile)  to show you your lessons on your mobile phone online and __offline__.
+
+There are two solution to get lessons on this application:
+* redirect ports on your server and get your global ip
+* be on the same wifi as your server and get its local ip
