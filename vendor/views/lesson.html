@@ -1,24 +1,11 @@
-<ul class="nav nav-pills">
-    <li><a href="#">List</a></li>
-    <li><a href="#/creation"><span class="fa fa-pencil-square-o"></span> Create</a></li>
-</ul>
-<div class="well">
-    <p>
-        <label>Substance: </label> {{currentItem.substance}}
-    </p>
-    <p>
-        <label>Date: </label> {{currentItem.updatedAt | date: 'dd/MM/yyyy' }}
-    </p>
-    <p>
-        <span ng-click="removeLesson()" class="fa fa-trash"></span>
-    </p>
-    <p>
-        <span ng-show="!editing" class="fa fa-pencil" ng-click="editing = true"></span>
-    </p>
-    <p>
-        <span class="fa fa-print" ng-click="print()" ng-hide="editing"></span>
-    </p>
-</div>
+<p class="lesson-info">
+    <span class="substance">{{currentItem.substance}}</span>
+    <span class="date">Updated at {{currentItem.updatedAt | date: 'dd/MM/yyyy HH:mm'}}</span>
+    <br>
+    <span class="fa fa-trash action" ng-click="removeLesson()"></span>
+    <span class="fa fa-pencil action" ng-click="editing = true" ng-hide="editing"></span>
+    <span class="fa fa-print action" ng-click="print()" ng-hide="editing"></span>
+</p>
 <div ng-show="editing" class="input-group">
     <div text-angular ng-model="currentItem.content"></div>
 </div>

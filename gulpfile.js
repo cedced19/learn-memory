@@ -41,12 +41,18 @@ gulp.task('html', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('css', ['html'], function () {
-    return gulp.src('vendor/css/*.css')
+gulp.task('uncss',  function () {
+    return gulp.src(['vendor/css/*.css', '!vendor/css/main.css'])
         .pipe(concat('styles.css'))
         .pipe(uncss({
             html: ['uncss.html']
         }))
+        .pipe(gulp.dest('dist/vendor/css'));
+});
+
+gulp.task('css', ['html', 'uncss'], function () {
+    return gulp.src(['dist/vendor/css/styles.css', 'vendor/css/main.css'])
+        .pipe(concat('styles.css'))
         .pipe(autoprefixer({
             browsers: ['last 2 versions', 'ie 8', 'ie 9']
         }))

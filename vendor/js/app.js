@@ -1,4 +1,4 @@
-angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'textAngular'])
+angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'ngTouch', 'textAngular'])
 .config(['$routeProvider', function($routeProvider){
         $routeProvider
         .when('/lesson/:id', {
@@ -25,7 +25,20 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'textAngu
         }
     };
 })
-.controller('LearnMemoryLessonCtrl', ['$scope', '$location', '$http', 'sweet', '$routeParams', function($scope, $location, $http, sweet, $routeParams) {
+.controller('LearnMemoryLessonCtrl', ['$scope', '$location', '$http', '$routeParams', '$rootScope', 'sweet', function($scope, $location, $http, $routeParams, $rootScope, sweet) {
+        $rootScope.showMenu = function () {
+            document.getElementsByTagName('body')[0].classList.add('with-sidebar');
+        };
+
+        $rootScope.hideMenu = function (path) {
+            document.getElementsByTagName('body')[0].classList.remove('with-sidebar');
+            if (path) {
+                $location.path(path);
+            }
+        };
+
+        $rootScope.nav = 'lesson';
+
         $http.get('/api/'+ $routeParams.id).success(function(data) {
             $scope.currentItem = data;
 
@@ -67,7 +80,20 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'textAngu
             $location.path('/');
         });
 }])
-.controller('LearnMemoryCreationCtrl', ['$scope', '$location', '$http', 'sweet', function($scope, $location, $http, sweet) {
+.controller('LearnMemoryCreationCtrl', ['$scope', '$location', '$http', '$rootScope', 'sweet', function($scope, $location, $http, $rootScope, sweet) {
+        $rootScope.showMenu = function () {
+            document.getElementsByTagName('body')[0].classList.add('with-sidebar');
+        };
+
+        $rootScope.hideMenu = function (path) {
+            document.getElementsByTagName('body')[0].classList.remove('with-sidebar');
+            if (path) {
+                $location.path(path);
+            }
+        };
+
+        $rootScope.nav = 'creation';
+
         $scope.newItem = {
             content: ''
         };
@@ -81,7 +107,20 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'textAngu
             });
         };
 }])
-.controller('LearnMemoryListCtrl', ['$scope', '$location', '$http', 'sweet', function($scope, $location, $http, sweet) {
+.controller('LearnMemoryListCtrl', ['$scope', '$location', '$http', '$rootScope', 'sweet', function($scope, $location, $http, $rootScope, sweet) {
+        $rootScope.showMenu = function () {
+            document.getElementsByTagName('body')[0].classList.add('with-sidebar');
+        };
+
+        $rootScope.hideMenu = function (path) {
+            document.getElementsByTagName('body')[0].classList.remove('with-sidebar');
+            if (path) {
+                $location.path(path);
+            }
+        };
+
+        $rootScope.nav = 'list';
+
         $http.get('/api').success(function(data) {
             $scope.items = data;
             $scope.short = true;
