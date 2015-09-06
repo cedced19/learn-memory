@@ -6,9 +6,9 @@ A Node.js software to learn your lesson.
 [![NPM version](https://badge.fury.io/js/learn-memory.svg)](http://badge.fury.io/js/learn-memory)
 
 ![](https://raw.githubusercontent.com/cedced19/learn-memory/master/demo.png)
-**`>=0.0.12`'s data system is not the same as before**
 
 ## CLI
+
 ```bash
 $ npm install learn-memory -g
 ```
@@ -19,23 +19,21 @@ Go in command line to the directory where you have your save.
 $ learn
 ```
 
-#### Options
-
-```
--h, --help                  output usage information
-
--V, --version               output the version number
-
--p, --port [number]          specified the port
-```
-
 ## Server
 
 ```bash
 $ git clone --deth=1 https://github.com/cedced19/learn-memory
-$ cd ./learn-memory/dist/
+$ cd ./learn-memory
 $ npm install --production
-$ node learn-memory-server.js
+$ npm start --production
+```
+
+## Options
+
+```
+--production               launch in production mode
+
+--port [number]          specified the port
 ```
 
 ## API

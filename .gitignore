@@ -1,7 +1,6 @@
-.tmp/
-node_modules/
-dist/node_modules/
-save.db
-config.json
-dist/save.db
-dist/config.json
+node_modules
+tmp
+*.db
+*.map
+*.css
+*.log

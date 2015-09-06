@@ -1,0 +1,26 @@
+<div class="form-inline">
+    <input ng-model="search" type="text" class="form-control" placeholder="Search">
+    <input ng-click="createUser()" type="submit" class="btn btn-default" value="Add a new user">
+</div>
+<br>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in users | filter:search | orderBy:id" class="fade">
+                <td>{{user.id}}</td>
+                <td>{{user.name}}</td>
+                <td>
+                    <span class="fa fa-trash" ng-click="deleteUser(user)"></span>
+                    <span class="fa fa-pencil" ng-click="updateUser(user)"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

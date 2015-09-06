@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>Learn Memory</title>
+        <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="/stylesheets/styles.css">
+    </head>
+    <body ng-app="LearnMemory" ng-swipe-right="$menu.hide()" ng-swipe-left="showMenu()">
+        <div class="site-container">
+            <div class="site-pusher">
+                <header class="header">
+                    <a class="header-icon" ng-click="$menu.show()"></a>
+                    <nav class="menu" ng-hide="init">
+                        <a ng-click="$menu.hide('/')" ng-class="{active: nav == 'lessons'}"><span class="fa fa-list"></span> Lessons</a>
+                        <a ng-click="$menu.hide('/login')" ng-hide="user" ng-class="{active: nav == 'login'}"><span class="fa fa-user"></span> Login</a>
+                        <a ng-click="$menu.hide('/lessons/new')" ng-show="user" ng-class="{active: nav == 'creation'}"><span class="fa fa-pencil-square-o"></span> Create</a>
+                        <a ng-click="$menu.hide('/users')" ng-show="user" ng-class="{active: nav == 'users'}"><span class="fa fa-user"></span> Users</a>
+                        <a href="/logout" ng-show="user"><span class="fa fa-power-off"></span> Logout</a>
+                    </nav>
+                    <span class="header-logo">Learn Memory</span>
+                </header>
+
+                <div class="site-content">
+                    <div class="container" autoscroll="true" ng-view>
+                        <noscript>
+                            <h1>Houston, we have a problem.</h1>
+                            <p>You must enable Javascript to use this applications.</p>
+                        </noscript>
+                    </div>
+                </div>
+
+                <div class="site-cache" ng-click="$menu.hide()"></div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="/javascripts/scripts.js"></script>
+    </body>
+</html>
