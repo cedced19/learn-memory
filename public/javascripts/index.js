@@ -194,10 +194,17 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'ngTouch'
 
         $rootScope.user = $cookieStore.get('learn-memory-user');
 
-        $http.get('/api/users/' + $routeParams.id).success(function(data) {
-            $scope.name = data.name;
+        if ($rootScope.user.id  == $routeParams.id) {
+            $scope.name = $rootScope.user.name;
+        } else {
+            $http.get('/api/users/' + $routeParams.id).success(function(data) {
+                $scope.name = data.name;
+            }).error(function() {
+                sweet.show('Oops...', 'Something went wrong!', 'error');
+            });
+        }
 
-            $scope.updateUser = function () {
+        $scope.updateUser = function () {
                 $http.put('/api/users/' + $routeParams.id, {
                     name: $scope.name,
                     password: $scope.password
@@ -207,10 +214,7 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'ngTouch'
                 }).error(function() {
                     sweet.show('Oops...', 'Something went wrong!', 'error');
                 });
-            };
-        }).error(function() {
-            sweet.show('Oops...', 'Something went wrong!', 'error');
-        });
+        };
 }]).controller('LearnMemoryUsersNewCtrl', ['$scope', '$location', '$http', '$rootScope', '$cookieStore', 'sweet', function($scope, $location, $http, $rootScope, $cookieStore, sweet) {
         $rootScope.nav = '';
 
