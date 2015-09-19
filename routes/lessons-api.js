@@ -61,7 +61,7 @@ router.put('/:id', auth, function(req, res, next) {
     delete req.body.id;
     req.app.models.lessons.update({ id: req.params.id }, req.body, function(err, model) {
         if(err) return next(err);
-        res.json(model);
+        res.json(model[0]);
     });
 });
 

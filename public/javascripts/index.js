@@ -120,7 +120,8 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'ngTouch'
             };
 
             $scope.displayLesson = function() {
-                $http.put('/api/'+$scope.currrentLesson.id, $scope.currrentLesson).success(function() {
+                $http.put('/api/'+$scope.currrentLesson.id, $scope.currrentLesson).success(function(data) {
+                    $scope.currrentLesson.updatedAt = data.updatedAt;
                     $scope.editing = false;
                     sweet.show('The lesson has been saved.', '', 'success');
                 }).error(function() {
