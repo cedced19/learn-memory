@@ -14,7 +14,7 @@ var config = {
         save: {
             adapter: 'disk',
             filePath: ''
-        },
+        }
     },
     defaults: {
         migrate: 'safe'

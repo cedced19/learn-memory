@@ -4,11 +4,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
 var browserify = require('browserify-middleware');
-var passport = require('passport');
-var hash = require('password-hash');
-var flash = require('connect-flash');
+
 var compress = require('compression');
+var minify = require('express-minify');
+
+var passport = require('passport');
+var hash = require('password-hash-and-salt');
+var flash = require('connect-flash');
 var helmet = require('helmet');
 var session = require('express-session');
 
@@ -32,35 +36,20 @@ app.use(cookieParser());
 
 app.use(compress());
 
-// development css and js management
-// will not minify
+// chose what to do with css and js
 if (app.get('env') === 'development') {
   app.use(logger('dev'));
-  app.use(require('node-sass-middleware')({
-    src: path.join(__dirname, 'public'),
-    dest: path.join(__dirname, 'public'),
-    indentedSyntax: true,
-    sourceMap: true
-  }));
   app.use('/javascripts/scripts.js', browserify(__dirname + '/public/javascripts/index.js', {
     debug: true,
     minify: false
   }));
+} else {
+  app.use('/javascripts/scripts.js', browserify(__dirname + '/public/javascripts/index.js', {
+    debug: false,
+    minify: true
+  }));
+  app.use(minify());
 }
-
-// production css and js management
-// will minify
-app.use(require('node-sass-middleware')({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
-  indentedSyntax: true,
-  outputStyle: 'compressed',
-  sourceMap: false
-}));
-app.use('/javascripts/scripts.js', browserify(__dirname + '/public/javascripts/index.js', {
-  debug: false,
-  minify: true
-}));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -107,20 +96,21 @@ function(name, password, done) {
             return done(null, false, { message: 'Incorrect name.' });
           }
           // test password
-          if(hash.verify(password, model.password)) {
-              var returnmodel = {
-                mail: model.name,
-                id: model.id
-              };
-              return done(null, returnmodel, {
-                message: 'Logged in successfully.'
-              });
-              console.log(model, password)
-          } else {
-            return done(null, false, {
-                message: 'Invalid password.'
-            });
-          }
+          hash(password).verifyAgainst(model.password, function(err, verified) {
+              if(err || !verified) {
+                return done(null, false, {
+                    message: 'Invalid password.'
+                });
+              } else {
+                var returnmodel = {
+                    email: model.email,
+                    id: model.id
+                  };
+                  return done(null, returnmodel, {
+                    message: 'Logged in successfully.'
+                  });
+              }
+          });
         });
 }));
 

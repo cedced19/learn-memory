@@ -1,13 +1,17 @@
 var Waterline = require('waterline');
-var hash = require('password-hash');
+var hash = require('password-hash-and-salt');
 
 var format = function(user, cb) {
-    if (user.password) {
-        user.password = hash.generate(user.password);
-    };
-
+  if (user.password) {
+      hash(user.password).hash(function(err, crypted) {
+        if (err) return cb(err);
+        user.password = crypted;
+        cb();
+      });
+  } else {
     cb();
-}
+  }
+};
 
 var Users = Waterline.Collection.extend({
     identity: 'users',
