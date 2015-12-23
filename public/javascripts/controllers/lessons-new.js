@@ -3,10 +3,7 @@ module.exports = ['$scope', '$location', '$http', '$rootScope', '$cookieStore', 
 
         $rootScope.user = $cookieStore.get('learn-memory-user');
 
-        $scope.newLesson = {
-            content: ''
-        };
-
+        $scope.newLesson = {};
         $scope.displayLesson = function() {
             $http.post('/api', $scope.newLesson).success(function(data) {
                 sweet.show('The lesson has been saved.', '', 'success');

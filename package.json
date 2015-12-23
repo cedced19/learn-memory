@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/cedced19/learn-memory",
   "scripts": {
-    "start": "node ./bin/learn-memory"
+    "start": "node ./bin/learn-memory",
+    "test": "mocha --recursive --ui tdd --timeout 50000"
   },
   "bin": {
     "learn": "bin/learn-memory"
@@ -62,5 +63,12 @@
       "type": "MIT",
       "url": "http://cedced19.github.io/license/"
     }
-  ]
+  ],
+  "devDependencies": {
+    "assert": "^1.3.0",
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4",
+    "sails-memory": "^0.10.5",
+    "supertest": "^1.1.0"
+  }
 }

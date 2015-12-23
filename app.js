@@ -70,10 +70,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', index);
+app.use('/api/version', version);
 app.use('/api/users', users);
 app.use('/api', lessons);
 app.use('/api/registrants', registrants);
-app.use('/api/version', version);
 
 // authentication
 passport.serializeUser(function(model, done) {

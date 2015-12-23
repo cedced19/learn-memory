@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
         res.json({
             local: pkg.version,
             github: data.version,
-            url: 'https://github.com/cedced19/listodo/releases/latest'
+            url: 'https://github.com/cedced19/learn-memory/releases/latest'
         });
     });
 });
