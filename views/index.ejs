@@ -17,7 +17,7 @@
                         <a ng-click="$menu.hide('/login')" ng-hide="user" ng-class="{active: nav == 'login'}"><span class="fa fa-user"></span> Login</a>
                         <a ng-click="$menu.hide('/lessons/new')" ng-show="user" ng-class="{active: nav == 'creation'}"><span class="fa fa-pencil-square-o"></span> Create</a>
                         <a ng-click="$menu.hide('/users')" ng-show="user" ng-class="{active: nav == 'users'}"><span class="fa fa-user"></span> Users</a>
-                        <a href="/logout" ng-show="user"><span class="fa fa-power-off"></span> Logout</a>
+                        <a ng-click="$menu.logout()" ng-show="user"><span class="fa fa-power-off"></span> Logout</a>
                     </nav>
                     <span class="header-logo">Learn Memory</span>
                 </header>

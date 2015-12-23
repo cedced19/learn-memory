@@ -31,7 +31,7 @@ router.get('/:id', auth, function(req, res, next) {
 router.delete('/:id', auth, function(req, res, next) {
     req.app.models.registrants.destroy({ id: req.params.id }, function(err) {
         if(err) return next(err);
-        res.json({ status: 'ok' });
+        res.json({ status: true });
     });
 });
 

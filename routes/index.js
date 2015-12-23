@@ -18,12 +18,22 @@ router.get('/', function(req, res, next) {
     }
 });
 
+router.get('/authenticated', function(req, res) {
+    if (req.isAuthenticated()) {
+      res.json({
+        status: true,
+        user: req.user
+      });
+    } else {
+      res.json({ status: false });
+    }
+});
+
 router.get('/login', function(req, res) {
     res.render('login');
 });
 
 router.post('/login', passport.authenticate('local'), function(req, res) {
-    res.cookie('learn-memory-user', JSON.stringify(req.user));
     if (req.xhr) {
         res.json(req.user);
     } else {
@@ -47,7 +57,6 @@ router.post('/signup', function(req, res, next) {
 
 router.get('/logout', function(req, res) {
     req.logout();
-    res.cookie('learn-memory-user', false);
     res.redirect('/');
 });
 

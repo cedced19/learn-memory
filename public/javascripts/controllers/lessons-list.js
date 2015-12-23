@@ -1,7 +1,5 @@
-module.exports = ['$scope', '$location', '$http', '$rootScope', '$cookieStore', 'sweet', function($scope, $location, $http, $rootScope, $cookieStore, sweet) {
+module.exports = ['$scope', '$location', '$http', '$rootScope', 'sweet', function($scope, $location, $http, $rootScope, sweet) {
         $rootScope.nav = 'lessons';
-
-        $rootScope.user = $cookieStore.get('learn-memory-user');
 
         $http.get('/api').success(function(data) {
             $scope.lessons = data;

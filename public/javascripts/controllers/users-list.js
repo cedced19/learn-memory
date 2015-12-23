@@ -1,7 +1,5 @@
-module.exports = ['$scope', '$location', '$http', '$rootScope', '$cookieStore', 'sweet', function($scope, $location, $http, $rootScope, $cookieStore, sweet) {
+module.exports = ['$scope', '$location', '$http', '$rootScope', 'sweet', function($scope, $location, $http, $rootScope, sweet) {
         $rootScope.nav = 'users';
-
-        $rootScope.user = $cookieStore.get('learn-memory-user');
 
         $http.get('/api/version').success(function (data) {
             if (require('semver').lt(data.local, data.github)) {
