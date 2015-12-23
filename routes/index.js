@@ -1,6 +1,6 @@
 var express = require('express');
-var router = express.Router();
 var passport = require('passport');
+var router = express.Router();
 
 /* GET Home page */
 router.get('/', function(req, res, next) {
@@ -8,27 +8,35 @@ router.get('/', function(req, res, next) {
         res.render('index', {});
     } else {
         req.app.models.users.find().exec(function (err, model) {
-          if(err) return res.status(500).json({ err : err });
-          if (model.length == 0) {
-              res.render('signup', {});
+          if(err) return next(err);
+          if (model.length === 0) {
+              res.render('signup');
           } else {
-              res.render('index', {});
+              res.render('index');
           }
         });
     }
 });
 
+router.get('/login', function(req, res) {
+    res.render('login');
+});
+
 router.post('/login', passport.authenticate('local'), function(req, res) {
     res.cookie('learn-memory-user', JSON.stringify(req.user));
-    res.json(req.user);
+    if (req.xhr) {
+        res.json(req.user);
+    } else {
+        res.redirect('/');
+    }
 });
 
 router.post('/signup', function(req, res, next) {
     req.app.models.users.find().exec(function (err, model) {
-        if(err) return res.status(500).json({ err : err });
-        if (model.length == 0) {
+        if(err) return next(err);
+        if (model.length === 0) {
             req.app.models.users.create(req.body, function(err, model) {
-                if(err) return res.status(500).json({ err : err });
+                if(err) return next(err);
                 res.redirect('/');
             });
         } else {
@@ -37,7 +45,7 @@ router.post('/signup', function(req, res, next) {
       });
 });
 
-router.get('/logout', function(req, res, next) {
+router.get('/logout', function(req, res) {
     req.logout();
     res.cookie('learn-memory-user', false);
     res.redirect('/');
