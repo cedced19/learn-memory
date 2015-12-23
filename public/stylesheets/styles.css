@@ -515,6 +515,9 @@ textarea.form-control {
 .fa-power-off:before {
 	content:"\f011"
 }
+.fa-user-plus:before {
+    content: "\f234";
+}
 .sweet-overlay {
 	background-color:rgba(0,0,0,0.4);
 	left:0;
@@ -1305,6 +1308,15 @@ a {
 }
 .container a:hover,.container a:link:hover {
 	color:#2E214B;
+	border-bottom:0
+}
+.lesson-error a, .lesson-error a:link {
+	border-bottom:1px dotted #c7254e;
+	text-decoration:none;
+	cursor:pointer
+}
+.lesson-error a:hover,.lesson-error a:link:hover {
+	color:#910000;
 	border-bottom:0
 }
 @media only screen and (max-width:750px) {

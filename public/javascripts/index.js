@@ -36,6 +36,10 @@ app.config(['$routeProvider', function($routeProvider){
             templateUrl: '/views/users-id.html',
             controller: 'LearnMemoryUsersIdCtrl'
         })
+        .when('/signup', {
+            templateUrl: '/views/signup.html',
+            controller: 'LearnMemorySignupCtrl'
+        })
         .when('/login', {
             templateUrl: '/views/login.html',
             controller: 'LearnMemoryLoginCtrl'
@@ -71,4 +75,5 @@ app.controller('LearnMemoryLessonsNewCtrl', require('./controllers/lessons-new.j
 app.controller('LearnMemoryUsersListCtrl', require('./controllers/users-list.js'));
 app.controller('LearnMemoryUsersIdCtrl', require('./controllers/users-id.js'));
 app.controller('LearnMemoryUsersNewCtrl', require('./controllers/users-new.js'));
+app.controller('LearnMemorySignupCtrl', require('./controllers/signup.js'));
 app.controller('LearnMemoryLoginCtrl', require('./controllers/login.js'));

@@ -1,0 +1,14 @@
+<h2>Sign up</h2>
+<form name="formSignup">
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input id="name" name="name" ng-model="name" type="text" class="form-control" placeholder=Name" required>
+    </div>
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input id="password" name="password" ng-model="password" type="password" class="form-control" placeholder="Password" pattern=".{6,}" required>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-success" ng-disabled="formSignup.$invalid" ng-click="signup()">Sign up</button>
+    </div>
+</form>
