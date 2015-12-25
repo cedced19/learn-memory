@@ -22,7 +22,7 @@ $ learn
 ## Server
 
 ```bash
-$ git clone --deth=1 https://github.com/cedced19/learn-memory
+$ git clone --depth=1 https://github.com/cedced19/learn-memory
 $ cd ./learn-memory
 $ npm install --production
 $ npm start --production
