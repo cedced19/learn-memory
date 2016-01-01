@@ -52,22 +52,6 @@ describe('Test fonts files', function () {
     });
 });
 
-describe('Test version api', function () {
-    it('responds to /api/version', function (done) {
-      request(app)
-        .get('/api/version')
-        .expect(200)
-        .end(function(err, res) {
-            if (err) return done(err);
-            expect(res.body).to.be.an('object');
-            expect(res.body.local).to.be.a('string');
-            expect(res.body.github).to.be.a('string');
-            expect(res.body.url).to.be.a('string');
-            done();
-        });
-    });
-});
-
 describe('Test views files', function () {
     it('responds to /views/lessons-new.html', function (done) {
       request(app)
