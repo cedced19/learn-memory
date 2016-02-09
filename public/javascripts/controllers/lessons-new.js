@@ -1,7 +1,9 @@
 module.exports = ['$scope', '$location', '$http', '$rootScope', 'sweet', function($scope, $location, $http, $rootScope, sweet) {
         $rootScope.nav = 'creation';
 
-        $scope.newLesson = {};
+        $scope.newLesson = {
+          content: ''
+        };
         $scope.displayLesson = function() {
             $http.post('/api', $scope.newLesson).success(function(data) {
                 sweet.show('The lesson has been saved.', '', 'success');
