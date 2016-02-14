@@ -1,15 +1,15 @@
 <p class="lesson-info">
-    <span class="substance">{{currrentLesson.substance}}</span>
-    <span class="date">Updated at {{currrentLesson.updatedAt | date: 'dd/MM/yyyy HH:mm'}}</span>
+    <span class="substance">{{currentLesson.substance}}</span>
+    <span class="date">Updated at {{currentLesson.updatedAt | date: 'dd/MM/yyyy HH:mm'}}</span>
     <br>
     <span class="fa fa-trash action" ng-click="removeLesson()"></span>
     <span class="fa fa-pencil action" ng-click="editing = true" ng-hide="editing"></span>
     <span class="fa fa-print action" ng-click="print()" ng-hide="editing"></span>
 </p>
 <div ng-show="editing" class="input-group">
-    <div text-angular ng-model="currrentLesson.content"></div>
+    <div text-angular ng-model="currentLesson.content"></div>
 </div>
-<div ng-hide="editing" ng-bind-html="currrentLesson.content"></div>
+<div ng-hide="editing" ng-bind-html="currentLesson.content"></div>
 <div ng-show="editing" class="text-center">
     <button class="btn btn-success" ng-click="displayLesson()">Update the lesson</button>
 </div>
