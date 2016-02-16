@@ -1,15 +1,14 @@
-module.exports = ['$scope', '$location', '$http', '$rootScope', 'sweet', function($scope, $location, $http, $rootScope, sweet) {
+module.exports = ['$scope', '$location', '$http', '$rootScope', 'notie', function($scope, $location, $http, $rootScope, notie) {
         $rootScope.nav = 'creation';
 
         $scope.newLesson = {
           content: ''
         };
+
         $scope.displayLesson = function() {
             $http.post('/api', $scope.newLesson).success(function(data) {
-                sweet.show('The lesson has been saved.', '', 'success');
+                notie.alert(1, 'The lesson has been saved.', 3);
                 $location.path('/lessons/' + data.id.toString());
-            }).error(function() {
-                sweet.show('Oops...', 'Something went wrong!', 'error');
-            });
+            }).error($rootScope.$error);
         };
 }];

@@ -1,4 +1,4 @@
-module.exports = ['$scope', '$location', '$http', '$rootScope', 'sweet', function($scope, $location, $http, $rootScope, sweet) {
+module.exports = ['$scope', '$location', '$http', '$rootScope', 'notie', function($scope, $location, $http, $rootScope, notie) {
         $rootScope.nav = 'login';
 
         if ($rootScope.user) {
@@ -12,8 +12,6 @@ module.exports = ['$scope', '$location', '$http', '$rootScope', 'sweet', functio
             }).success(function(data) {
                 $rootScope.user = data;
                 $location.path('/');
-            }).error(function() {
-                sweet.show('Oops...', 'Something went wrong!', 'error');
-            });
+            }).error($rootScope.$error);
         };
 }];

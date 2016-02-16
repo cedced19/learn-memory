@@ -1,4 +1,4 @@
-module.exports = ['$scope', '$location', '$http', '$rootScope', 'sweet', function($scope, $location, $http, $rootScope, sweet) {
+module.exports = ['$scope', '$location', '$http', '$rootScope', function($scope, $location, $http, $rootScope) {
         $rootScope.nav = 'lessons';
 
         $http.get('/api').success(function(data) {
@@ -13,11 +13,7 @@ module.exports = ['$scope', '$location', '$http', '$rootScope', 'sweet', functio
                 $http.get('/api/long').success(function(data) {
                     $scope.lessons = data;
                     $scope.short = false;
-                }).error(function() {
-                    sweet.show('Oops...', 'Something went wrong!', 'error');
-                });
+                }).error($rootScope.$error);
             };
-        }).error(function() {
-            sweet.show('Oops...', 'Something went wrong!', 'error');
-        });
+        }).error($rootScope.$error);
 }];

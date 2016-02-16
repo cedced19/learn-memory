@@ -1,5 +1,9 @@
-module.exports = ['$scope', '$location', '$http', '$rootScope', 'sweet', function($scope, $location, $http, $rootScope, sweet) {
+module.exports = ['$scope', '$location', '$http', '$rootScope', 'notie', function($scope, $location, $http, $rootScope, notie) {
         $rootScope.nav = 'users';
+
+        if (!$rootScope.user) {
+          $location.path('/');
+        }
 
         $http.get('/api/version').success(function (data) {
             if (require('semver').lt(data.local, data.github)) {
@@ -19,12 +23,10 @@ module.exports = ['$scope', '$location', '$http', '$rootScope', 'sweet', functio
                         }).success(function(data) {
                             delete $scope.registrants[key];
                             $scope.users.push(value);
-                            sweet.show('The user has been added.', '', 'success');
+                            notie.alert(1, 'The user has been added.', 3);
                             $http.delete('/api/registrants/' + user.id);
                             $scope.search = '';
-                        }).error(function() {
-                            sweet.show('Oops...', 'Something went wrong!', 'error');
-                        });
+                        }).error($rootScope.$error);
                    }
                 });
             };
@@ -34,17 +36,13 @@ module.exports = ['$scope', '$location', '$http', '$rootScope', 'sweet', functio
                    if (value.id == user.id) {
                        $http.delete('/api/registrants/' + user.id).success(function(data) {
                             delete $scope.registrants[key];
-                            sweet.show('The registrant has been deleted.', '', 'success');
+                            notie.alert(1, 'The registrant has been deleted.', 3);
                             $scope.search = '';
-                        }).error(function() {
-                            sweet.show('Oops...', 'Something went wrong!', 'error');
-                        });
+                        }).error($rootScope.$error);
                    }
                 });
             };
-        }).error(function() {
-            sweet.show('Oops...', 'Something went wrong!', 'error');
-        });
+        }).error($rootScope.$error);
 
         $http.get('/api/users').success(function(data) {
             $scope.users = data;
@@ -59,17 +57,9 @@ module.exports = ['$scope', '$location', '$http', '$rootScope', 'sweet', functio
 
             $scope.deleteUser = function (user) {
                 if (user.id == $scope.user.id) {
-                    sweet.show('Oops...', 'You can\'t delete yourself!', 'error');
+                    notie.alert(3, 'You can\'t delete yourself!', 3);
                 } else {
-                    sweet.show({
-                        title: 'Confirm',
-                        text: 'Delete this user?',
-                        type: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#DD6B55',
-                        confirmButtonText: 'Yes, delete it!',
-                        closeOnConfirm: false
-                    }, function() {
+                    notie.confirm('Delete this user?', 'Yes, delete it!', 'Cancel', function() {
                         $http.delete('/api/users/'+ user.id).success(function() {
                             $scope.users.forEach(function (value, key) {
                                 if (value.id == user.id) {
@@ -77,14 +67,10 @@ module.exports = ['$scope', '$location', '$http', '$rootScope', 'sweet', functio
                                 }
                             });
                             $scope.search = '';
-                            sweet.show('Deleted!', 'The user has been deleted.', 'success');
-                        }).error(function() {
-                            sweet.show('Oops...', 'Something went wrong!', 'error');
-                        });
+                            notie.alert(1, 'Deleted! The user has been deleted.', 3);
+                        }).error($rootScope.$error);
                     });
                 }
             };
-        }).error(function() {
-            sweet.show('Oops...', 'Something went wrong!', 'error');
-        });
+        }).error($rootScope.$error);
 }];

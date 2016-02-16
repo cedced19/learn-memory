@@ -1,4 +1,4 @@
-module.exports = ['$scope', '$location', '$http', '$routeParams', '$rootScope', 'sweet', function($scope, $location, $http, $routeParams, $rootScope, sweet) {
+module.exports = ['$scope', '$location', '$http', '$routeParams', '$rootScope', 'notie', function($scope, $location, $http, $routeParams, $rootScope, notie) {
         $rootScope.nav = '';
 
         $http.get('/api/'+ $routeParams.id).success(function(data) {
@@ -7,21 +7,13 @@ module.exports = ['$scope', '$location', '$http', '$routeParams', '$rootScope', 
             $scope.editing = false;
 
             $scope.removeLesson = function() {
-                sweet.show({
-                    title: 'Confirm',
-                    text: 'Delete this lesson?',
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#DD6B55',
-                    confirmButtonText: 'Yes, delete it!',
-                    closeOnConfirm: false
-                }, function() {
-                    $http.delete('/api/'+$scope.currentLesson.id).success(function() {
-                        sweet.show('Deleted!', 'The lesson has been deleted.', 'success');
-                        $location.path('/');
-                    }).error(function() {
-                        sweet.show('Oops...', 'Something went wrong!', 'error');
-                    });
+                $rootScope.$login(function () {
+                  notie.confirm('Delete this lesson?', 'Yes, delete it!', 'Cancel', function() {
+                      $http.delete('/api/'+$scope.currentLesson.id).success(function() {
+                          notie.alert(1, 'Deleted! The lesson has been deleted.', 3);
+                          $location.path('/');
+                      }).error($rootScope.$error);
+                  });
                 });
             };
 
@@ -30,16 +22,16 @@ module.exports = ['$scope', '$location', '$http', '$routeParams', '$rootScope', 
             };
 
             $scope.displayLesson = function() {
-                $http.put('/api/'+$scope.currentLesson.id, $scope.currentLesson).success(function(data) {
-                    $scope.currentLesson.updatedAt = data.updatedAt;
-                    $scope.editing = false;
-                    sweet.show('The lesson has been saved.', '', 'success');
-                }).error(function() {
-                    sweet.show('Oops...', 'Something went wrong!', 'error');
+                $rootScope.$login(function () {
+                  $http.put('/api/'+$scope.currentLesson.id, $scope.currentLesson).success(function(data) {
+                      $scope.currentLesson.updatedAt = data.updatedAt;
+                      $scope.editing = false;
+                      notie.alert(1, 'The lesson has been saved.', 3);
+                  }).error($rootScope.$error);
                 });
             };
         }).error(function() {
-            sweet.show('Oops...', 'Something went wrong!', 'error');
+            $rootScope.$error();
             $location.path('/');
         });
 }];

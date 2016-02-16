@@ -1,14 +1,14 @@
-module.exports = ['$routeParams', '$scope', '$location', '$http', '$rootScope', 'sweet', function($routeParams, $scope, $location, $http, $rootScope, sweet) {
+module.exports = ['$routeParams', '$scope', '$location', '$http', '$rootScope', 'notie', function($routeParams, $scope, $location, $http, $rootScope, notie) {
         $rootScope.nav = '';
 
-        if ($rootScope.user.id  == $routeParams.id) {
+        if (!$rootScope.user) {
+            $location.path('/');
+        } else if ($rootScope.user.id  == $routeParams.id) {
             $scope.name = $rootScope.user.name;
         } else {
             $http.get('/api/users/' + $routeParams.id).success(function(data) {
                 $scope.name = data.name;
-            }).error(function() {
-                sweet.show('Oops...', 'Something went wrong!', 'error');
-            });
+            }).error($rootScope.$error);
         }
 
         $scope.updateUser = function () {
@@ -16,10 +16,8 @@ module.exports = ['$routeParams', '$scope', '$location', '$http', '$rootScope', 
                     name: $scope.name,
                     password: $scope.password
                 }).success(function(data) {
-                    sweet.show('The user has been updated.', '', 'success');
+                    notie.alert(1, 'The user has been updated.', 3);
                     $location.path('/users/' + data.id.toString());
-                }).error(function() {
-                    sweet.show('Oops...', 'Something went wrong!', 'error');
-                });
+                }).error($rootScope.$error);
         };
 }];

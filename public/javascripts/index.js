@@ -2,13 +2,12 @@ require('angular'); /*golbal angular*/
 require('angular-route');
 require('angular-sanitize');
 require('angular-touch');
-require('./alert/sweet-alert.js');
-require('./alert/ng-sweet-alert.js');
+require('ng-notie');
 require('./edit/text-angular-rangy.min.js');
 require('./edit/text-angular-sanitize.min.js');
 require('./edit/text-angular.min.js');
 
-var app = angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'ngTouch', 'textAngular']);
+var app = angular.module('LearnMemory', ['ngNotie', 'ngSanitize', 'ngRoute', 'ngTouch', 'textAngular']);
 app.config(['$routeProvider', function($routeProvider){
         $routeProvider
         .when('/', {
@@ -47,7 +46,7 @@ app.config(['$routeProvider', function($routeProvider){
             redirectTo: '/'
         });
 }]);
-app.run(['$rootScope', '$location', '$http', function ($rootScope, $location, $http) {
+app.run(['$rootScope', '$location', '$http', 'notie', function ($rootScope, $location, $http, notie) {
         $rootScope.$menu = {
             show: function () {
               document.getElementsByTagName('body')[0].classList.add('with-sidebar');
@@ -72,6 +71,28 @@ app.run(['$rootScope', '$location', '$http', function ($rootScope, $location, $h
               $rootScope.user = false;
           }
         });
+        $rootScope.$error = function () {
+          notie.alert(3, 'Something went wrong!', 3);
+        };
+        $rootScope.$login = function (cb) {
+          if (!$rootScope.user) {
+            notie.input('You must authenticate to do that', 'Continue', 'Cancel', 'text', 'Name', function (name) {
+              notie.input('You must authenticate to do that', 'Login', 'Cancel', 'password', 'Password', function (password) {
+                $http.post('/login', {
+                    name: name,
+                    password: password
+                }).success(function(data) {
+                    $rootScope.user = data;
+                    cb();
+                }).error(function () {
+                    notie.alert(3, 'Invalid name or password.', 3);
+                });
+              });
+            });
+          } else {
+            cb();
+          }
+        };
 }]);
 app.directive('toolbarTip', function() {
     return {
