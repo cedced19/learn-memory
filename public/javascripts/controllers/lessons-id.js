@@ -31,7 +31,7 @@ module.exports = ['$scope', '$location', '$http', '$routeParams', '$rootScope', 
                 });
             };
         }).error(function() {
-            $rootScope.$error();
+            notie.alert(2, 'The lesson does not exists anymore.', 3);
             $location.path('/');
         });
 }];

@@ -72,7 +72,14 @@ app.run(['$rootScope', '$location', '$http', 'notie', function ($rootScope, $loc
           }
         });
         $rootScope.$error = function () {
-          notie.alert(3, 'Something went wrong!', 3);
+          $http.get('/authenticated').success(function (data) {
+            if (!data.status) {
+                $rootScope.user = false;
+            }
+            notie.alert(3, 'Something went wrong!', 3);
+          }).error(function () {
+            notie.alert(3, 'Cannot access to the server.', 3);
+          });
         };
         $rootScope.$login = function (cb) {
           if (!$rootScope.user) {
