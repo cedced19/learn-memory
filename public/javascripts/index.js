@@ -1,4 +1,4 @@
-require('angular'); /*golbal angular*/
+require('angular'); /*global angular*/
 require('angular-route');
 require('angular-sanitize');
 require('angular-touch');
@@ -82,23 +82,25 @@ app.run(['$rootScope', '$location', '$http', 'notie', function ($rootScope, $loc
           });
         };
         $rootScope.$login = function (cb) {
-          if (!$rootScope.user) {
-            notie.input('You must authenticate to do that', 'Continue', 'Cancel', 'text', 'Name', function (name) {
-              notie.input('You must authenticate to do that', 'Login', 'Cancel', 'password', 'Password', function (password) {
-                $http.post('/login', {
-                    name: name,
-                    password: password
-                }).success(function(data) {
-                    $rootScope.user = data;
-                    cb();
-                }).error(function () {
-                    notie.alert(3, 'Invalid name or password.', 3);
+          $http.get('/authenticated').success(function (data) {
+            if (!data.status) {
+              notie.input('You must authenticate to do that', 'Continue', 'Cancel', 'text', 'Name', function (name) {
+                notie.input('You must authenticate to do that', 'Login', 'Cancel', 'password', 'Password', function (password) {
+                  $http.post('/login', {
+                      name: name,
+                      password: password
+                  }).success(function(data) {
+                      $rootScope.user = data;
+                      cb();
+                  }).error(function () {
+                      notie.alert(3, 'Invalid name or password.', 3);
+                  });
                 });
               });
-            });
-          } else {
-            cb();
-          }
+            } else {
+              cb();
+            }
+          });
         };
 }]);
 app.directive('toolbarTip', function() {
