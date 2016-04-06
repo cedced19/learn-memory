@@ -3,3 +3,4 @@ tmp
 *.db
 *.map
 *.log
+public/javascripts/scripts.js

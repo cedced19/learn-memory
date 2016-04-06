@@ -5,8 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var browserify = require('browserify-middleware');
-
 var compress = require('compression');
 var minify = require('express-minify');
 
@@ -38,18 +36,9 @@ app.use(cookieParser());
 
 app.use(compress());
 
-// chose what to do with css and js
 if (app.get('env') === 'development') {
   app.use(logger('dev'));
-  app.use('/javascripts/scripts.js', browserify(__dirname + '/public/javascripts/index.js', {
-    debug: true,
-    minify: false
-  }));
 } else {
-  app.use('/javascripts/scripts.js', browserify(__dirname + '/public/javascripts/index.js', {
-    debug: false,
-    minify: true
-  }));
   app.use(minify());
 }
 

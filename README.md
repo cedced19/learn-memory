@@ -33,7 +33,7 @@ $ npm start --production
 ```
 --production               launch in production mode
 
---port [number]          specified the port
+--port [number]            specified the port
 ```
 
 ## API
@@ -45,3 +45,9 @@ You can use a [application](https://github.com/cedced19/learn-memory-mobile)  to
 There are two solution to get lessons on this application:
 * redirect ports on your server and get your global ip
 * be on the same wifi as your server and get its local ip
+
+## Developers
+
+There are two npm command with wich you can compile javascript:
+* `npm run dev`: reload page on change and build bundle
+* `npm run prod`: build and uglify bundle
