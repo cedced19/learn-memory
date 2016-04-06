@@ -127,16 +127,7 @@ describe('Test views files', function () {
     });
 });
 
-describe('Test javascripts and styles files', function () {
-    it('responds to /javascripts/scripts.js', function (done) {
-      request(app)
-        .get('/javascripts/scripts.js')
-        .expect(200)
-        .end(function(err, res) {
-            if (err) return done(err);
-            done();
-        });
-    });
+describe('Test styles file', function () {
     it('responds to /stylesheets/styles.css', function (done) {
       request(app)
         .get('/stylesheets/styles.css')

@@ -48,6 +48,6 @@ There are two solution to get lessons on this application:
 
 ## Developers
 
-There are two npm command with wich you can compile javascript:
+There are two npm commands with which you can compile javascript:
 * `npm run dev`: reload page on change and build bundle
 * `npm run prod`: build and uglify bundle
