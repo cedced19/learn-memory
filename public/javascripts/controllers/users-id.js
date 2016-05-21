@@ -12,12 +12,24 @@ module.exports = ['$routeParams', '$scope', '$location', '$http', '$rootScope', 
         }
 
         $scope.updateUser = function () {
-                $http.put('/api/users/' + $routeParams.id, {
-                    name: $scope.name,
-                    password: $scope.password
-                }).success(function(data) {
-                    notie.alert(1, 'The user has been updated.', 3);
-                    $location.path('/users/' + data.id.toString());
-                }).error($rootScope.$error);
-        };
+           if ($scope.password == $scope.confirmpassword && $scope.password != $scope.oldpassword) {
+             $http.put('/api/users/' + $routeParams.id, {
+                 name: $scope.name,
+                 password: $scope.password,
+                 oldpassword: $scope.oldpassword
+             }).success(function(data) {
+                 notie.alert(1, 'The user has been updated.', 3);
+                 $location.path('/users/');
+             }).error(function (data, code) {
+                 if (code == 401) {
+                   notie.alert(3, 'Old password does not match.', 3);
+                 } else {
+                   $rootScope.$error();
+                 }
+             });
+           } else {
+             notie.alert(3, 'Password and confirm password are not the same.', 3);
+           }
+       };
+
 }];

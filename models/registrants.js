@@ -1,5 +1,4 @@
 var Waterline = require('waterline');
-var hash = require('password-hash-and-salt');
 
 var Registrants = Waterline.Collection.extend({
     identity: 'registrants',

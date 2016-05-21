@@ -5,8 +5,16 @@
         <input id="name" name="name" ng-model="name" type="text" class="form-control" placeholder="Name">
     </div>
     <div class="form-group">
-        <label for="password">Password:</label>
-        <input id="password" name="password" ng-model="password" type="password" class="form-control" placeholder="Password">
+        <label for="oldpassword">Old password:</label>
+        <input id="oldpassword" name="password" ng-model="oldpassword" type="password" class="form-control" placeholder="Old password" pattern=".{6,}" required>
+    </div>
+    <div class="form-group">
+        <label for="password">New password:</label>
+        <input id="password" name="password" ng-model="password" type="password" class="form-control" placeholder="Password" pattern=".{6,}" required>
+    </div>
+    <div class="form-group">
+        <label for="confirmpassword">Confirm new password:</label>
+        <input id="confirmpassword" name="password" ng-model="confirmpassword" type="password" class="form-control" placeholder="Confirm new password" pattern=".{6,}" required>
     </div>
     <div class="form-group">
         <button class="btn btn-default">Update user</button>
