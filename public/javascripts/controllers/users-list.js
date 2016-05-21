@@ -6,7 +6,7 @@ module.exports = ['$scope', '$location', '$http', '$rootScope', 'notie', functio
         }
 
         $http.get('/api/version').success(function (data) {
-            if (require('semver').lt(data.local, data.github)) {
+            if (data.update) {
                 $scope.update = data.url;
             }
         });
