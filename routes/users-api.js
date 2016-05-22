@@ -59,7 +59,7 @@ router.put('/:id', auth, function(req, res, next) {
             return next(err);
           } else {
           req.app.models.users.update({ id: req.params.id }, {
-            name: req.body.namestart,
+            name: req.body.name,
             password : req.body.password
           }, function(err, model) {
                 if(err) return next(err);
