@@ -1,5 +1,5 @@
-module.exports = ['$routeParams', '$scope', '$location', '$http', '$rootScope', 'notie', function($routeParams, $scope, $location, $http, $rootScope, notie) {
-  
+module.exports = ['$routeParams', '$scope', '$location', '$http', '$rootScope', 'notie', '$translate', function($routeParams, $scope, $location, $http, $rootScope, notie, $translate) {
+
         if (!$rootScope.user) {
             $location.path('/');
         } else if ($rootScope.user.id  == $routeParams.id) {
