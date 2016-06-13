@@ -91,6 +91,10 @@ app.run(['$rootScope', '$location', '$http', 'notie', '$translate', 'localStorag
             }
         };
 
+        $rootScope.$on('$routeChangeSuccess', function(event, next, current) { // Close menu
+          $rootScope.nav = $location.path();
+        });
+
         $http.get('/authenticated').success(function (data) {
           if (data.status) {
               $rootScope.user = data.user;

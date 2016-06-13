@@ -1,5 +1,5 @@
 module.exports = ['$scope', '$location', '$http', '$rootScope', function($scope, $location, $http, $rootScope) {
-        $rootScope.nav = 'lessons';
+  
 
         $http.get('/api').success(function(data) {
             $scope.lessons = data;

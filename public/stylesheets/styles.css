@@ -796,7 +796,7 @@ a {
 	color:#910000;
 	border-bottom:0
 }
-@media only screen and (max-width:750px) {
+@media only screen and (max-width:760px) {
 	.site-container,.site-pusher {
 		height:100%
 	}

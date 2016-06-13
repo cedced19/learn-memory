@@ -9,7 +9,7 @@
           </tr>
       </thead>
       <tbody>
-          <tr ng-repeat="language in languages | filter:search" ng-click="changeLanguage(language.code)">
+          <tr ng-repeat="language in languages | filter:search" ng-click="changeLanguage(language.code)" class="fade">
               <td>{{ language.code }}</td>
               <td>{{ language.name }}</td>
           </tr>

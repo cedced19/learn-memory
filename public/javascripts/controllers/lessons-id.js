@@ -1,5 +1,4 @@
 module.exports = ['$scope', '$location', '$http', '$routeParams', '$rootScope', 'notie', '$translate', function($scope, $location, $http, $routeParams, $rootScope, notie, $translate) {
-        $rootScope.nav = '';
 
         $http.get('/api/'+ $routeParams.id).success(function(data) {
             $scope.currentLesson = data;
