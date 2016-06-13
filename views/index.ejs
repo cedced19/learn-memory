@@ -17,11 +17,11 @@
                 <header class="header">
                     <a class="header-icon" ng-click="$menu.show()"></a>
                     <nav class="menu" ng-hide="init">
-                        <a ng-click="$menu.hide('/')" ng-class="{active: nav == 'lessons'}"><span class="fa fa-list"></span> Lessons</a>
-                        <a ng-click="$menu.hide('/login')" ng-hide="user" ng-class="{active: nav == 'login'}"><span class="fa fa-user"></span> Login</a>
-                        <a ng-click="$menu.hide('/lessons/new')" ng-show="user" ng-class="{active: nav == 'creation'}"><span class="fa fa-pencil-square-o"></span> Create</a>
-                        <a ng-click="$menu.hide('/users')" ng-show="user" ng-class="{active: nav == 'users'}"><span class="fa fa-user"></span> Users</a>
-                        <a ng-click="$menu.logout()" ng-show="user"><span class="fa fa-power-off"></span> Logout</a>
+                        <a ng-click="$menu.hide('/')" ng-class="{active: nav == 'lessons'}"><span class="fa fa-list"></span> {{ 'lessons' | translate }}</a>
+                        <a ng-click="$menu.hide('/login')" ng-hide="user" ng-class="{active: nav == 'login'}"><span class="fa fa-user"></span> {{ 'login' | translate }}</a>
+                        <a ng-click="$menu.hide('/lessons/new')" ng-show="user" ng-class="{active: nav == 'creation'}"><span class="fa fa-pencil-square-o"></span> {{ 'create' | translate }}</a>
+                        <a ng-click="$menu.hide('/users')" ng-show="user" ng-class="{active: nav == 'users'}"><span class="fa fa-user"></span> {{ 'users' | translate }}</a>
+                        <a ng-click="$menu.logout()" ng-show="user"><span class="fa fa-power-off"></span> {{ 'logout' | translate }}</a>
                     </nav>
                     <span class="header-logo">Learn Memory</span>
                 </header>

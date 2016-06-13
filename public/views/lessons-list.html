@@ -1,24 +1,24 @@
 <div ng-class="{ 'form-inline': short }">
-    <input ng-model="search" type="text" class="form-control" placeholder="Search">
-    <button ng-click="advancedSearch()" ng-show="short" class="btn btn-default">Advanced search</button>
+    <input ng-model="search" type="text" class="form-control" placeholder="{{ 'search' | translate }}">
+    <button ng-click="advancedSearch()" ng-show="short" class="btn btn-default">{{ 'advenced_search' | translate }}</button>
 </div>
 <br>
 <div class="table-responsive">
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>Substance</th>
-                <th>Content</th>
-                <th>Last update</th>
-                <th ng-hide="short">Creation date</th>
+                <th>{{ 'subject' | translate }}</th>
+                <th>{{ 'content' | translate }}</th>
+                <th>{{ 'last_update' | translate }}</th>
+                <th ng-hide="short">{{ 'creation_date' | translate }}</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="lesson in lessons | filter:search | orderBy:'updatedAt':true" ng-click="goLesson(lesson)" class="fade">
                 <td>{{lesson.substance}}</td>
                 <td>{{lesson.keywords | limitTo : 20}} ...</td>
-                <td>{{lesson.updatedAt | date: 'dd/MM/yyyy' }}</td>
-                <td ng-hide="short">{{lesson.createdAt | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ 'date' | translate:{date: lesson.updatedAt} }}</td>
+                <td ng-hide="short">{{ 'date' | translate:{date: lesson.createdAt} }}</td>
             </tr>
         </tbody>
     </table>

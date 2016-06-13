@@ -1,4 +1,4 @@
-module.exports = ['$scope', '$location', '$http', '$routeParams', '$rootScope', 'notie', function($scope, $location, $http, $routeParams, $rootScope, notie) {
+module.exports = ['$scope', '$location', '$http', '$routeParams', '$rootScope', 'notie', '$translate', function($scope, $location, $http, $routeParams, $rootScope, notie, $translate) {
         $rootScope.nav = '';
 
         $http.get('/api/'+ $routeParams.id).success(function(data) {
@@ -8,11 +8,13 @@ module.exports = ['$scope', '$location', '$http', '$routeParams', '$rootScope', 
 
             $scope.removeLesson = function() {
                 $rootScope.$login(function () {
-                  notie.confirm('Delete this lesson?', 'Yes, delete it!', 'Cancel', function() {
-                      $http.delete('/api/'+$scope.currentLesson.id).success(function() {
-                          notie.alert(1, 'Deleted! The lesson has been deleted.', 3);
-                          $location.path('/');
-                      }).error($rootScope.$error);
+                  $translate(['delete_it', 'delete_lesson_question', 'lesson_deleted', 'cancel']).then(function (translations) {
+                    notie.confirm(translations['delete_lesson_question'], translations['delete_it'], translations['cancel'], function() {
+                        $http.delete('/api/' + $scope.currentLesson.id).success(function() {
+                            notie.alert(1, translations['lesson_deleted'], 3);
+                            $location.path('/');
+                        }).error($rootScope.$error);
+                    });
                   });
                 });
             };
@@ -23,15 +25,19 @@ module.exports = ['$scope', '$location', '$http', '$routeParams', '$rootScope', 
 
             $scope.displayLesson = function() {
                 $rootScope.$login(function () {
-                  $http.put('/api/'+$scope.currentLesson.id, $scope.currentLesson).success(function(data) {
+                  $http.put('/api/' + $scope.currentLesson.id, $scope.currentLesson).success(function(data) {
                       $scope.currentLesson.updatedAt = data.updatedAt;
                       $scope.editing = false;
-                      notie.alert(1, 'The lesson has been saved.', 3);
+                      $translate('lesson_saved').then(function (translation) {
+                        notie.alert(1, translation, 3);
+                      });
                   }).error($rootScope.$error);
                 });
             };
         }).error(function() {
-            notie.alert(2, 'The lesson does not exists anymore.', 3);
+            $translate('lesson_saved').then(function (translation) {
+              notie.alert(2, translation, 3);
+            });
             $location.path('/');
         });
 }];

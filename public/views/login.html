@@ -1,17 +1,17 @@
-<h2>Log in</h2>
+<h2>{{ 'login' | translate }}</h2>
 <form name="formLogin">
     <div class="form-group">
-        <label for="name">Name:</label>
-        <input id="name" name="name" ng-model="name" type="text" class="form-control" placeholder="Name" required>
+        <label for="name">{{ 'name' | translate }}:</label>
+        <input id="name" name="name" ng-model="name" type="text" class="form-control" placeholder="{{ 'name' | translate }}" required>
     </div>
     <div class="form-group">
-        <label for="password">Password:</label>
-        <input id="password" name="password" ng-model="password" type="password" class="form-control" placeholder="Password" required>
+        <label for="password">{{ 'password' | translate }}:</label>
+        <input id="password" name="password" ng-model="password" type="password" class="form-control" placeholder="{{ 'password' | translate }}" required>
     </div>
     <div class="form-group">
-        <i>You haven't account? Create it <a href="#/signup">here</a>.</i>
+        <i ng-bind-html="'no_account' | translate"></i>
     </div>
     <div class="form-group">
-        <button class="btn btn-success" ng-disabled="formLogin.$invalid" ng-click="login()">Log in</button>
+        <button class="btn btn-success" ng-disabled="formLogin.$invalid" ng-click="login()">{{ 'login' | translate }}</button>
     </div>
 </form>

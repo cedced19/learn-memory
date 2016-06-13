@@ -1,12 +1,12 @@
 <form name="formCreation">
     <div class="input-group">
-        <input type="text" class="form-control" ng-disabled placeholder="Substance" ng-model="newLesson.substance">
+        <input type="text" class="form-control" ng-disabled placeholder="{{ 'subject' | translate }}" ng-model="newLesson.substance">
     </div>
     <div class="input-group">
         <div text-angular ng-model="newLesson.content"></div>
     </div>
     </div>
     <div class="text-center">
-        <button class="btn btn-success" ng-disabled="formCreation.$pristine" ng-click="displayLesson()">Adding a new lesson</button>
+        <button class="btn btn-success" ng-disabled="formCreation.$pristine" ng-click="displayLesson()">{{ 'add_lesson' | translate }}</button>
     </div>
 </form>

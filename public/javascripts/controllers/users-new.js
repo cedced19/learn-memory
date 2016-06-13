@@ -10,7 +10,9 @@ module.exports = ['$scope', '$location', '$http', '$rootScope', 'notie', functio
                 name: $scope.name,
                 password: $scope.password
             }).success(function(data) {
-                notie.alert(1, 'The user has been saved.', 3);
+                $translate('user_saved').then(function (message) {
+                  notie.alert(1, message, 3);
+                });
                 $location.path('/users/' + data.id.toString());
             }).error($rootScope.$error);
         };

@@ -1,4 +1,4 @@
-module.exports = ['$scope', '$location', '$http', '$rootScope', 'notie', function($scope, $location, $http, $rootScope, notie) {
+module.exports = ['$scope', '$location', '$http', '$rootScope', 'notie', '$translate', function($scope, $location, $http, $rootScope, notie, $translate) {
         $rootScope.nav = '';
 
         if ($rootScope.user) {
@@ -11,7 +11,9 @@ module.exports = ['$scope', '$location', '$http', '$rootScope', 'notie', functio
                 password: $scope.password
             }).success(function() {
                 $location.path('/');
-                notie.alert(1, 'You have been registered.', 3);
+                $translate('registrant_created').then(function (translation) {
+                 notie.alert(1, translation, 3);
+               });
             }).error($rootScope.$error);
         };
 }];

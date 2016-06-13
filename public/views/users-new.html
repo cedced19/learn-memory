@@ -1,14 +1,14 @@
-<h2>New user:</h2>
-<form ng-submit="createUser()">
+<h2>{{ 'new_user' | translate }}:</h2>
+<form ng-submit="createUser()" name="formCreate">
     <div class="form-group">
-        <label for="name">Name:</label>
-        <input id="name" name="name" ng-model="name" type="text" class="form-control" placeholder="Name">
+        <label for="name">{{ 'name' | translate }}:</label>
+        <input id="name" name="name" ng-model="name" type="text" class="form-control" placeholder="{{ 'name' | translate }}" required>
     </div>
     <div class="form-group">
-        <label for="password">Password:</label>
-        <input id="password" name="password" ng-model="password" type="password" class="form-control" placeholder="Password">
+        <label for="password">{{ 'password' | translate }}:</label>
+        <input id="password" name="password" ng-model="password" type="password" class="form-control" placeholder="{{ 'password' | translate }}" required>
     </div>
     <div class="form-group">
-        <button class="btn btn-default">Add a new user</button>
+        <button class="btn btn-default" ng-disabled="formCreate.$invalid">{{ 'add_user' | translate }}</button>
     </div>
 </form>

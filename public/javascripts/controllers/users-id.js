@@ -12,24 +12,26 @@ module.exports = ['$routeParams', '$scope', '$location', '$http', '$rootScope', 
         }
 
         $scope.updateUser = function () {
-           if ($scope.password == $scope.confirmpassword && $scope.password != $scope.oldpassword) {
-             $http.put('/api/users/' + $routeParams.id, {
-                 name: $scope.name,
-                 password: $scope.password,
-                 oldpassword: $scope.oldpassword
-             }).success(function(data) {
-                 notie.alert(1, 'The user has been updated.', 3);
-                 $location.path('/users/');
-             }).error(function (data, code) {
-                 if (code == 401) {
-                   notie.alert(3, 'Old password does not match.', 3);
-                 } else {
-                   $rootScope.$error();
-                 }
-             });
-           } else {
-             notie.alert(3, 'Password and confirm password are not the same.', 3);
-           }
+           $translate(['user_updated', 'old_password_doesnt_match', 'confirm_password_doesnt_match']).then(function (translations) {
+             if ($scope.password == $scope.confirmpassword && $scope.password != $scope.oldpassword) {
+               $http.put('/api/users/' + $routeParams.id, {
+                   name: $scope.name,
+                   password: $scope.password,
+                   oldpassword: $scope.oldpassword
+               }).success(function(data) {
+                   notie.alert(1, translations['user_updated'], 3);
+                   $location.path('/users/');
+               }).error(function (data, code) {
+                   if (code == 401) {
+                     notie.alert(3, translations['old_password_doesnt_match'], 3);
+                   } else {
+                     $rootScope.$error();
+                   }
+               });
+             } else {
+               notie.alert(3, translations['confirm_password_doesnt_match'], 3);
+             }
+           });
        };
 
 }];

@@ -29,9 +29,13 @@
   },
   "dependencies": {
     "angular": "^1.4.5",
+    "angular-local-storage": "^0.2.7",
     "angular-route": "^1.4.5",
     "angular-sanitize": "^1.4.5",
     "angular-touch": "^1.4.5",
+    "angular-translate": "^2.11.0",
+    "angular-translate-loader-static-files": "^2.11.0",
+    "angular-translate-loader-url": "^2.11.0",
     "body-parser": "~1.13.2",
     "browserify": "^13.0.0",
     "check-update": "0.0.8",

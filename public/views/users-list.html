@@ -1,21 +1,21 @@
 <p class="lesson-error" ng-show="update">
-    There is a new version. You can update. <a href="{{update}}">Learn more</a>.
+    {{ 'new_version' | translate }} <a href="{{update}}">{{ 'learn_more' | translate }}</a>.
 </p>
 <p class="lesson-info" ng-hide="update">
-    You have the latest version.
+    {{ 'last_version' | translate }}
 </p>
 <div class="form-inline">
-    <input ng-model="search" type="text" class="form-control" placeholder="Search">
-    <input ng-click="createUser()" type="submit" class="btn btn-default" value="Add a new user">
+    <input ng-model="search" type="text" class="form-control" placeholder="{{ 'search' | translate }}">
+    <input ng-click="createUser()" type="submit" class="btn btn-default" value="{{ 'add_user' | translate }}">
 </div>
-<h2>Users</h2>
+<h2>{{ 'users' | translate }}</h2>
 <div class="table-responsive">
     <table class="table table-hover">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Actions</th>
+                <th>{{ 'name' | translate }}</th>
+                <th>{{ 'actions' | translate }}</th>
             </tr>
         </thead>
         <tbody>
@@ -30,14 +30,14 @@
         </tbody>
     </table>
 </div>
-<h2>Registrants</h2>
+<h2>{{ 'registrants' | translate }}</h2>
 <div class="table-responsive" ng-show="registrants.length">
     <table class="table table-hover">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Actions</th>
+                <th>{{ 'name' | translate }}</th>
+                <th>{{ 'actions' | translate }}</th>
             </tr>
         </thead>
         <tbody>
@@ -52,4 +52,4 @@
         </tbody>
     </table>
 </div>
-<p ng-hide="registrants.length">There is no registrant.</p>
+<p ng-hide="registrants.length">{{ 'no_registrant' | translate }}</p>

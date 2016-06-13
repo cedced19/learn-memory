@@ -1,17 +1,19 @@
-module.exports = ['$scope', '$location', '$http', '$rootScope', 'notie', function($scope, $location, $http, $rootScope, notie) {
+module.exports = ['$scope', '$location', '$http', '$rootScope', 'notie', '$translate', function($scope, $location, $http, $rootScope, notie, $translate) {
         $rootScope.nav = 'creation';
 
         if (!$rootScope.user) {
           $location.path('/');
         }
-        
+
         $scope.newLesson = {
           content: ''
         };
 
         $scope.displayLesson = function() {
             $http.post('/api', $scope.newLesson).success(function(data) {
-                notie.alert(1, 'The lesson has been saved.', 3);
+                $translate('lesson_saved').then(function (translation) {
+                  notie.alert(1, translation, 3);
+                });
                 $location.path('/lessons/' + data.id.toString());
             }).error($rootScope.$error);
         };

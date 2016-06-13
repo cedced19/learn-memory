@@ -23,7 +23,9 @@ module.exports = ['$scope', '$location', '$http', '$rootScope', 'notie', functio
                         }).success(function(data) {
                             delete $scope.registrants[key];
                             $scope.users.push(value);
-                            notie.alert(1, 'The user has been added.', 3);
+                            $translate('user_added').then(function (translation) {
+                              notie.alert(1, translation, 3);
+                            });
                             $http.delete('/api/registrants/' + user.id);
                             $scope.search = '';
                         }).error($rootScope.$error);
@@ -36,7 +38,9 @@ module.exports = ['$scope', '$location', '$http', '$rootScope', 'notie', functio
                    if (value.id == user.id) {
                        $http.delete('/api/registrants/' + user.id).success(function(data) {
                             delete $scope.registrants[key];
-                            notie.alert(1, 'The registrant has been deleted.', 3);
+                            $translate('registrant_deleted').then(function (translation) {
+                              notie.alert(1, translation, 3);
+                            });
                             $scope.search = '';
                         }).error($rootScope.$error);
                    }
@@ -56,21 +60,23 @@ module.exports = ['$scope', '$location', '$http', '$rootScope', 'notie', functio
             };
 
             $scope.deleteUser = function (user) {
-                if (user.id == $scope.user.id) {
-                    notie.alert(3, 'You can\'t delete yourself!', 3);
-                } else {
-                    notie.confirm('Delete this user?', 'Yes, delete it!', 'Cancel', function() {
+                $translate(['error_delete_yourself', 'delete_it', 'delete_user_question', 'user_deleted', 'cancel']).then(function (translations) {
+                  if (user.id == $scope.user.id) {
+                     notie.alert(3, translations['error_delete_yourself'], 3);
+                  } else {
+                     notie.confirm(translations['delete_user_question'], translations['delete_it'], translations['cancel'], function() {
                         $http.delete('/api/users/'+ user.id).success(function() {
-                            $scope.users.forEach(function (value, key) {
-                                if (value.id == user.id) {
-                                     delete $scope.users[key];
-                                }
-                            });
-                            $scope.search = '';
-                            notie.alert(1, 'Deleted! The user has been deleted.', 3);
+                              $scope.users.forEach(function (value, key) {
+                                  if (value.id == user.id) {
+                                      delete $scope.users[key];
+                                  }
+                              });
+                              $scope.search = '';
+                              notie.alert(1, translations['user_deleted'], 3);
                         }).error($rootScope.$error);
-                    });
-                }
+                     });
+                  }
+              });
             };
         }).error($rootScope.$error);
 }];
