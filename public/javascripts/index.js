@@ -47,6 +47,10 @@ app.config(['$routeProvider', '$translateProvider', 'localStorageServiceProvider
             templateUrl: '/views/login.html',
             controller: 'LearnMemoryLoginCtrl'
         })
+        .when('/languages', {
+            templateUrl: '/views/languages.html',
+            controller: 'LearnMemoryLanguagesCtrl'
+        })
         .otherwise({
             redirectTo: '/'
         });
@@ -159,3 +163,4 @@ app.controller('LearnMemoryUsersIdCtrl', require('./controllers/users-id.js'));
 app.controller('LearnMemoryUsersNewCtrl', require('./controllers/users-new.js'));
 app.controller('LearnMemorySignupCtrl', require('./controllers/signup.js'));
 app.controller('LearnMemoryLoginCtrl', require('./controllers/login.js'));
+app.controller('LearnMemoryLanguagesCtrl', require('./controllers/languages.js'));

@@ -49,5 +49,8 @@
   "lessons": "Lessons",
   "create": "Create",
   "logout": "Log out",
-  "date": "{{ date | date:'MM/dd/yyyy' }}"
+  "date": "{{ date | date:'MM/dd/yyyy' }}",
+  "languages": "Languages",
+  "language_name": "Language name",
+  "language_code": "Language code"
 }

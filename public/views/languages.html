@@ -1,0 +1,18 @@
+<h1>{{ 'languages' | translate }}</h1>
+<input ng-model="search" type="text" class="form-control" placeholder="{{ 'search' | translate }}" class="search">
+<div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+          <tr>
+              <th>{{ 'language_code' | translate }}</th>
+              <th>{{ 'language_name' | translate }}</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr ng-repeat="language in languages | filter:search" ng-click="changeLanguage(language.code)">
+              <td>{{ language.code }}</td>
+              <td>{{ language.name }}</td>
+          </tr>
+      </tbody>
+    </table>
+</div>

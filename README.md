@@ -1,6 +1,7 @@
 # Learn-Memory
 
 A Node.js software to learn your lesson.
+This software is translated in English and French.
 
 [![Build Status](https://travis-ci.org/cedced19/learn-memory.svg)](https://travis-ci.org/cedced19/learn-memory)
 [![NPM version](https://badge.fury.io/js/learn-memory.svg)](http://badge.fury.io/js/learn-memory)
@@ -38,7 +39,7 @@ $ npm start --production
 
 ## API
 
-There are a Rest API on `http://localhost:7772/api/`.
+There are a Rest API on `http://localhost:7772/api/` to get lessons.
 
 You can use a [application](https://github.com/cedced19/learn-memory-mobile)  to show you your lessons on your mobile phone online and __offline__.
 
