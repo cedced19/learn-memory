@@ -67,6 +67,7 @@ app.config(['$routeProvider', '$translateProvider', 'localStorageServiceProvider
         .registerAvailableLanguageKeys(['en', 'fr'], {
           'fr_*': 'fr',
           'en_*': 'en',
+          '*': 'en'
         })
         .useSanitizeValueStrategy(null)
         .determinePreferredLanguage()
