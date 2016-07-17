@@ -34,7 +34,7 @@ module.exports = ['$scope', '$location', '$http', '$routeParams', '$rootScope', 
                 });
             };
         }).error(function() {
-            $translate('lesson_saved').then(function (translation) {
+            $translate('lesson_doesnt_exist').then(function (translation) {
               notie.alert(2, translation, 3);
             });
             $location.path('/');
