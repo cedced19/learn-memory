@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var compress = require('compression');
-var minify = require('express-minify');
 
 var passport = require('passport');
 var hash = require('password-hash-and-salt');
@@ -38,8 +37,6 @@ app.use(compress());
 
 if (app.get('env') === 'development') {
   app.use(logger('dev'));
-} else {
-  app.use(minify());
 }
 
 app.use(express.static(path.join(__dirname, 'public')));

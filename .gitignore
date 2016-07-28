@@ -4,3 +4,4 @@ tmp
 *.map
 *.log
 public/javascripts/scripts.js
+public/stylesheets/styles.css

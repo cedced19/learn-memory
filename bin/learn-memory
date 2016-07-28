@@ -41,7 +41,7 @@ models.waterline.initialize(models.config, function(err, models) {
 });
 
 /**
- * Build javascript client file.
+ * Build javascript and stylesheet client file.
  */
 
 require('../build/prod')();
