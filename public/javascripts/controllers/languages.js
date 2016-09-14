@@ -9,6 +9,9 @@ module.exports = ['$scope', '$rootScope', '$location', '$translate', 'notie', 'l
           $translate.use(code);
           $translate.refresh();
           localStorageService.set('lang', code);
+          $translate('language_updated').then(function (translation) {
+            notie.alert(1, translation, 3);
+          });
         };
 
 }];

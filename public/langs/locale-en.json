@@ -52,5 +52,6 @@
   "date": "{{ date | date:'MM/dd/yyyy' }}",
   "languages": "Languages",
   "language_name": "Language name",
-  "language_code": "Language code"
+  "language_code": "Language code",
+  "language_updated": "The language has been changed."
 }

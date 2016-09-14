@@ -796,6 +796,9 @@ a {
 	color:#910000;
 	border-bottom:0
 }
+.table-responsive {
+	margin-top: 1.5em
+}
 @media only screen and (max-width:760px) {
 	.site-container,.site-pusher {
 		height:100%
@@ -881,7 +884,7 @@ a {
 	}
 }
 @media print {
-	.lesson-info,button,header,textarea {
+	.lesson-info,#notie-alert-text,button,header,textarea {
 		display:none
 	}
 	.site-content {
