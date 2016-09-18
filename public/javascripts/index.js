@@ -72,6 +72,11 @@ app.config(['$routeProvider', '$translateProvider', 'localStorageServiceProvider
         .useSanitizeValueStrategy(null)
         .determinePreferredLanguage()
         .fallbackLanguage('en');
+
+        // service worker configuration
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/sw.js', { scope: '/' });
+        }
 }]);
 app.run(['$rootScope', '$location', '$http', 'notie', '$translate', 'localStorageService', function ($rootScope, $location, $http, notie, $translate, localStorageService) {
         $rootScope.$menu = {
