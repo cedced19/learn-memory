@@ -17,41 +17,33 @@ this.addEventListener('fetch', function(event) {
   if (event.request.method !== 'GET' || /authenticated/.test(event.request.url)) {
     return;
   }
+  var get = function () {
+    return fetch(event.request).then(function(response) {
+      return caches.open('learn-memory').then(function(cache) {
+        cache.put(event.request, response.clone());
+        return response;
+      });
+    });
+  };
+
   event.respondWith(
     caches
       .match(event.request)
       .then(function(cached) {
-        // Get the latest updates from API
+        // get the latest updates from API
         if (/api/.test(event.request.url)) {
-          return fetch(event.request).then(function(response) {
-            return caches.open('learn-memory').then(function(cache) {
-              cache.put(event.request, response.clone());
-              return response;
-            });
-          }).catch(function () {
+          return get().catch(function () {
             return cached;
           });
         }
 
+        // the cached value could be undefined
         if (typeof cached == 'undefined') {
-      	  return fetch(event.request).then(function(response) {
-      		  return caches.open('learn-memory-2').then(function(cache) {
-      		    cache.put(event.request, response.clone());
-      		    return response;
-      		  });
-      		});
+      	  return get();
       	}
 
         return cached;
-
       })
-      .catch(function() {
-        fetch(event.request).then(function(response) {
-          return caches.open('learn-memory').then(function(cache) {
-            cache.put(event.request, response.clone());
-            return response;
-          });
-        });
-     })
+      .catch(get)
   );
 });
