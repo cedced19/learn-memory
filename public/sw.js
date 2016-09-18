@@ -21,7 +21,6 @@ this.addEventListener('fetch', function(event) {
     caches
       .match(event.request)
       .then(function(cached) {
-
         // Get the latest updates from API
         if (/api/.test(event.request.url)) {
           return fetch(event.request).then(function(response) {
@@ -34,11 +33,20 @@ this.addEventListener('fetch', function(event) {
           });
         }
 
+        if (typeof cached == 'undefined') {
+      	  return fetch(event.request).then(function(response) {
+      		  return caches.open('learn-memory-2').then(function(cache) {
+      		    cache.put(event.request, response.clone());
+      		    return response;
+      		  });
+      		});
+      	}
+
         return cached;
 
       })
       .catch(function() {
-        return fetch(event.request).then(function(response) {
+        fetch(event.request).then(function(response) {
           return caches.open('learn-memory').then(function(cache) {
             cache.put(event.request, response.clone());
             return response;
