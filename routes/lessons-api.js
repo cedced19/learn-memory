@@ -4,9 +4,9 @@ var auth = require('../policies/auth.js');
 
 /* GET Lessons */
 router.get('/', function(req, res, next) {
-    req.app.models.lessons.find().exec(function(err, models) {
+    var format = function(err, models) {
         if(err) return next(err);
-        models.forEach(function(item){
+        models.forEach(function(item) {
             item.keywords = item.content
                     .substring(0, 180)
                     .replace(/&#39;/gi, '\'')
@@ -14,26 +14,29 @@ router.get('/', function(req, res, next) {
                     .replace(/<.[^>]*>/gi, '')
                     .replace(/&quot/gi, '"')
                     .substring(0, 100);
-            delete item.createdAt;
-            delete item.content;
+
+            if (typeof req.query.createdAt == 'undefined') {
+              delete item.createdAt;
+            }
+
+            if (typeof req.query.content == 'undefined') {
+              delete item.content;
+            }
+
         });
         res.json(models);
-    });
+    };
+
+
+    if (req.query.page) {
+      req.app.models.lessons.find().sort({ createdAt: 'desc' }).paginate({page: req.query.page, limit: (req.query.limit || 50)}).exec(format);
+    } else {
+      req.app.models.lessons.find().exec(format);
+    }
 });
 
 router.get('/long', function(req, res, next) {
-    req.app.models.lessons.find().exec(function(err, models) {
-        if(err) return next(err);
-        models.forEach(function(item){
-            item.keywords = item.content
-                    .replace(/&#39;/gi, '\'')
-                    .replace(/\n/gi, ' ')
-                    .replace(/<.[^>]*>/gi, '')
-                    .replace(/&quot/gi, '"')
-                    .substring(0, 100);
-        });
-        res.json(models);
-    });
+    res.redirect(301, '/api?createdAt&content');
 });
 
 router.post('/', auth, function(req, res, next) {
