@@ -29,7 +29,7 @@ router.get('/', function(req, res, next) {
 
 
     if (req.query.page) {
-      req.app.models.lessons.find().sort({ createdAt: 'desc' }).paginate({page: req.query.page, limit: (req.query.limit || 50)}).exec(format);
+      req.app.models.lessons.find().sort({ createdAt: 'desc' }).paginate({page: req.query.page, limit: (req.query.limit || 30)}).exec(format);
     } else {
       req.app.models.lessons.find().exec(format);
     }

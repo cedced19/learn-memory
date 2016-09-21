@@ -6,12 +6,13 @@ require('ng-notie');
 require('./edit/text-angular-rangy.min.js');
 require('./edit/text-angular-sanitize.min.js');
 require('./edit/text-angular.min.js');
+require('ng-infinite-scroll');
 require('angular-translate');
 require('angular-translate-loader-static-files');
 require('angular-translate-loader-url');
 require('angular-local-storage');
 
-var app = angular.module('LearnMemory', ['ngNotie', 'ngSanitize', 'ngRoute', 'ngTouch', 'textAngular', 'LocalStorageModule', 'pascalprecht.translate']);
+var app = angular.module('LearnMemory', ['ngNotie', 'ngSanitize', 'ngRoute', 'ngTouch', 'textAngular', 'LocalStorageModule', 'pascalprecht.translate', 'infinite-scroll']);
 app.config(['$routeProvider', '$translateProvider', 'localStorageServiceProvider',  function($routeProvider, $translateProvider, localStorageServiceProvider) {
         // Route configuration
         $routeProvider

@@ -12,13 +12,16 @@
                 <th ng-hide="short">{{ 'creation_date' | translate }}</th>
             </tr>
         </thead>
-        <tbody>
-            <tr ng-repeat="lesson in lessons | filter:search | orderBy:'updatedAt':true" ng-click="goLesson(lesson)" class="fade">
-                <td>{{lesson.substance}}</td>
-                <td>{{lesson.keywords | limitTo : 20}} ...</td>
+        <tbody infinite-scroll="load()">
+            <tr ng-repeat="lesson in lessons" ng-click="goLesson(lesson)" class="fade" endless-scroll>
+                <td>{{ lesson.substance }}</td>
+                <td>{{ lesson.keywords | limitTo : 20 }} ...</td>
                 <td>{{ 'date' | translate:{date: lesson.updatedAt} }}</td>
                 <td ng-hide="short">{{ 'date' | translate:{date: lesson.createdAt} }}</td>
             </tr>
         </tbody>
     </table>
 </div>
+<p ng-show="loading" class="text-center">
+  {{ 'loading' | translate }}...
+</p>
