@@ -12,10 +12,9 @@ module.exports = ['$scope', '$location', '$http', '$rootScope', function($scope,
             $http.get('/api/?page=' + $scope.pagination).success(function(data) {
               if (data.length < 30) {
                 $scope.terminal = true;
-              } else {
-                $scope.lessons = $scope.lessons || [];
-                $scope.lessons.push.apply($scope.lessons, data);
               }
+              $scope.lessons = $scope.lessons || [];
+              $scope.lessons.push.apply($scope.lessons, data);
             })
             .error($rootScope.$error)
             .finally(function() {
@@ -31,7 +30,7 @@ module.exports = ['$scope', '$location', '$http', '$rootScope', function($scope,
       }
 
       $scope.advancedSearch = function () {
-          $http.get('/api/long').success(function(data) {
+          $http.get('/api?createdAt&content').success(function(data) {
               $scope.lessons = data;
               $scope.short = false;
               $scope.terminal = true;
