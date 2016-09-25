@@ -1,8 +1,8 @@
 <div ng-class="{ 'form-inline': short }">
     <input ng-model="search" type="text" class="form-control" placeholder="{{ 'search' | translate }}">
-    <button ng-click="advancedSearch()" ng-show="short" class="btn btn-default">{{ 'advenced_search' | translate }}</button>
+    <button ng-click="advancedSearch()" ng-show="short" class="btn btn-default" translate="advenced_search"></button>
 </div>
-<div class="table-responsive">
+<div class="table-responsive" infinite-scroll="load()">
     <table class="table table-hover">
         <thead>
             <tr>
@@ -12,8 +12,8 @@
                 <th ng-hide="short">{{ 'creation_date' | translate }}</th>
             </tr>
         </thead>
-        <tbody infinite-scroll="load()">
-            <tr ng-repeat="lesson in lessons" ng-click="goLesson(lesson)" class="fade" endless-scroll>
+        <tbody>
+            <tr ng-repeat="lesson in lessons" ng-click="goLesson(lesson)" class="fade">
                 <td>{{ lesson.substance }}</td>
                 <td>{{ lesson.keywords | limitTo : 20 }} ...</td>
                 <td>{{ 'date' | translate:{date: lesson.updatedAt} }}</td>
@@ -22,6 +22,7 @@
         </tbody>
     </table>
 </div>
+<button ng-hide="loading || terminal" ng-click="load()" translate="more" class="btn btn-default float-right"></button>
 <p ng-show="loading" class="text-center">
   {{ 'loading' | translate }}...
 </p>

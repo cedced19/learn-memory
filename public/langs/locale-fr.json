@@ -54,5 +54,6 @@
   "language_name": "Nom de la langue",
   "language_code": "Code de la langue",
   "language_updated": "La langue vient d'être modifiée.",
-  "loading": "Chargement"
+  "loading": "Chargement",
+  "more": "Voir plus"
 }

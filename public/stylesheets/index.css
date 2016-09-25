@@ -796,6 +796,9 @@ a {
 	color:#910000;
 	border-bottom:0
 }
+.float-right {
+	float: right
+}
 .table-responsive {
 	margin-top: 1.5em
 }
