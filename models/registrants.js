@@ -2,7 +2,7 @@ var Waterline = require('waterline');
 
 var Registrants = Waterline.Collection.extend({
     identity: 'registrants',
-    connection: 'save',
+    connection: 'mongo',
     autoCreatedAt: false,
     autoUpdatedAt: false,
 

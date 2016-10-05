@@ -1,4 +1,4 @@
-var diskAdapter = require('sails-disk');
+var mongoAdapter = require('sails-mongo');
 var Waterline = require('waterline');
 var fs = require('fs');
 var path = require('path');
@@ -7,13 +7,11 @@ var orm = new Waterline();
 
 var config = {
     adapters: {
-        'default': diskAdapter,
-        disk: diskAdapter
+        mongo: mongoAdapter
     },
     connections: {
-        save: {
-            adapter: 'disk',
-            filePath: ''
+        mongo: {
+          adapter: 'mongo'
         }
     },
     defaults: {

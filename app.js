@@ -13,7 +13,7 @@ var flash = require('connect-flash');
 var helmet = require('helmet');
 var session = require('express-session');
 
-var FileStore = require('session-file-store')(session);
+var MongoDBStore = require('connect-mongodb-session')(session);
 var LocalStrategy = require('passport-local').Strategy;
 
 var index = require('./routes/index');
@@ -49,7 +49,10 @@ app.use(session({
     proxy: false,
     resave: true,
     saveUninitialized: true,
-    store:  new FileStore({ path: './tmp/sessions', logFn: function () {} })
+    store: new MongoDBStore({
+      uri: 'mongodb://localhost:27017/sails',
+      collection: 'sessions'
+    })
 }));
 
 app.use(passport.initialize());

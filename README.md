@@ -8,17 +8,16 @@ This software is translated in English and French.
 
 ![](https://raw.githubusercontent.com/cedced19/learn-memory/master/demo.png)
 
+You have to __install [mongodb](https://docs.mongodb.com/manual/installation/)__ to use Learn Memory.
+
 ## CLI
 
 ```bash
 $ npm install learn-memory -g
-```
-
-Go in command line to the directory where you have your save.
-
-```bash
 $ learn
 ```
+
+If you want to use Learn Memory without mongodb, you have to do `npm install learn-memory@0.4.0 -g`
 
 ## Server
 

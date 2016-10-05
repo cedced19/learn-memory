@@ -2,7 +2,7 @@ var Waterline = require('waterline');
 
 var Lessons = Waterline.Collection.extend({
     identity: 'lessons',
-    connection: 'save',
+    connection: 'mongo',
 
     attributes: {
         content: 'string',

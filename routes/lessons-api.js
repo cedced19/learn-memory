@@ -8,7 +8,6 @@ router.get('/', function(req, res, next) {
         if(err) return next(err);
         models.forEach(function(item) {
             item.keywords = item.content
-                    .substring(0, 180)
                     .replace(/&#39;/gi, '\'')
                     .replace(/\n/gi, ' ')
                     .replace(/<.[^>]*>/gi, '')
