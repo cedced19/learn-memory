@@ -11,7 +11,7 @@ suite('Test models', function () {
             memory: memoryAdapter
         },
         connections: {
-            save: {
+            mongo: {
                 adapter: 'memory'
             }
         },
