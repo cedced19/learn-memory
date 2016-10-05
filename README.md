@@ -46,6 +46,12 @@ There are two solution to get lessons on this application:
 * redirect ports on your server and get your global ip
 * be on the same wifi as your server and get its local ip
 
+## Import a lesson save
+
+```
+$ mongoimport --db sails --collection lessons --file save.json --jsonArray
+```
+
 ## Developers
 
 There are two npm commands with which you can compile javascript:

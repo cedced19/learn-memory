@@ -28,7 +28,11 @@ router.get('/', function(req, res, next) {
 
 
     if (req.query.page) {
-      req.app.models.lessons.find().sort({ id: 'desc' }).paginate({page: req.query.page, limit: (req.query.limit || 30)}).exec(format);
+      req.app.models.lessons.find({
+        limit: (req.query.limit || 30),
+        skip: 30 * (req.query.page-1),
+        sort: { id: 'desc' }
+      }).exec(format);
     } else {
       req.app.models.lessons.find().exec(format);
     }
