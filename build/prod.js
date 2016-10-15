@@ -9,7 +9,7 @@ var prod = function () {
     b.transform({
         global: true,
         sourcemap: false
-    }, 'uglifyify');
+    }, uglifyify);
     b.bundle().pipe(fs.createWriteStream(path.resolve(__dirname, '../public/javascripts/scripts.js')));
 
     var source = fs.readFileSync(path.resolve(__dirname, '../public/stylesheets/index.css'));

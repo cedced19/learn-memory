@@ -37,7 +37,6 @@
     "angular-translate-loader-static-files": "^2.11.0",
     "angular-translate-loader-url": "^2.11.0",
     "body-parser": "~1.13.2",
-    "browser-sync": "^2.13.0",
     "browserify": "^13.1.0",
     "check-update": "0.0.8",
     "clean-css": "^3.4.19",
