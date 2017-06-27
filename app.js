@@ -70,7 +70,7 @@ passport.serializeUser(function(model, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-      app.models.users.findOne({ id: id } , function (err, model) {
+      app.models.users.findOne({ id: id }, function (err, model) {
           delete model.password;
           done(err, model);
       });

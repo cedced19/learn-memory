@@ -15,7 +15,7 @@
         <tbody>
             <tr ng-repeat="lesson in lessons | filter:search | orderBy:'updatedAt':true" ng-click="goLesson(lesson)" class="fade">
                 <td>{{ lesson.substance }}</td>
-                <td>{{ lesson.keywords | limitTo : 20 }} ...</td>
+                <td><span class="blur">{{ lesson.keywords | limitTo : 24 }}</span></td>
                 <td>{{ 'date' | translate:{date: lesson.updatedAt} }}</td>
                 <td ng-hide="short">{{ 'date' | translate:{date: lesson.createdAt} }}</td>
             </tr>
