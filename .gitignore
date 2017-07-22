@@ -5,5 +5,5 @@ tmp
 *.log
 public/javascripts/scripts.js
 public/stylesheets/styles.css
-attachements/*
-!attachements/.gitkeep
+attachments/*
+!attachments/.gitkeep
