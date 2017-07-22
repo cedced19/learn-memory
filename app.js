@@ -17,10 +17,12 @@ var MongoDBStore = require('connect-mongodb-session')(session);
 var LocalStrategy = require('passport-local').Strategy;
 
 var index = require('./routes/index');
-var lessons = require('./routes/lessons-api');
-var users = require('./routes/users-api');
-var registrants = require('./routes/registrants-api');
 var version = require('./routes/version-api');
+var users = require('./routes/users-api');
+var lessons = require('./routes/lessons-api');
+var registrants = require('./routes/registrants-api');
+var attachements = require('./routes/attachements-api');
+
 
 var app = express();
 
@@ -63,6 +65,7 @@ app.use('/api/version', version);
 app.use('/api/users', users);
 app.use('/api', lessons);
 app.use('/api/registrants', registrants);
+app.use('/api/attachements', attachements);
 
 // authentication
 passport.serializeUser(function(model, done) {
