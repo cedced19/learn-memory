@@ -55,5 +55,8 @@
   "language_code": "Code de la langue",
   "language_updated": "La langue vient d'être modifiée.",
   "loading": "Chargement",
-  "more": "Voir plus"
+  "more": "Voir plus",
+  "select_file": "Sélectionner un fichier",
+  "file_selected": "Fichier sélectionné",
+  "add_attachment": "Ajouter une pièce jointe"
 }

@@ -6,6 +6,7 @@ var fs = require('fs');
 var existsFile = require('exists-file');
 var multer = require('multer');
 var randomstring = require('randomstring');
+var auth = require('../policies/auth.js');
 
 /* GET All Attachements */
 router.get('/', function(req, res, next) {
@@ -42,7 +43,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 /* POST Upload new attachement */
-router.post('/', upload.single('file'), function(req, res, next) {
+router.post('/', auth, upload.single('file'), function(req, res, next) {
       if (req.file === undefined) {
         err = new Error('You must upload a file.');
         err.status = 400;

@@ -55,5 +55,8 @@
   "language_code": "Language code",
   "language_updated": "The language has been changed.",
   "loading": "Loading",
-  "more": "Show more"
+  "more": "Show more",
+  "select_file": "Select a file",
+  "file_selected": "File selected",
+  "add_attachment": "Add an attachment"
 }

@@ -1,4 +1,4 @@
-module.exports = ['$scope', '$location', '$http', '$routeParams', '$rootScope', 'notie', '$translate', function($scope, $location, $http, $routeParams, $rootScope, notie, $translate) {
+module.exports = ['$scope', '$location', '$http', '$routeParams', '$rootScope', 'notie', '$translate', 'Upload', function($scope, $location, $http, $routeParams, $rootScope, notie, $translate, Upload) {
 
         $http.get('/api/'+ $routeParams.id).success(function(data) {
             $scope.currentLesson = data;

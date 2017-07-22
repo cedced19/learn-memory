@@ -517,6 +517,9 @@ textarea.form-control {
 .fa-globe:before {
 		content: "\f0ac"
 }
+.fa-upload:before {
+		content: "\f093"
+}
 .ta-hidden-input {
 	width:1px;
 	height:1px;
@@ -800,6 +803,10 @@ tr:hover td .blur:after {
 	position:relative;
 	float:left;
 	padding-right:10px
+}
+.attachments .btn-success {
+	display: block;
+  margin-bottom: 10px;
 }
 .container a {
 	border-bottom:1px dotted #2E214B;

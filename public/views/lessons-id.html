@@ -6,6 +6,18 @@
     <span class="fa fa-pencil action" ng-click="editing = true" ng-hide="editing"></span>
     <span class="fa fa-print action" ng-click="print()" ng-hide="editing"></span>
 </p>
+<div class="attachments">
+  <div class="attachments-list">
+
+  </div>
+  <div ng-show="editing">
+    <h2>{{ 'add_attachment' | translate }}</h2>
+    <label for="file">{{ 'select_file' | translate }}:</label>
+    <span ng-show="file" class="file-selected">{{ 'file_selected' | translate }}</span>
+    <span ngf-select ng-model="file" id="file" name="file" class="fa fa-upload"></span>
+    <button class="btn btn-success" ng-click="addAttachment()">{{ 'add_attachment' | translate }}</button>
+  </div>
+</div>
 <div ng-show="editing" class="input-group">
     <div text-angular ng-model="currentLesson.content"></div>
 </div>
