@@ -6,7 +6,8 @@ var Lessons = Waterline.Collection.extend({
 
     attributes: {
         content: 'string',
-        substance: 'string'
+        substance: 'string',
+        attachments: 'array'
     }
 });
 

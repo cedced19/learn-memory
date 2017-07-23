@@ -22,6 +22,10 @@ router.get('/', function(req, res, next) {
               delete item.content;
             }
 
+            if (typeof req.query.attachments == 'undefined') {
+              delete item.attachments;
+            }
+
         });
         res.json(models);
     };
@@ -39,7 +43,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/long', function(req, res, next) {
-    res.redirect(301, '/api?createdAt&content');
+    res.redirect(301, '/api?createdAt&content&attachments');
 });
 
 router.post('/', auth, function(req, res, next) {

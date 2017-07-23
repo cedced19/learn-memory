@@ -33,9 +33,17 @@ router.post('/', auth, upload.single('file'), function(req, res, next) {
         err.status = 400;
         return next(err);
       }
-      res.json({
-        status: 'ok',
-        filename: req.file.filename
+      req.app.models.lessons.findOne({ id: req.body.lesson_id }, function(err, model) {
+          if(err) return next(err);
+          if(model === '' || model === null || model === undefined) return next(err);
+          if(typeof model.attachments == 'undefined') model.attachments = [];
+          model.attachments.push(req.file.filename);
+          req.app.models.lessons.update({ id: req.body.lesson_id }, model, function(err, model) {
+              if(err) return next(err);
+              res.json({
+                filename: req.file.filename
+              });
+          });
       });
 });
 
