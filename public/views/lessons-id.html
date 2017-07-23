@@ -13,7 +13,7 @@
     <div class="attachment" ng-repeat="attachment in currentLesson.attachments">
       <span><i class="fa fa-file-image"></i> {{ 'file' | translate }} {{attachment.split('.').pop()}}</span>
       <a href="/attachments/{{attachment}}" target="_blank"><i class="fa fa-download"></i></a>
-      <a><i class="fa fa-cross"></i></a>
+      <a ng-click="removeAttachment(attachment)"><i class="fa fa-cross"></i></a>
     </div>
   </div>
   <div ng-show="editing">

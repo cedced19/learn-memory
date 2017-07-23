@@ -62,5 +62,7 @@
   "file": "File",
   "error_upload": "Error during the upload.",
   "attachment_saved": "The attachment has been saved.",
-  "edit": "Edit the lesson"
+  "edit": "Edit the lesson",
+  "lesson_deleted": "Deleted! The attachment has been deleted.",
+  "delete_lesson_question": "Delete this attachment?"
 }

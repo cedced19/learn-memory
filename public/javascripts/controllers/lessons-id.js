@@ -43,7 +43,20 @@ module.exports = ['$scope', '$location', '$http', '$routeParams', '$rootScope', 
                   });
                 });
               });
-            }
+            };
+
+            $scope.removeAttachment = function(attachment) {
+                $rootScope.$login(function () {
+                  $translate(['delete_it', 'delete_attachment_question', 'attachment_deleted', 'cancel']).then(function (translations) {
+                    notie.confirm(translations['delete_attachment_question'], translations['delete_it'], translations['cancel'], function() {
+                        $http.delete('/api/attachments/' + $scope.currentLesson.id + '/' + attachment).success(function() {
+                            $scope.currentLesson.attachments.splice($scope.currentLesson.attachments.indexOf(attachment), 1);
+                            notie.alert(1, translations['attachment_deleted'], 3);
+                        }).error($rootScope.$error);
+                    });
+                  });
+                });
+            };
 
             $scope.print = function() {
                 window.print();

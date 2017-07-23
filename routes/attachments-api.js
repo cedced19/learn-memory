@@ -47,4 +47,31 @@ router.post('/', auth, upload.single('file'), function(req, res, next) {
       });
 });
 
+/* DELETE Remove an attachement */
+router.delete('/:lesson_id/:id', auth, function(req, res, next) {
+      fs.unlink(path.resolve(__dirname, '../attachments/', req.params.id), function (err) {
+        if (err) return next(err);
+        req.app.models.lessons.findOne({ id: req.params.lesson_id }, function(err, model) {
+            if(err) return next(err);
+            if(model === '' || model === null || model === undefined) return next(err);
+            if(typeof model.attachments == 'undefined') {
+              err = new Error('No attachment with this lesson.');
+              err.status = 400;
+              return next(err);
+            }
+            var index = model.attachments.indexOf(req.params.id);
+            if (index === -1) {
+              err = new Error('Attachment already deleted.');
+              err.status = 400;
+              return next(err);
+            }
+            model.attachments.splice(index, 1);
+            req.app.models.lessons.update({ id: req.params.lesson_id }, model, function(err, model) {
+                if(err) return next(err);
+                res.json({ status: true });
+            });
+        });
+      });
+});
+
 module.exports = router;

@@ -62,5 +62,7 @@
   "file": "Fichier",
   "error_upload": "Erreur durant la mise en ligne.",
   "attachment_saved": "La pièce jointe a été enregistré.",
-  "edit": "Editer la leçon"
+  "edit": "Editer la leçon",
+  "attachment_deleted": "La pièce jointe a été supprimé.",
+  "delete_attachment_question": "Êtes vous sur de vouloir supprimer cette pièce jointe ?"
 }
