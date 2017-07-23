@@ -42,6 +42,7 @@ if (app.get('env') === 'development') {
 }
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/attachments/', express.static(path.join(__dirname, 'attachments')));
 
 app.use(helmet());
 app.use(flash());
