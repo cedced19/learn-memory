@@ -58,5 +58,9 @@
   "more": "Voir plus",
   "select_file": "Sélectionner un fichier",
   "file_selected": "Fichier sélectionné",
-  "add_attachment": "Ajouter une pièce jointe"
+  "add_attachment": "Ajouter une pièce jointe",
+  "file": "Fichier",
+  "error_upload": "Erreur durant la mise en ligne.",
+  "attachment_saved": "La pièce jointe a été enregistré.",
+  "edit": "Editer la leçon"
 }

@@ -18,6 +18,31 @@ module.exports = ['$scope', '$location', '$http', '$routeParams', '$rootScope', 
                 });
             };
 
+            $scope.addAttachment = function () {
+              $rootScope.$login(function () {
+                $scope.uploading = true;
+                Upload.upload({
+                    url: '/api/attachments/',
+                    disableProgress: true,
+                    data: {
+                      file: $scope.file,
+                      lesson_id: $routeParams.id
+                    }
+                }).then(function () {
+                  $translate('attachment_saved').then(function (translation) {
+                    notie.alert(1, translation, 3);
+                    $scope.file = false;
+                    $scope.uploading = false;
+                  });
+                }, function () {
+                  $scope.uploading = false;
+                  $translate('error_upload').then(function (translation) {
+                    notie.alert(3, translation, 3);
+                  });
+                });
+              });
+            }
+
             $scope.print = function() {
                 window.print();
             };

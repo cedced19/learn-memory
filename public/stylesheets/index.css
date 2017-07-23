@@ -845,7 +845,7 @@ tr:hover td .blur:after {
 	height: 70px;
 	text-align: center;
 }
-.attachments .attachment .title {
+.attachments .attachment span {
 	padding: 5px;
   display: block;
 }

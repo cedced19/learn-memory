@@ -11,7 +11,7 @@
 <div class="attachments">
   <div class="attachments-list">
     <div class="attachment">
-      <span class="title"><i class="fa fa-file-image"></i> Fichier PDF</span>
+      <span><i class="fa fa-file-image"></i> {{ 'file' | translate }} pdf</span>
       <a><i class="fa fa-download"></i></a>
       <a><i class="fa fa-cross"></i></a>
     </div>
@@ -21,13 +21,16 @@
     <label for="file">{{ 'select_file' | translate }}:</label>
     <span ng-show="file" class="file-selected">{{ 'file_selected' | translate }}</span>
     <span ngf-select ng-model="file" id="file" name="file" class="fa fa-upload"></span>
-    <button class="btn btn-success" ng-click="addAttachment()">{{ 'add_attachment' | translate }}</button>
+    <button class="btn btn-success" ng-click="addAttachment()" ng-disabled="uploading">{{ 'add_attachment' | translate }}</button>
   </div>
 </div>
-<div ng-show="editing" class="input-group">
-    <div text-angular ng-model="currentLesson.content"></div>
+<div ng-show="editing">
+  <h2>{{ 'edit' | translate }}</h2>
+  <div class="input-group">
+      <div text-angular ng-model="currentLesson.content"></div>
+  </div>
+  <div class="text-center">
+      <button class="btn btn-success" ng-click="displayLesson()">{{ 'update_lesson' | translate }}</button>
+  </div>
 </div>
 <div ng-hide="editing" ng-bind-html="currentLesson.content"></div>
-<div ng-show="editing" class="text-center">
-    <button class="btn btn-success" ng-click="displayLesson()">{{ 'update_lesson' | translate }}</button>
-</div>
