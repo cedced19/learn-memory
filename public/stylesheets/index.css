@@ -849,7 +849,7 @@ tr:hover td .blur:after {
 	padding: 5px;
   display: block;
 }
-.attachments .attachment a {
+.attachments .attachment a, .attachments .attachment a:link {
 	margin: 5px;
 	display: inline-block;
 	text-decoration: none;

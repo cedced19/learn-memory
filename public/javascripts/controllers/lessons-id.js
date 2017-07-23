@@ -28,11 +28,13 @@ module.exports = ['$scope', '$location', '$http', '$routeParams', '$rootScope', 
                       file: $scope.file,
                       lesson_id: $routeParams.id
                     }
-                }).then(function () {
+                }).then(function (res) {
                   $translate('attachment_saved').then(function (translation) {
                     notie.alert(1, translation, 3);
                     $scope.file = false;
                     $scope.uploading = false;
+                    if (typeof $scope.currentLesson.attachments == "undefined") $scope.currentLesson.attachments = [];
+                    $scope.currentLesson.attachments.push(res.data.filename)
                   });
                 }, function () {
                   $scope.uploading = false;
