@@ -1,6 +1,6 @@
 this.addEventListener('install', function(event) {
   event.waitUntil(
-    caches.open('learn-memory').then(function(cache) {
+    caches.open('learn-memory-1500879945180').then(function(cache) {
       return cache.addAll([
         '/',
         '/stylesheets/styles.css',
@@ -45,5 +45,19 @@ this.addEventListener('fetch', function(event) {
         return cached;
       })
       .catch(get)
+  );
+});
+
+this.addEventListener('activate', function(event) {
+  var cacheWhitelist = ['learn-memory-1500879945180'];
+
+  event.waitUntil(
+    caches.keys().then(function(keyList) {
+      return Promise.all(keyList.map(function(key) {
+        if (cacheWhitelist.indexOf(key) === -1) {
+          return caches.delete(key);
+        }
+      }));
+    })
   );
 });
