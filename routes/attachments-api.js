@@ -9,7 +9,7 @@ var auth = require('../policies/auth.js');
 
 /* GET All Attachements */
 router.get('/', function(req, res, next) {
-  fs.readdir(path.resolve(__dirname, '../attachements/'), function (err, files) {
+  fs.readdir(path.resolve(__dirname, '../attachments/'), function (err, files) {
     if(err) return next(err);
     res.json(files.filter((file)=>file!='.gitkeep'));
   });

@@ -1,7 +1,7 @@
 # Learn-Memory
 
 A Node.js software to learn your lesson.
-This software is translated in English and French.
+This software is avalaible in __English and French__.
 
 [![Build Status](https://travis-ci.org/cedced19/learn-memory.svg)](https://travis-ci.org/cedced19/learn-memory)
 [![NPM version](https://badge.fury.io/js/learn-memory.svg)](http://badge.fury.io/js/learn-memory)
