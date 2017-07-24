@@ -1,15 +1,36 @@
-<p class="lesson-info">
+<div class="lesson-info">
     <span class="substance">{{currentLesson.substance}}</span>
     <span class="date">{{ 'last_update' | translate }}: {{ 'date' | translate:{date: currentLesson.updatedAt} }} {{ currentLesson.updatedAt | date:'HH:mm' }}</span>
     <br>
-    <span class="fa fa-trash action" ng-click="removeLesson()"></span>
-    <span class="fa fa-pencil action" ng-click="editing = true" ng-hide="editing"></span>
-    <span class="fa fa-print action" ng-click="print()" ng-hide="editing"></span>
-</p>
-<div ng-show="editing" class="input-group">
-    <div text-angular ng-model="currentLesson.content"></div>
+    <div class="actions">
+      <span class="fa fa-trash" ng-click="removeLesson()"></span>
+      <span class="fa fa-pencil" ng-click="editing = true" ng-hide="editing"></span>
+      <span class="fa fa-print" ng-click="print()" ng-hide="editing"></span>
+    </div>
+</div>
+<div class="attachments">
+  <div class="attachments-list">
+    <div class="attachment" ng-repeat="attachment in currentLesson.attachments">
+      <span><i class="fa fa-file-image"></i> {{ 'file' | translate }} {{attachment.split('.').pop()}}</span>
+      <a href="/attachments/{{attachment}}" target="_blank"><i class="fa fa-download"></i></a>
+      <a ng-click="removeAttachment(attachment)"><i class="fa fa-cross"></i></a>
+    </div>
+  </div>
+  <div ng-show="editing">
+    <h2>{{ 'add_attachment' | translate }}</h2>
+    <label for="file">{{ 'select_file' | translate }}:</label>
+    <span ng-show="file" class="file-selected">{{ 'file_selected' | translate }}</span>
+    <span ngf-select ng-model="file" id="file" name="file" class="fa fa-upload"></span>
+    <button class="btn btn-success" ng-click="addAttachment()" ng-disabled="uploading">{{ 'add_attachment' | translate }}</button>
+  </div>
+</div>
+<div ng-show="editing">
+  <h2>{{ 'edit' | translate }}</h2>
+  <div class="input-group">
+      <div text-angular ng-model="currentLesson.content"></div>
+  </div>
+  <div class="text-center">
+      <button class="btn btn-success" ng-click="displayLesson()">{{ 'update_lesson' | translate }}</button>
+  </div>
 </div>
 <div ng-hide="editing" ng-bind-html="currentLesson.content"></div>
-<div ng-show="editing" class="text-center">
-    <button class="btn btn-success" ng-click="displayLesson()">{{ 'update_lesson' | translate }}</button>
-</div>

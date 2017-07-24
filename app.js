@@ -17,10 +17,12 @@ var MongoDBStore = require('connect-mongodb-session')(session);
 var LocalStrategy = require('passport-local').Strategy;
 
 var index = require('./routes/index');
-var lessons = require('./routes/lessons-api');
-var users = require('./routes/users-api');
-var registrants = require('./routes/registrants-api');
 var version = require('./routes/version-api');
+var users = require('./routes/users-api');
+var lessons = require('./routes/lessons-api');
+var registrants = require('./routes/registrants-api');
+var attachments = require('./routes/attachments-api');
+
 
 var app = express();
 
@@ -40,6 +42,7 @@ if (app.get('env') === 'development') {
 }
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/attachments/', express.static(path.join(__dirname, 'attachments')));
 
 app.use(helmet());
 app.use(flash());
@@ -63,6 +66,7 @@ app.use('/api/version', version);
 app.use('/api/users', users);
 app.use('/api', lessons);
 app.use('/api/registrants', registrants);
+app.use('/api/attachments', attachments);
 
 // authentication
 passport.serializeUser(function(model, done) {

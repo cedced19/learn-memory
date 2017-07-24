@@ -11,8 +11,9 @@ require('angular-translate');
 require('angular-translate-loader-static-files');
 require('angular-translate-loader-url');
 require('angular-local-storage');
+require('ng-file-upload');
 
-var app = angular.module('LearnMemory', ['ngNotie', 'ngSanitize', 'ngRoute', 'ngTouch', 'textAngular', 'LocalStorageModule', 'pascalprecht.translate', 'infinite-scroll']);
+var app = angular.module('LearnMemory', ['ngNotie', 'ngSanitize', 'ngRoute', 'ngTouch', 'textAngular', 'LocalStorageModule', 'pascalprecht.translate', 'ngFileUpload', 'infinite-scroll']);
 app.config(['$routeProvider', '$translateProvider', 'localStorageServiceProvider',  function($routeProvider, $translateProvider, localStorageServiceProvider) {
         // Route configuration
         $routeProvider

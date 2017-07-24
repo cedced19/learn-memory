@@ -55,5 +55,14 @@
   "language_code": "Language code",
   "language_updated": "The language has been changed.",
   "loading": "Loading",
-  "more": "Show more"
+  "more": "Show more",
+  "select_file": "Select a file",
+  "file_selected": "File selected",
+  "add_attachment": "Add an attachment",
+  "file": "File",
+  "error_upload": "Error during the upload.",
+  "attachment_saved": "The attachment has been saved.",
+  "edit": "Edit the lesson",
+  "lesson_deleted": "Deleted! The attachment has been deleted.",
+  "delete_lesson_question": "Delete this attachment?"
 }
