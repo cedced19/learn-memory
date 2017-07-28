@@ -35,7 +35,7 @@ router.get('/', function(req, res, next) {
       req.app.models.lessons.find({
         limit: (req.query.limit || 30),
         skip: 30 * (req.query.page-1),
-        sort: { id: 'desc' }
+        sort: { updatedAt: 'desc' }
       }).exec(format);
     } else {
       req.app.models.lessons.find().exec(format);
