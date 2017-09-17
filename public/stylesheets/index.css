@@ -977,7 +977,7 @@ tr:hover td .blur:after {
 	}
 }
 @media print {
-	.lesson-info,#notie-alert-text,button,header,textarea {
+	.lesson-info,.attachments,.attachment,#notie-alert-text,button,header,textarea {
 		display:none
 	}
 	.site-content {

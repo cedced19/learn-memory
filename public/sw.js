@@ -1,6 +1,6 @@
 this.addEventListener('install', function(event) {
   event.waitUntil(
-    caches.open('learn-memory-1500879945180').then(function(cache) {
+    caches.open('learn-memory-1505632133421').then(function(cache) {
       return cache.addAll([
         '/',
         '/stylesheets/styles.css',
@@ -49,7 +49,7 @@ this.addEventListener('fetch', function(event) {
 });
 
 this.addEventListener('activate', function(event) {
-  var cacheWhitelist = ['learn-memory-1500879945180'];
+  var cacheWhitelist = ['learn-memory-1505632133421'];
 
   event.waitUntil(
     caches.keys().then(function(keyList) {
