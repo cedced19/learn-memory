@@ -100,7 +100,7 @@ function(name, password, done) {
                 });
               } else {
                 var returnmodel = {
-                    email: model.email,
+                    name: model.name,
                     id: model.id
                   };
                   return done(null, returnmodel, {
